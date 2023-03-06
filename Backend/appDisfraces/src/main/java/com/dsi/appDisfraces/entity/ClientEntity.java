@@ -47,8 +47,8 @@ public class ClientEntity {
   @Column(name = "Status", nullable = false)
   private ClientStatus clientStatus;
 
-  @Column(name = "Tipo_Cliente", nullable = false)
-  private ClientStatus status;
+  //@Column(name = "Tipo_Cliente", nullable = false)
+ // private ClientStatus status;
 
   @Column(name = "Imagen DNI", nullable = false)
   private Byte image;

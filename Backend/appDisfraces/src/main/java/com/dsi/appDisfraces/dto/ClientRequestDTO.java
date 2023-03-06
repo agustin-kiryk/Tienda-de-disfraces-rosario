@@ -12,7 +12,7 @@ public class ClientRequestDTO {
   private String adress;
   private String documentNumber;
   private String clientStatus;
-  private ClientStatus status;
+ // private ClientStatus status;
   private Byte image;
 
 }
