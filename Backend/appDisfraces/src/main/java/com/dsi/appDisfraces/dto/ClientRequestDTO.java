@@ -9,8 +9,8 @@ public class ClientRequestDTO {
   private Long id;
   private String name;
   private String lastName;
-  private String Adress;
-  private String DocumentNumber;
+  private String adress;
+  private String documentNumber;
   private String clientStatus;
   private ClientStatus status;
   private Byte image;

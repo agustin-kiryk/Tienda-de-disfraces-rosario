@@ -38,14 +38,14 @@ public class ClientEntity {
   private String lastName;
 
   @Column(name = "Direccion", nullable = false)
-  private String Adress;
+  private String adress;
 
   @Column(name = "DNI", nullable = false)
-  private String DocumentNumber;
+  private String documentNumber;
 
   @Enumerated
   @Column(name = "Status", nullable = false)
-  private String clientStatus;
+  private ClientStatus clientStatus;
 
   @Column(name = "Tipo_Cliente", nullable = false)
   private ClientStatus status;
