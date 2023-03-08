@@ -1,10 +1,15 @@
 package com.dsi.appDisfraces.dto;
 
 import com.dsi.appDisfraces.enumeration.ClientStatus;
+import java.io.Serializable;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.springframework.web.multipart.MultipartFile;
 
 @Data
-public class ClientRequestDTO {
+
+public class ClientRequestDTO implements Serializable {
 
   private Long id;
   private String name;
@@ -13,6 +18,6 @@ public class ClientRequestDTO {
   private String documentNumber;
   private String clientStatus;
  // private ClientStatus status;
-  private Byte image;
+  private String image;
 
 }

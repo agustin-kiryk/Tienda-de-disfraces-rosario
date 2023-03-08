@@ -1,6 +1,7 @@
 package com.dsi.appDisfraces.entity;
 
 import com.dsi.appDisfraces.enumeration.ClientStatus;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -10,6 +11,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
+import jakarta.persistence.Lob;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 import java.util.ArrayList;
@@ -20,6 +22,7 @@ import java.util.Set;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
+import org.springframework.web.multipart.MultipartFile;
 
 @Entity
 @Getter @Setter
@@ -43,15 +46,17 @@ public class ClientEntity {
   @Column(name = "DNI", nullable = false)
   private String documentNumber;
 
-  @Enumerated
-  @Column(name = "Status", nullable = false)
-  private ClientStatus clientStatus;
+  //@Enumerated
+  //@Column(name = "Status")
+  //private ClientStatus clientStatus;
 
   //@Column(name = "Tipo_Cliente", nullable = false)
  // private ClientStatus status;
 
+
   @Column(name = "Imagen DNI", nullable = false)
-  private Byte image;
+  private String image;
+
 
   @Column (name = "Fecha_creacion")
   @CreationTimestamp
