@@ -75,6 +75,24 @@ public class ClientEntity {
   private List<CostumeEntity> customes = new ArrayList<>();
   private boolean deleted = Boolean.FALSE;
 
+  @Override
+  public boolean equals(Object obj) {
+    if (obj == null) {
+      return false;
+    }
+    if (!(obj instanceof ClientEntity)) {
+      return false;
+    } else {
+      ClientEntity clientEntity = (ClientEntity) obj;
+      if (this.getDocumentNumber() != null) {
+        return this.getDocumentNumber().equals(clientEntity.getDocumentNumber());
+
+      } else {
+        return false;
+      }
+    }
+  }
+
 
 
   //TODO: Ver como relacionar el cliente con la fecha de entrega del disfraz (puede ser

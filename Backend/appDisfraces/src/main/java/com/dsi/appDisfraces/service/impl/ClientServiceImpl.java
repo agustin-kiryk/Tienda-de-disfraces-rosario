@@ -22,11 +22,16 @@ public class ClientServiceImpl implements IClientService {
   @Override
   public ClientRequestDTO save(ClientRequestDTO dto){
 
-    Optional<ClientEntity> entity = this.clientRepository.
+  /*  Optional<ClientEntity> entity = this.clientRepository.
         findByDocumentNumber(dto.getDocumentNumber());
     if (!entity.isPresent()){
       new ParamNotFound("usuario repetido");
+    }*/
+    ClientEntity user = clientRepository.findByDocumentNumber(dto.getDocumentNumber());
+    if(user != null) {
+      throw new ParamNotFound("El nombre de usuario ya está en uso");
     }
+
     ClientEntity entity2 = clientMapper.clientDTO2Entity(dto);
     ClientEntity entitySaved = clientRepository.save(entity2);
     ClientRequestDTO result = clientMapper.clientEntity2Dto(entitySaved);
