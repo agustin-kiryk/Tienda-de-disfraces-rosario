@@ -10,10 +10,12 @@ export const userColumns = [
             <img className="cellImg" src={params.row.img} alt="avatar" />
             {params.row.username}
           </div>
+      
         );
       },
     },
     {
+      
       field: "email",
       headerName: "Apellido",
       width: 230,
@@ -48,6 +50,7 @@ export const userColumns = [
     },
     
   ];
+  
   
   //temporary data
   export const userRows = [
