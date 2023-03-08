@@ -45,13 +45,14 @@ public class ClientEntity {
 
   @Column(name = "DNI", nullable = false)
   private String documentNumber;
+  
+  @Enumerated
+  @Column(name = "Status")
+  private ClientStatus clientStatus;
 
-  //@Enumerated
-  //@Column(name = "Status")
-  //private ClientStatus clientStatus;
 
-  //@Column(name = "Tipo_Cliente", nullable = false)
- // private ClientStatus status;
+  @Column(name = "Tipo_Cliente", nullable = false)
+  private ClientStatus status;
 
 
   @Column(name = "Imagen DNI", nullable = false)

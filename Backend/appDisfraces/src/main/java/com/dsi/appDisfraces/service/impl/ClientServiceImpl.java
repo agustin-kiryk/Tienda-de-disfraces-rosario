@@ -3,6 +3,7 @@ package com.dsi.appDisfraces.service.impl;
 import com.dsi.appDisfraces.dto.ClientRequestDTO;
 import com.dsi.appDisfraces.entity.ClientEntity;
 import com.dsi.appDisfraces.exception.ParamNotFound;
+import com.dsi.appDisfraces.exception.RepeatedUsername;
 import com.dsi.appDisfraces.mapper.ClientMapper;
 import com.dsi.appDisfraces.repository.IClientRepository;
 import com.dsi.appDisfraces.service.IClientService;
