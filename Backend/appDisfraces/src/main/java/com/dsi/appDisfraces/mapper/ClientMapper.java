@@ -7,7 +7,6 @@ import com.dsi.appDisfraces.entity.ClientEntity;
 import com.dsi.appDisfraces.entity.CostumeEntity;
 import com.dsi.appDisfraces.enumeration.ClientStatus;
 import com.dsi.appDisfraces.enumeration.CustomeStatus;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -88,6 +87,19 @@ public class ClientMapper {
     }
     return dtos;
   }
+
+
+  public void clientEntityUpdate(ClientEntity client, ClientRequestDTO clientRequestDTO ) {
+    client.setName(clientRequestDTO.getName());
+    client.setLastName(clientRequestDTO.getLastName());
+    client.setAdress(clientRequestDTO.getAdress());
+    client.setDocumentNumber(clientRequestDTO.getDocumentNumber());
+    client.setType(clientRequestDTO.getType());
+    client.setPhone(clientRequestDTO.getPhone());
+    client.setImage(clientRequestDTO.getImage());
+
+  }
+
 }
   /*public ClientTableDto clientBasicEntity2DTO(ClientEntity entity){
     ClientTableDto dto = new ClientTableDto();
