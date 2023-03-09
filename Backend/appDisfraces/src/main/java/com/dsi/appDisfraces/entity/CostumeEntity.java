@@ -1,8 +1,10 @@
 package com.dsi.appDisfraces.entity;
 
+import com.dsi.appDisfraces.enumeration.ClientStatus;
 import com.dsi.appDisfraces.enumeration.CustomeStatus;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -30,9 +32,12 @@ public class CostumeEntity {
   @Column(name="Detalle")
   private String detail;
 
-  @Enumerated
-  @Column(name = "Status")
+  @Enumerated(EnumType.STRING)
+  @Column(name = "Status", columnDefinition = "varchar(255)")
   private CustomeStatus status;
+  public CostumeEntity() {
+    this.status = CustomeStatus.DISPONIBLE;
+  }
 
   @Column(name = "Reserva", nullable = false)
   private String reservationDate;
@@ -41,11 +46,15 @@ public class CostumeEntity {
   private String deadLine;
 
   @Column(name = "Imagen", nullable = false)
-  private Byte image;
+  private String image;
 
   @ManyToMany(mappedBy = "customes")
   private List<ClientEntity> clients = new ArrayList<>();
   private boolean deleted = Boolean.FALSE;
+
+  public boolean isRented() {
+    return status == CustomeStatus.ALQUILADO;
+  }
 
 
 

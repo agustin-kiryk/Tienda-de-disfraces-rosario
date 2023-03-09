@@ -1,6 +1,7 @@
 package com.dsi.appDisfraces.service.impl;
 
 import com.dsi.appDisfraces.dto.ClientRequestDTO;
+import com.dsi.appDisfraces.dto.ClientTableDto;
 import com.dsi.appDisfraces.entity.ClientEntity;
 import com.dsi.appDisfraces.exception.ParamNotFound;
 import com.dsi.appDisfraces.exception.RepeatedUsername;
@@ -8,6 +9,7 @@ import com.dsi.appDisfraces.mapper.ClientMapper;
 import com.dsi.appDisfraces.repository.IClientRepository;
 import com.dsi.appDisfraces.service.IClientService;
 import java.io.IOException;
+import java.util.List;
 import java.util.Optional;
 import javax.swing.text.html.parser.Entity;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,6 +48,14 @@ public class ClientServiceImpl implements IClientService {
         () -> new ParamNotFound("no se encuentra el id del cliente"));
     ClientRequestDTO clientDTO = this.clientMapper.clientEntity2Dto(entity);
     return clientDTO;
+  }
+
+  @Override
+  public List<ClientTableDto> findAll() {
+    List<ClientEntity> entities = this.clientRepository.findAll();
+    List<ClientTableDto> result = this.clientMapper.clientEntityList2DTOList(entities);
+
+    return result;
   }
 
 }

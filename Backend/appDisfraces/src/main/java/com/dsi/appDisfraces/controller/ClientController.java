@@ -1,10 +1,12 @@
 package com.dsi.appDisfraces.controller;
 
 import com.dsi.appDisfraces.dto.ClientRequestDTO;
+import com.dsi.appDisfraces.dto.ClientTableDto;
 import com.dsi.appDisfraces.entity.ClientEntity;
 import com.dsi.appDisfraces.repository.IClientRepository;
 import com.dsi.appDisfraces.service.IClientService;
 import java.io.IOException;
+import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -45,6 +47,13 @@ public class ClientController {
   public ResponseEntity<ClientRequestDTO> getclient(@PathVariable Long id){
     ClientRequestDTO client = this.clientService.getDetailsById(id);
     return ResponseEntity.ok(client);
+  }
+
+  @GetMapping
+  public ResponseEntity<List<ClientTableDto>> getAllClients(){
+    List<ClientTableDto> clients = this.clientService.findAll();
+    return ResponseEntity.ok().body(clients);
+
   }
 
 

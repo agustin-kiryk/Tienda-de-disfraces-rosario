@@ -2,7 +2,7 @@ package com.dsi.appDisfraces.enumeration;
 
 public enum ClientStatus {
 
-  ACTIVO("ALQUILADO"), CON_RESERVA("CON_RESERVA"), INACTIVO("INACTIVO");
+  ACTIVO("ACTIVO"), CON_RESERVA("CON_RESERVA"), INACTIVO("INACTIVO");
 
   private final String name ;
 
