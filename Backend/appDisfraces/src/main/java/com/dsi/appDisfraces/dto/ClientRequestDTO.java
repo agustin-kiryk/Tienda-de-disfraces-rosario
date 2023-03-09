@@ -17,6 +17,8 @@ public class ClientRequestDTO implements Serializable {
   private String adress;
   private String documentNumber;
   private String clientStatus;
+  private String type;
+  private String phone;
  // private ClientStatus status;
   private String image;
 

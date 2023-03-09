@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -45,14 +46,20 @@ public class ClientEntity {
 
   @Column(name = "DNI", nullable = false)
   private String documentNumber;
-  
-  @Enumerated
-  @Column(name = "Status")
+
+  @Column(name = "Telefono", nullable = false)
+  private String phone;
+
+  @Enumerated(EnumType.STRING)
+  @Column(name = "Status", columnDefinition = "varchar(255)")
   private ClientStatus clientStatus;
+  public ClientEntity() {
+    this.clientStatus = ClientStatus.INACTIVO;
+  }
 
 
   @Column(name = "Tipo_Cliente", nullable = false)
-  private ClientStatus status;
+  private String type;
 
 
   @Column(name = "Imagen DNI", nullable = false)
@@ -74,6 +81,7 @@ public class ClientEntity {
       inverseJoinColumns = @JoinColumn(name="Disfraz_id")
   )
   private List<CostumeEntity> customes = new ArrayList<>();
+
   private boolean deleted = Boolean.FALSE;
 
   @Override

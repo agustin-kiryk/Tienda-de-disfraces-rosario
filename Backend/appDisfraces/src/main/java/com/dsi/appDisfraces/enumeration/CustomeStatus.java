@@ -1,6 +1,9 @@
 package com.dsi.appDisfraces.enumeration;
 
-public enum CustomeStatus {
+import com.dsi.appDisfraces.entity.CostumeEntity;
+import java.util.function.Predicate;
+
+public enum CustomeStatus{
 
   ALQUILADO("ALQUILADO"), DISPONIBLE("DISPONIBLE"), RESERVADO("RESERVADO");
 
