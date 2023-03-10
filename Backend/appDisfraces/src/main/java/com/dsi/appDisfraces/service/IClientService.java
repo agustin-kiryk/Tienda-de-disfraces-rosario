@@ -12,4 +12,8 @@ public interface IClientService {
   ClientRequestDTO getDetailsById(Long id);
 
   List<ClientTableDto> findAll();
+
+  ClientRequestDTO update(Long id, ClientRequestDTO personaje);
+
+
 }

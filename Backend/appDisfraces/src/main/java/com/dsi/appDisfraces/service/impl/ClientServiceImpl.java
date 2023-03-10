@@ -58,4 +58,18 @@ public class ClientServiceImpl implements IClientService {
     return result;
   }
 
+
+  @Override
+  public ClientRequestDTO update(Long id, ClientRequestDTO clientRequestDTO) {
+    Optional<ClientEntity> entity = this.clientRepository.findById(id);
+    ClientEntity client = entity.orElseThrow(
+        ()-> new IllegalArgumentException("El ID del cleinte es invalido"));
+    this.clientMapper.clientEntityUpdate(client, clientRequestDTO);
+    ClientEntity updateEntity = this.clientRepository.save(client);
+    ClientRequestDTO result = clientMapper.clientEntity2Dto(updateEntity);
+
+    return result;
+  }
+
 }
+ 
