@@ -14,4 +14,6 @@ public interface IClientService {
   List<ClientTableDto> findAll();
 
   ClientRequestDTO update(Long id, ClientRequestDTO personaje);
+
+
 }
