@@ -58,13 +58,13 @@ public class ClientController {
 
   }
 
+
   @PatchMapping("/{id}")
   public ResponseEntity<ClientRequestDTO> update(
        @PathVariable Long id, @RequestBody ClientRequestDTO personaje) {
     ClientRequestDTO result = this.clientService.update(id, personaje);
     return ResponseEntity.ok(result);
   }
-
 
   }
 

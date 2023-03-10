@@ -58,6 +58,7 @@ public class ClientServiceImpl implements IClientService {
     return result;
   }
 
+
   @Override
   public ClientRequestDTO update(Long id, ClientRequestDTO clientRequestDTO) {
     Optional<ClientEntity> entity = this.clientRepository.findById(id);
@@ -71,13 +72,4 @@ public class ClientServiceImpl implements IClientService {
   }
 
 }
- /* public PersonajeDTO update(Long id, PersonajeDTO personaje) {
-    Optional<PersonajeEntity> entity = this.personajeRepository.findById(id);
-    if (!entity.isPresent()) {
-      throw new ParamNotFound("id de personaje invalido");
-    }
-    this.personajeMapper.personajeEntityRefreshValues(entity.get(), personaje);
-    PersonajeEntity updatedEntity = this.personajeRepository.save(entity.get());
-    PersonajeDTO result = personajeMapper.personajeEntity2DTO(updatedEntity, true);
-    return result;
-  }*/
+ 

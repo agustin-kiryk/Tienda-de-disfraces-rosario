@@ -7,6 +7,7 @@ import com.dsi.appDisfraces.entity.ClientEntity;
 import com.dsi.appDisfraces.entity.CostumeEntity;
 import com.dsi.appDisfraces.enumeration.ClientStatus;
 import com.dsi.appDisfraces.enumeration.CustomeStatus;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -88,7 +89,6 @@ public class ClientMapper {
     return dtos;
   }
 
-
   public void clientEntityUpdate(ClientEntity client, ClientRequestDTO clientRequestDTO ) {
     client.setName(clientRequestDTO.getName());
     client.setLastName(clientRequestDTO.getLastName());
@@ -101,24 +101,4 @@ public class ClientMapper {
   }
 
 }
-  /*public ClientTableDto clientBasicEntity2DTO(ClientEntity entity){
-    ClientTableDto dto = new ClientTableDto();
-    dto.setName(entity.getName());
-    dto.setLastName(entity.getLastName());
-
-    if (entity.isActive()) {
-    Optional<Disfraz> lastCostume = entity.getCustomes().stream()
-    .filter(c -> c.isRented())
-    .sorted(Comparator.comparing(Disfraz::getRentDate).reversed())
-    .findFirst();
-    if (lastCostume.isPresent()) {
-    dto.setRentedCustome(disfraz2DTO(lastCostume.get()));
-    } else {
-    dto.setRentedCustome(null);
-    }
-    } else {
-    dto.setRentedCustome(null);
-    }
-
-    return dto;
-    }*/
+  
