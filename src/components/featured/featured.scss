@@ -169,4 +169,33 @@
       }
     }
   }
+  @media only screen and (max-width: 768px) {
+    .featured {
+      flex: 1;
+      margin: 10px 0;
+    }
+  
+    .featured .bottom {
+      flex-direction: column;
+      text-align: center;
+    }
+  
+    .featured .bottom .amount {
+      font-size: 30px;
+    }
+  
+    .featured button.learn-more {
+      width: 100%;
+    }
+  
+    .featured .summary {
+      flex-direction: column;
+    }
+  
+    .featured .summary .item {
+      margin-bottom: 10px;
+    }
+  }
+  
 }
+

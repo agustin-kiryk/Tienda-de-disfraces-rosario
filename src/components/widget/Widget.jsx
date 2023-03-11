@@ -4,21 +4,23 @@ import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
 import AccountBalanceWalletOutlinedIcon from "@mui/icons-material/AccountBalanceWalletOutlined";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import MonetizationOnOutlinedIcon from "@mui/icons-material/MonetizationOnOutlined";
+import { TextField } from "@mui/material";
 
 const Widget = ({ type }) => {
   let data;
 
+
   //temporary
   const amount = 100;
   const diff = 20;
- 
+
 
   switch (type) {
     case "user":
       data = {
         title: "FACTURACION ELECTRONICA",
         isMoney: false,
-        link: "Ver Detalles",
+        link: "",
         icon: (
           <PersonOutlinedIcon
             className="icon"
@@ -86,14 +88,18 @@ const Widget = ({ type }) => {
         <span className="counter">
           {data.isMoney && "$"} {amount}
         </span>
+        
         <span className="link">{data.link}</span>
       </div>
       <div className="right">
+        
         <div className=" ">
-           
+
         </div>
         {data.icon}
+        
       </div>
+      
     </div>
   );
 };

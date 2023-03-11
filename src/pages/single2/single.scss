@@ -1,6 +1,8 @@
 .single {
   display: flex;
   width: 100%;
+  overflow-x: hidden;
+  
   .singleContainer {
     flex: 6;
 
@@ -28,6 +30,18 @@
           cursor: pointer;
           border-radius: 0px 0px 0px 5px;
         }
+        .editButtons {
+          position: absolute;
+          top: 20;
+          bottom: 0;
+          right: 120px;
+          padding: 5px;
+          font-size: 25px;
+          color: #7451f8;
+          background-color: #7551f818;
+          cursor: pointer;
+          border-radius: 0px 0px 0px 5px;
+        }
 
         .item {
           display: flex;
@@ -39,6 +53,7 @@
             border-radius: 50%;
             object-fit: cover;
           }
+          
           .itemValue{
             font-size: 27px;
           }
@@ -67,17 +82,8 @@
         }
       }
 
-      .dni {
-      width: 500px;
-      height: 400px;
-      padding-right: 300px;
-      margin-top: 150px;
-      display: flex;
-      margin-left: 100px;
-      
-      }
     }
-
+    
   
 
     .bottom {
@@ -97,7 +103,16 @@
       font-size: 26px;
       color: #6439ff;
       margin-bottom: 20px;
-      margin-left: 280px;
+      margin-left: 28px;
     }
   }
+}
+
+.dni {
+  width: 500px;
+  height: 400px;
+  padding-right: 300px;
+  margin-top: 150px;
+  display: flex;
+  margin-left: 100px;
 }

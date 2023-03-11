@@ -6,8 +6,8 @@
 
   .datatableTitle {
     width: 100%;
-    font-size: 30px;
-    color: rgb(179, 179, 179);
+    font-size: 35px;
+    color: rgb(0, 0, 0);
     margin-bottom: 10px;
     display: flex;
     align-items: center;
@@ -84,6 +84,73 @@
       color: crimson;
       border: 1px dotted rgba(220, 20, 60, 0.6);
       cursor: pointer;
+    }
+  }
+  button {
+   
+    display: flex;
+    height: 3em;
+    width: 100px;
+    align-items: center;
+    justify-content: center;
+    background-color: #eeeeee4b;
+    border-radius: 3px;
+    letter-spacing: 1px;
+    transition: all 0.2s linear;
+    cursor: pointer;
+    border: none;
+    background: #fff;
+   }
+   
+   button > svg {
+    margin-right: 5px;
+    margin-left: 5px;
+    font-size: 20px;
+    transition: all 0.4s ease-in;
+   }
+   
+   button:hover > svg {
+    font-size: 1.2em;
+    transform: translateX(-5px);
+   }
+   
+   button:hover {
+    box-shadow: 9px 9px 33px #d1d1d1, -9px -9px 33px #ffffff;
+    transform: translateY(-2px);
+   }
+   @media (max-width: 860px) {
+    .datatable {
+      height: auto;
+      padding: 10px;
+    }
+    
+    .datatableTitle {
+      font-size: 25px;
+    }
+    
+    .cellWithImg .cellImg {
+      width: 50px;
+      height: 50px;
+      margin-right: 5px;
+    }
+    
+    .cellAction {
+      gap: 5px;
+      
+      .viewButton, .deleteButton {
+        font-size: 12px;
+        padding: 1px 3px;
+      }
+    }
+    
+    button {
+      height: 2em;
+      width: 70px;
+      font-size: 12px;
+    }
+    
+    button > svg {
+      font-size: 14px;
     }
   }
 }

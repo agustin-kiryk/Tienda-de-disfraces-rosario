@@ -10,7 +10,7 @@ import Paper from "@mui/material/Paper";
 import TextField from "@mui/material/TextField";
 
 
-const List = () => {
+const List2 = () => {
   function handleSearchTextChange(event) {
     const newSearchText = event.target.value;
     setSearchText(newSearchText);
@@ -25,7 +25,7 @@ const List = () => {
       date: "1 Marzo",
       amount: 785,
       method: "Efectivo",
-      status: "Pending",
+     
     },
     {
       id: 2235235,
@@ -35,7 +35,7 @@ const List = () => {
       date: "1 March",
       amount: 900,
       method: "Online Payment",
-      status: "Pending",
+      
     },
     {
       id: 2342353,
@@ -45,7 +45,7 @@ const List = () => {
       date: "1 March",
       amount: 35,
       method: "Cash on Delivery",
-      status: "Pending",
+    
     },
     {
       id: 2357741,
@@ -55,7 +55,7 @@ const List = () => {
       date: "1 March",
       amount: 920,
       method: "Online",
-      status: "Approved",
+     
     },
  
     
@@ -82,17 +82,15 @@ const List = () => {
         onChange={handleSearchTextChange}
       />
       <TableContainer component={Paper} className="table">
-        <Table sx={{ minWidth: 250 }} aria-label="simple table">
+        <Table sx={{ minWidth:200 }} aria-label="simple table">
           <TableHead>
             <TableRow>
               <TableCell className="tableCell">ID</TableCell>
+              <TableCell className="tableCell">Nombre</TableCell>
+              <TableCell className="tableCell">Apellido</TableCell>
               <TableCell className="tableCell">Disfraz</TableCell>
-              <TableCell className="tableCell">Nombre del Disfraz</TableCell>
-              <TableCell className="tableCell">Cliente</TableCell>
               <TableCell className="tableCell">Fecha de Retiro</TableCell>
-              <TableCell className="tableCell">Fecha de Entrega</TableCell>
-              <TableCell className="tableCell">Metodo de Pago</TableCell>
-              <TableCell className="tableCell">Estatus</TableCell>
+              <TableCell className="tableCell">Fecha de Devolucion</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -102,11 +100,10 @@ const List = () => {
                 <TableCell className="tableCell">
                   <div className="cellWrapper">
                     <img src={row.img} alt="" className="image" />
-                    
+                    {row.product}
                   </div>
                 </TableCell>
                 <TableCell className="tableCell">{row.customer}</TableCell>
-                <TableCell className="tableCell">{row.product}</TableCell>
                 <TableCell className="tableCell">{row.date}</TableCell>
                 <TableCell className="tableCell">{row.amount}</TableCell>
                 <TableCell className="tableCell">{row.method}</TableCell>
@@ -123,4 +120,4 @@ const List = () => {
   );
 };
 
-export default List;
+export default List2;

@@ -13,12 +13,28 @@ import PsychologyOutlinedIcon from "@mui/icons-material/PsychologyOutlined";
 import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
 import { Link } from "react-router-dom";
 import { DarkModeContext } from "../../context/darkModeContext";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 
 const Sidebar = () => {
   const { dispatch } = useContext(DarkModeContext);
+  const [sidebarVisible, setSidebarVisible] = useState(true);
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+
+  const handleToggleSidebar = () => {
+    setSidebarVisible(!sidebarVisible);
+  };
+
+  const handleResize = () => {
+    setWindowWidth(window.innerWidth);
+    if (window.innerWidth > 768) {
+      setSidebarVisible(true);
+    }
+  };
+
+  window.addEventListener("resize", handleResize);
+
   return (
-    <div className="sidebar">
+    <div className={sidebarVisible ? "sidebar" : "sidebar hidden"}>
       <div className="top">
         <Link to="/" style={{ textDecoration: "none" }}>
           <span className="logo"> Rosario Disfraces</span>
@@ -47,7 +63,7 @@ const Sidebar = () => {
               <span>Disfraces</span>
             </li>
           </Link>
-          <Link to="/facturacion" style={{ textDecoration: "none" }}>
+          <Link to="/histfac" style={{ textDecoration: "none" }}>
             <li>
               <CreditCardIcon className="icon" />
               <span>Facturacion</span>
@@ -69,6 +85,11 @@ const Sidebar = () => {
           className="colorOption"
           onClick={() => dispatch({ type: "DARK" })}
         ></div>
+        {windowWidth <= 768 && (
+          <button onClick={handleToggleSidebar}>
+            {sidebarVisible ? "Hide Sidebar" : "Show Sidebar"}
+          </button>
+        )}
       </div>
     </div>
   );

@@ -4,9 +4,10 @@ import List from "./pages/list/List";
 import Single from "./pages/single/Single";
 import Single2 from "./pages/single2/Single"
 import New from "./pages/new/New";
+import New2 from "./pages/new2/New";
 import Facturacion from "./pages/facturacion/Facturacion";
-import Disfraces from "./components/disfraces/Disfraces"
-
+import Disfraces from "./components/disfraces/Disfraces";
+import Histfac from "./pages/histfac/Histfac";
 
 
 
@@ -27,17 +28,38 @@ function App() {
             <Route index element={<Home />} />
             <Route path="login" element={<Login />} />
             <Route path="facturacion" element={<Facturacion />} />
+            <Route path="histfac" element={<Histfac />} />
             <Route path="disfraces" element={<Disfraces />} />
-            <Route path="user" element={<Single2 />} />
+
+            <Route path="user"> 
+
+            <Route index element={<Single2 />} />
+            
+            <Route path=":userId" element={<Single2 />} />
+
+            <Route
+              path="new2"
+              element={<New2 inputs={userInputs} title="Agregar Disfraz Nuevo" />}
+            />
+              </Route>
+
+
+
             <Route path="users">
+
               <Route index element={<List />} />
-              <Route path=":userId" element={<Single />} />
               
+              <Route path=":userId" element={<Single />} />
+
               <Route
                 path="new"
-                element={<New inputs={userInputs} title="Add New User" />}
+                element={<New inputs={userInputs} title="Agregar Nuevo Usuario" />}
               />
+
             </Route>
+
+
+
             <Route path="products">
               <Route index element={<List />} />
               <Route path=":productId" element={<Single />} />
@@ -45,6 +67,7 @@ function App() {
                 path="new"
                 element={<New inputs={productInputs} title="Add New Product" />}
               />
+
             </Route>
           </Route>
         </Routes>

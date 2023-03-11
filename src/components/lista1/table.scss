@@ -2,6 +2,8 @@
   .cellWrapper {
     display: flex;
     align-items: center;
+    width: 10px;
+    height: 100px;
 
     .image {
       width: 100px;
@@ -11,9 +13,6 @@
     }
   }
 
-  id{
-    width: 20px;
-  }
   .status {
     padding: 5px;
     border-radius: 5px;
@@ -27,22 +26,27 @@
       background-color: rgba(189, 189, 3, 0.103);
     }
   }
-
+  @media only screen and (max-width: 768px) {
+    .table {
+      flex-wrap: wrap;
   
-  .status {
-    padding: 5px;
-    border-radius: 5px;
-
-    &.Approved {
-      color: green;
-      background-color: rgba(0, 128, 0, 0.151);
-    }
-
-    &.Pending {
-      color: goldenrod;
-      background-color: rgba(189, 189, 3, 0.103);
+      .cellWrapper {
+        flex-wrap: wrap;
+        justify-content: center;
+        width: 100%;
+        height: auto;
+  
+        .image {
+          margin-right: 0;
+          margin-bottom: 10px;
+        }
+      }
+  
+      .status {
+        margin-top: 10px;
+        width: 100%;
+        text-align: center;
+      }
     }
   }
 }
-
-  

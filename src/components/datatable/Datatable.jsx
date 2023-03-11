@@ -36,7 +36,7 @@ const Datatable = () => {
   return (
     <div className="datatable">
       <div className="datatableTitle">
-        Agregar Nuevo Usuario
+        <h1> Agregar Nuevo Usuario</h1>
         <Link to="/users/new" className="link">
           Agregar 
         </Link>

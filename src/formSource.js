@@ -1,45 +1,42 @@
 export const userInputs = [
     {
       id: 1,
-      label: "Username",
+      label: "Direccion",
       type: "text",
-      placeholder: "john_doe",
+      placeholder: "Ingresar Direccion",
     },
     {
       id: 2,
-      label: "Name and surname",
+      label: "Nombre",
       type: "text",
-      placeholder: "John Doe",
+      placeholder: "Ingresar Nombre",
     },
     {
       id: 3,
-      label: "Email",
+      label: "N° de Documento",
       type: "mail",
-      placeholder: "john_doe@gmail.com",
+      placeholder: "Ingresar N° de Documento",
     },
     {
       id: 4,
-      label: "Phone",
+      label: "Apellido",
       type: "text",
-      placeholder: "+1 234 567 89",
+      placeholder: "Ingresar Apellido",
     },
     {
       id: 5,
-      label: "Password",
-      type: "password",
+      label: "Tipo de Cliente",
+      type: "text",
+      placeholder: " Ingresar Tipo de Cliente",
     },
     {
       id: 6,
-      label: "Address",
+      label: "Telefono",
       type: "text",
-      placeholder: "Elton St. 216 NewYork",
+      placeholder: "Ingresar Telefono",
     },
-    {
-      id: 7,
-      label: "Country",
-      type: "text",
-      placeholder: "USA",
-    },
+ 
+
   ];
   
   export const productInputs = [
