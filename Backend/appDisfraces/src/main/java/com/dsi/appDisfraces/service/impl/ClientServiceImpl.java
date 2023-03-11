@@ -71,5 +71,12 @@ public class ClientServiceImpl implements IClientService {
     return result;
   }
 
+  @Override
+  public void delete(Long id) {
+    ClientEntity entity = this.clientRepository.findById(id).orElseThrow(
+        ()-> new ParamNotFound("El ID del usuario no existe o es incorrecto"));
+    this.clientRepository.deleteById(id);
+  }
+
 }
  

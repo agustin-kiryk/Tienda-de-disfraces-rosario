@@ -47,6 +47,7 @@ public class ClientMapper {
 
   public ClientTableDto clientBasicEntity2DTO(ClientEntity entity){
     ClientTableDto dto = new ClientTableDto();
+    dto.setId(entity.getId());
     dto.setName(entity.getName());
     dto.setLastName(entity.getLastName());
     dto.setType(entity.getType());

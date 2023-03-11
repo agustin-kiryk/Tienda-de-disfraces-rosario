@@ -16,4 +16,5 @@ public interface IClientService {
   ClientRequestDTO update(Long id, ClientRequestDTO personaje);
 
 
+  void delete(Long id);
 }
