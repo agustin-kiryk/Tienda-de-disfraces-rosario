@@ -6,9 +6,10 @@ import Widget from "../../components/widget/Widget";
 import Featured from "../../components/featured/Featured";
 import Chart from "../../components/chart/Chart";
 import Table from "../../components/table/Table";
+import { Button } from "@mui/material";
 
 const Home = () => {
-  const [showSidebar, setShowSidebar] = useState(false);
+  const [showSidebar, setShowSidebar] = useState(true);
 
   const handleSidebarToggle = () => {
     setShowSidebar((prevState) => !prevState);
@@ -16,10 +17,11 @@ const Home = () => {
 
   return (
     <div className="home">
-      <button onClick={handleSidebarToggle}>Toggle Sidebar</button>
-      {showSidebar && <Sidebar />}
+    {showSidebar && <Sidebar />}
+    <div className="toggleSidebarContainer">
+      <Button onClick={handleSidebarToggle} className="toggleSidebarButton"  variant="outlined">B </Button>
+    </div>
       <div className="homeContainer">
-        
         <Navbar />
         <Featured />
         <div className="widgets">

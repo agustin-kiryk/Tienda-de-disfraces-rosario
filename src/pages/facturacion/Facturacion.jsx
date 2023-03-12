@@ -35,7 +35,7 @@ const Datatable = () => {
           
           
           <div className="cellAction">
-            <Link to="/users/test" style={{ textDecoration: "none" }}>
+            <Link to="/single4" style={{ textDecoration: "none" }}>
               <div className="viewButton">Detalles</div>
             </Link>
             <div

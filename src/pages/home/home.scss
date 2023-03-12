@@ -28,7 +28,7 @@
         margin-bottom: 15px;
       }
     }
-
+ 
     @media screen and (max-width: 768px) {
       
       .widgets,
@@ -77,4 +77,15 @@
       }
     }
   }
+  
+.toggleSidebarButton {
+  position: absolute;
+  top: 10px; /* Ajusta la posición vertical del botón */
+  left: 220px;
+  z-index: 1; /* Asegura que el botón esté por encima de otros elementos */
+  /* Resto de estilos, como el ancho, altura, y tamaño de fuente */
 }
+
+
+}
+

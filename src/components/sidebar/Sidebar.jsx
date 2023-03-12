@@ -85,11 +85,7 @@ const Sidebar = () => {
           className="colorOption"
           onClick={() => dispatch({ type: "DARK" })}
         ></div>
-        {windowWidth <= 768 && (
-          <button onClick={handleToggleSidebar}>
-            {sidebarVisible ? "Hide Sidebar" : "Show Sidebar"}
-          </button>
-        )}
+    
       </div>
     </div>
   );

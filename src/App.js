@@ -3,8 +3,11 @@ import Login from "./pages/login/Login";
 import List from "./pages/list/List";
 import Single from "./pages/single/Single";
 import Single2 from "./pages/single2/Single"
+import Single3 from "./pages/single3/Single";
+import Single4 from "./pages/single4/Single";
 import New from "./pages/new/New";
 import New2 from "./pages/new2/New";
+import Nuevafac from "./pages/nuevafac/New";
 import Facturacion from "./pages/facturacion/Facturacion";
 import Disfraces from "./components/disfraces/Disfraces";
 import Histfac from "./pages/histfac/Histfac";
@@ -13,6 +16,7 @@ import Histfac from "./pages/histfac/Histfac";
 
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { productInputs, userInputs } from "./formSource";
+import { userInputs2 } from "./disfraces";
 import "./style/dark.scss";
 import { useContext } from "react";
 import { DarkModeContext } from "./context/darkModeContext";
@@ -31,24 +35,10 @@ function App() {
             <Route path="histfac" element={<Histfac />} />
             <Route path="disfraces" element={<Disfraces />} />
 
-            <Route path="user"> 
-
-            <Route index element={<Single2 />} />
-            
-            <Route path=":userId" element={<Single2 />} />
-
-            <Route
-              path="new2"
-              element={<New2 inputs={userInputs} title="Agregar Disfraz Nuevo" />}
-            />
-              </Route>
-
-
-
             <Route path="users">
 
               <Route index element={<List />} />
-              
+
               <Route path=":userId" element={<Single />} />
 
               <Route
@@ -57,6 +47,40 @@ function App() {
               />
 
             </Route>
+
+
+            <Route path="user">
+
+              <Route index element={<Single2 />} />
+
+              <Route path=":userId" element={<Single2 />} />
+
+              <Route
+                path="new2"
+                element={<New2 inputs={userInputs2} title="Agregar Disfraz Nuevo" />}
+              />
+            </Route>
+
+
+            <Route path="single3">
+
+              <Route index element={<Single3 />} />
+
+              <Route path=":userId" element={<Single3 />} />
+
+
+            </Route>
+
+            <Route path="single4">
+
+              <Route index element={<Single4 />} />
+
+              <Route path=":userId" element={<Single4 />} />
+
+
+            </Route>
+
+
 
 
 
