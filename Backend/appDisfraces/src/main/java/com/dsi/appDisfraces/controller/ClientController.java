@@ -51,7 +51,8 @@ public class ClientController {
     ClientRequestDTO client = this.clientService.getDetailsById(id);
     return ResponseEntity.ok(client);
   }
-
+      //Trae la lista basica de clientes con el ULTIMO disfraz alquilado, se usa para
+      // la tabla del panel general o la de disfraces @getmaping()
   @GetMapping
   public ResponseEntity<List<ClientTableDto>> getAllClients(){
     List<ClientTableDto> clients = this.clientService.findAll();
@@ -74,5 +75,5 @@ public class ClientController {
   }
 
   }
-
+//TODO: QUEDA AGREGAR GET CON EL HISTORIAL DE DISFRACES ALQUILADOS POR EL CLIENTE
 
