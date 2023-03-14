@@ -5,6 +5,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface ICostomeRepository extends JpaRepository<CostumeEntity, Long>{
+public interface ICostumeRepository extends JpaRepository<CostumeEntity, Long>{
 
 }

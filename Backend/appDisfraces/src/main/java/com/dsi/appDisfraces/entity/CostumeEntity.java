@@ -11,10 +11,13 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
+import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
 
 @Entity
 @Table(name = "Disfraces")
@@ -39,13 +42,13 @@ public class CostumeEntity {
     this.status = CustomeStatus.DISPONIBLE;
   }
 
-  @Column(name = "Reserva", nullable = false)
+  @Column(name = "Reserva", nullable = true)
   private String reservationDate;
 
-  @Column(name = "Entrega", nullable = false)
+  @Column(name = "Entrega", nullable = true)
   private String deadLine;
 
-  @Column(name = "Imagen", nullable = false)
+  @Column(name = "Imagen", nullable = true)
   private String image;
 
   @ManyToMany(mappedBy = "customes")
@@ -55,6 +58,13 @@ public class CostumeEntity {
   public boolean isRented() {
     return status == CustomeStatus.ALQUILADO;
   }
+
+  @Column (name= "Fecha de creacion")
+  @CreationTimestamp
+  private Date creationDate;
+
+  @Column ( name= "Color")
+  private String colour;
 
 
 
