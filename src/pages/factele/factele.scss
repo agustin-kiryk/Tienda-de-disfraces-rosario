@@ -1,27 +1,58 @@
 .datatable {
     height: 600px;
     padding: 20px;
-    
     .datatableTitle{
-      width: 100%;
-      font-size: 28px;
-      color: rgb(0, 0, 0);
-      margin-bottom: 10px;
-      padding-top: 50px;
-      padding-bottom: 50px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
+      h1{
+        width: 100%;
+        font-size: 50px;
+        color: #6146c2;
+        padding-left: 29%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+     
   
      
     }
   
     @media (max-width: 1380px) {
-      .datagrid-row {
-        /* Ancho máximo para las filas */
-        max-width: 100px;
+      .datagrid {
+        max-width: 1500px;
+      }
+      .datatableTitle{
+      h1{
+        padding-left: 200px;
+        color: #6146c2;
+      }
       }
     }
+    @media (max-width: 1300px) {
+      .datagrid {
+        max-width: 1300px;
+      }
+    }
+    @media (max-width: 900px) {
+      .datatableTitle {
+        margin-bottom: 10px;
+        
+        h1 {
+          font-size: 24px;
+        }
+      }
+      
+      input[type="text"] {
+        max-width: 100%;
+      }
+      
+      .datagrid {
+        max-width: 100%;
+      }
+    }
+    
+    
+
+    
   
     .cellWithStatus {
       padding: 5px;
@@ -61,12 +92,15 @@
         border: 1px dotted rgba(220, 20, 60, 0.6);
         cursor: pointer;
       }
-    }
-  }
+
   
+      
+    
+    }
   h1{
     color: black;
     font-size: 50px;
     padding-left: 650px ;
   }
   
+}

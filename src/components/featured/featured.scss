@@ -169,7 +169,7 @@
       }
     }
   }
-  @media only screen and (max-width: 768px) {
+  @media  screen and (max-width: 768px) {
     .featured {
       flex: 1;
       margin: 10px 0;
@@ -195,6 +195,15 @@
     .featured .summary .item {
       margin-bottom: 10px;
     }
+    .title{
+      font-size: 50px;
+     }
+  }
+  
+  @media screen and (min-width: 480px) {
+   .title{
+    font-size: 50px;
+   }
   }
   
 }

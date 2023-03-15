@@ -18,8 +18,14 @@ const Home = () => {
   return (
     <div className="home">
     {showSidebar && <Sidebar />}
-    <div className="toggleSidebarContainer">
-      <Button onClick={handleSidebarToggle} className="toggleSidebarButton"  variant="outlined">B </Button>
+    <div className="toggleSidebarContainer" onClick={handleSidebarToggle}>
+    <div class="container" onClick={handleSidebarToggle}>  
+  <input class="label-check" id="label-check" type="checkbox"/>
+    <label for="label-check" class="hamburger-label" onClick={handleSidebarToggle} >
+      <div class="line1"></div>
+      <div class="line2"></div>
+      <div class="line3"></div>
+    <label></label></label></div>
     </div>
       <div className="homeContainer">
         <Navbar />

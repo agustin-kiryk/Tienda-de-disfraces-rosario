@@ -43,7 +43,12 @@
         color: red;
       }
     }
-
+    a{
+      text-decoration: none;
+      color: black;
+    }
+ 
+   
     .icon {
       font-size: 18px;
       padding: 5px;
@@ -51,8 +56,10 @@
       align-self: flex-end;
     }
   }
-  
-  @media screen and (max-width: 768px) {
+
+
+
+  @media screen and (max-width: 1000px ) {
     flex-direction: column;
     justify-content: flex-start;
     height: auto;

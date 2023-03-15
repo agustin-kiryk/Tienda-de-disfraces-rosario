@@ -62,10 +62,10 @@ export const userColumns = [
   export const userRows = [
     {
       id: 1,
-      username: "12",
+      username: "56",
       status: "active",
-      monto:"5000$",
-      fecha: "2/4/23",
+      monto:"5500$",
+      fecha: "21/3/23",
       tipodepago: "Mercado Pago",
       cliente: "Juan Perez",
       remi: <button><a>Descargar</a></button>

@@ -1,7 +1,47 @@
+// Estilos para resolución de 1366
+@media (max-width: 1380px) {
+  .datatableTitle {
+    font-size: 24px;
+  }
+  .datagrid {
+    height: 400px;
+  }
+}
+
+// Estilos para resolución de 1280
+@media (max-width: 1300px) {
+  .datatableTitle {
+    font-size: 20px;
+  }
+  .datagrid {
+    height: 350px;
+  }
+}
+
+// Estilos para celular
+@media (max-width: 800px) {
+  .datatableTitle {
+    font-size: 16px;
+  }
+  .datagrid {
+    height: 300px;
+  }
+  .cellAction {
+    display: flex;
+    flex-direction: column;
+  }
+  .viewButton {
+    margin-bottom: 10px;
+  }
+  .deleteButton {
+    margin-top: 10px;
+  }
+}
+
 .datatable {
   height: 600px;
   padding: 20px;
-  
+
   .datatableTitle{
     width: 100%;
     font-size: 28px;
@@ -9,12 +49,14 @@
     margin-bottom: 10px;
     padding-top: 50px;
     padding-bottom: 50px;
+    padding-left: 5%;
     display: flex;
     align-items: center;
     justify-content: space-between;
 
    
   }
+
 
 
 

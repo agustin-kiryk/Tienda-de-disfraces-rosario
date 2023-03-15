@@ -1,8 +1,9 @@
-import "./single1.scss";
+import "./single.scss";
 import { useState } from 'react';
 import Sidebar from '../../components/sidebar/Sidebar';
 import Navbar from '../../components/navbar/Navbar';
 import List2 from '../../components/lista1/Table';
+import { Download } from "@mui/icons-material";
 
 const Single = () => {
   const [isEditing, setIsEditing] = useState(false);
@@ -48,7 +49,7 @@ const Single = () => {
             <h1 className="title1">Informacion</h1>
             <div className="item">
               <div className="details">
-                <h1 className="itemTitle">Cliente</h1>
+                <h1 className="itemTitle">Facturacion Electronica 20/5/6</h1>
                 <div className="detailItem">
 
                   <div className="detailItem">

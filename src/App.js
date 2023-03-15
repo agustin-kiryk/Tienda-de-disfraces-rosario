@@ -5,12 +5,15 @@ import Single from "./pages/single/Single";
 import Single2 from "./pages/single2/Single"
 import Single3 from "./pages/single3/Single";
 import Single4 from "./pages/single4/Single";
+import Single5 from "./pages/single5/Single";
 import New from "./pages/new/New";
 import New2 from "./pages/new2/New";
 import Nuevafac from "./pages/nuevafac/New";
+
 import Facturacion from "./pages/facturacion/Facturacion";
 import Disfraces from "./components/disfraces/Disfraces";
 import Histfac from "./pages/histfac/Histfac";
+import Factele from "./pages/factele/Factele";
 
 
 
@@ -33,6 +36,7 @@ function App() {
             <Route path="login" element={<Login />} />
             <Route path="facturacion" element={<Facturacion />} />
             <Route path="histfac" element={<Histfac />} />
+            <Route path="factele" element={<Factele />} />
             <Route path="disfraces" element={<Disfraces />} />
 
             <Route path="users">
@@ -79,10 +83,14 @@ function App() {
 
 
             </Route>
+            <Route path="single5">
+
+              <Route index element={<Single5 />} />
+
+              <Route path=":userId" element={<Single5 />} />
 
 
-
-
+            </Route>
 
             <Route path="products">
               <Route index element={<List />} />

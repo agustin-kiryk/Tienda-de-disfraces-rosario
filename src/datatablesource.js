@@ -1,9 +1,10 @@
 export const userColumns = [
  
+  //Cambiar ancho tablas
   {
     field: "user",
     headerName: "Nombre",
-    width: 230,
+    width: 170,
     renderCell: (params) => {
       return (
         <div className="">
@@ -16,33 +17,33 @@ export const userColumns = [
   {
     field: "email",
     headerName: "Apellido",
-    width: 230,
+    width: 200,
   },
   {
     field: "disfraz",
     headerName: "Disfraz Alquilado",
-    width: 230,
+    width: 200,
   },
   {
     field: "fecahentrega",
     headerName: "Fecha de Entrega",
-    width: 230,
+    width: 100,
   },
   {
     field: "tipocliente",
     headerName: "Tipo De Cliente",
-    width: 230,
+    width: 150,
   },
 
   {
     field: "age",
     headerName: "Telefono",
-    width: 100,
+    width: 160,
   },
   {
     field: "status",
     headerName: "Status",
-    width: 160,
+    width: 100,
     renderCell: (params) => {
       return (
         <div className={`cellWithStatus ${params.row.status}`}>
@@ -58,20 +59,21 @@ export const userColumns = [
 export const userRows = [
   {
     id: 1,
-    username: "Snow",
-    img: "https://images.pexels.com/photos/1820770/pexels-photo-1820770.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500",
-    status: "active",
-    email: "1snow@gmail.com",
+    fecahentrega:"5/4/23",
+    username: "Juan",
+    status: "Activo",
+    email: "Morales",
     disfraz: "batman",
     tipocliente: "Habitual",
-    age: 35,
+    age: "1136-6948-72",
   },
   {
     id: 2,
+    
     username: "Jamie Lannister",
     img: "https://images.pexels.com/photos/1820770/pexels-photo-1820770.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500",
     email: "2snow@gmail.com",
-    status: "passive",
+    status: "Inactivo",
     age: 42,
   },
   {
@@ -79,7 +81,7 @@ export const userRows = [
     username: "Lannister",
     img: "https://images.pexels.com/photos/1820770/pexels-photo-1820770.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500",
     email: "3snow@gmail.com",
-    status: "pending",
+    status: "Reserva",
     age: 45,
   },
   {

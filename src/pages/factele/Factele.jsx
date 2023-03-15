@@ -1,7 +1,7 @@
-import "./histfac.scss";
+import "./factele.scss";
 import { useState } from "react";
 import { DataGrid } from "@mui/x-data-grid";
-import { userColumns, userRows } from "../../datatablesource3";
+import { userColumns, userRows } from "../../datatablesource5";
 import { Link } from "react-router-dom";
 
 const Datatable = () => {
@@ -31,7 +31,7 @@ const Datatable = () => {
       renderCell: (params) => {
         return (
           <div className="cellAction">
-            <Link to="/single3" style={{ textDecoration: "none" }}>
+            <Link to="/single5" style={{ textDecoration: "none" }}>
               <div className="viewButton">Detalles</div>
             </Link>
             <div
@@ -44,7 +44,6 @@ const Datatable = () => {
         );
       },
     },
-
   ];
 
   return (
@@ -54,7 +53,7 @@ const Datatable = () => {
         <span><a href="/">Volver</a></span>
       </button>
     <div className="datatableTitle">
-      <h1>Historial de Facuracion</h1>
+      <h1>Historial de Facuracion Electronica</h1>
     </div>
       <input
           type="text"

@@ -15,7 +15,7 @@ const Datatable = () => {
     {
       field: "action",
       headerName: "Accion",
-      width: 200,
+      width: 190,
       renderCell: (params) => {
         return (
           <div className="cellAction">
@@ -41,14 +41,17 @@ const Datatable = () => {
           Agregar 
         </Link>
       </div>
+      <div className="tableWrapper">
       <DataGrid
         className="datagrid"
         rows={data}
         columns={userColumns.concat(actionColumn)}
-        pageSize={9}
-        rowsPerPageOptions={[9]}
+        pageSize={8}
+        rowsPerPageOptions={[8]}
         checkboxSelection
+        autoHeight
       />
+    </div>
     </div>
   );
 };

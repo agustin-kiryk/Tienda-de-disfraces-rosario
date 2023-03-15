@@ -41,7 +41,7 @@ const Datatable = () => {
         <span><a href="/">Volver</a></span>
       </button>
       <div className="datatableTitle">
-        Agregar Nuevo Disfraz
+          <h1>Disfraces</h1>
         <Link to="/user/new2" className="link">
           Agregar
         </Link>

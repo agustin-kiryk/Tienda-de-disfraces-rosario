@@ -1,6 +1,6 @@
 .home {
   display: flex;
-
+  
   .homeContainer {
     flex: 6;
 
@@ -29,48 +29,30 @@
       }
     }
  
-    @media screen and (max-width: 768px) {
-      
+
+
+  
+    @media screen and (min-width: 900px) {
       .widgets,
       .charts {
-        flex-direction: column;
-        padding: 10px;
-        gap: 10px;
-      }
-
-      .charts {
-        padding: 5px 10px;
-      }
-
-      .listContainer {
-        margin: 10px;
-        padding: 10px;
-      }
-      .sidebar {
-        display: none;
-      }
-    
-    }
-
-    @media screen and (max-width: 480px) {
-      .widgets,
-      .charts {
-        flex-direction: column;
+       
         padding: 5px;
         gap: 5px;
       }
-
+      
+     
       .charts {
         padding: 5px;
       }
 
       .listContainer {
+
         margin: 5px;
         padding: 5px;
       }
 
       .listTitle {
-        font-size: 14px;
+        font-size: 25px;
       }
       .sidebar {
         display: none;
@@ -84,6 +66,58 @@
   left: 220px;
   z-index: 1; /* Asegura que el botón esté por encima de otros elementos */
   /* Resto de estilos, como el ancho, altura, y tamaño de fuente */
+}
+
+
+.label-check {
+  display: none;
+  
+}
+
+.hamburger-label {
+  margin-top: 5px;
+  height: 30px;
+  display: block;
+  cursor: pointer;
+  background-color: #6439ff;
+}
+
+.hamburger-label div {
+ 
+  width: 60px;
+  height: 6px;
+  background-color: #ffffff;
+  position: absolute;
+}
+
+.line1 {
+  transition: all .3s;
+}
+
+.line2 {
+  margin: 18px 0 0 0;
+  transition: 0.3s;
+}
+
+.line3 {
+  margin: 36px 0 0 0;
+  transition: 0.3s;
+}
+
+#label-check:checked + .hamburger-label .line1 {
+  transform: rotate(35deg) scaleX(.55) translate(39px, -4.5px);
+  border-radius: 50px 50px 50px 0;
+}
+
+#label-check:checked + .hamburger-label .line3 {
+  transform: rotate(-35deg) scaleX(.55) translate(39px, 4.5px);
+  border-radius: 0 50px 50px 50px;
+}
+
+#label-check:checked + .hamburger-label .line2 {
+  border-top-right-radius: 50px;
+  border-bottom-right-radius: 50px;
+  width: 45px;
 }
 
 

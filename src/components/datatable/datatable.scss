@@ -1,15 +1,48 @@
 .datatable {
   height: 500px;
   padding: 20px;
+
+
+  h1{
+    width: 100%;
+    font-size: 30px;
+    color: #6439ffa9;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
   
+  @media (max-width: 1380px) {
+    .datagrid-row {
+      /* Ancho máximo para las filas */
+      width: 100px;
+    }
+   
+  }
+    @media (max-width: 980px) {
+   h1{
+        font-size: 10px;
+      }
+    
+    }
+  
+
   .datatableTitle{
     width: 100%;
-    font-size: 24px;
+    font-size: 2px;
     color: gray;
     margin-bottom: 10px;
     display: flex;
     align-items: center;
     justify-content: space-between;
+
+    h1{
+      font-size: 50px;
+      padding-left: 35%;
+      text-align:center;
+      margin: 0 auto;
+    }
 
     .link{
       text-decoration: none;
@@ -40,15 +73,15 @@
     padding: 5px;
     border-radius: 5px;
 
-    &.active {
+    &.Activo {
       background-color: rgba(0, 128, 0, 0.05);
       color: green;
     }
-    &.pending {
+    &.Reserva {
       background-color: rgba(255, 217, 0, 0.05);
       color: goldenrod;
     }
-    &.passive {
+    &.Inactivo {
       background-color: rgba(255, 0, 0, 0.05);
       color: crimson;
     }
@@ -75,13 +108,28 @@
       cursor: pointer;
     }
   }
+  
 }
-h1{
-  width: 100%;
-  font-size: 20px;
-  color: gray;
-  margin-bottom: 10px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+
+.tableWrapper{
+  @media (max-width: 980px) {
+    overflow-x: auto;
+  }
 }
+.datagrid{
+  @media (max-width: 980px) {
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 980px)  {
+  h1{
+    font-size: 10px;
+  }
+}
+
+
+
+
+
+

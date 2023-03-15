@@ -12,7 +12,7 @@
     background-color: #6439ff;
     
     .logo {
-      font-size: 20px;
+      font-size: 25px;
       font-weight: bold;
       color: #ffffff;
     }
@@ -94,6 +94,9 @@
 
 }
 
+
+
+
 @media screen and (max-width: 768px) {
   .sidebar {
     flex: 1;
@@ -109,7 +112,7 @@
       background-color: #6439ff;
   
       .logo {
-        font-size: 20px;
+        font-size: 22px;
         font-weight: bold;
         color: #ffffff;
       }
@@ -191,4 +194,13 @@
 .hidden {
   display: none;
 }
+
+}
+@media screen and (max-width: 1370px) {
+  .logo {
+    font-size: 10px;
+    font-weight: bold;
+    color: #ffffff;
+  }
+
 }

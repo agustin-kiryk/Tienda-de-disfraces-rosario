@@ -3,15 +3,6 @@
   width: 100%;
   overflow-x: hidden;
   
-.dni {
-  width: 500px;
-  height: 400px;
-  padding-right: 300px;
-  margin-top: 150px;
-  display: flex;
-  margin-left: 100px;
-}
-  
   .singleContainer {
     flex: 6;
 
@@ -91,6 +82,10 @@
         }
       }
 
+      .itemTitle{
+       padding-left: 65%;
+      }
+
     }
     
   
@@ -116,10 +111,12 @@
     }
   }
 }
-@media screen and (max-width: 1366px) {
-  .singleContainer .top .left {
-    padding: 10px;
-    margin: 10px;
-  }
-}
 
+.dni {
+  width: 500px;
+  height: 400px;
+  padding-right: 300px;
+  margin-top: 150px;
+  display: flex;
+  margin-left: 100px;
+}

@@ -5,6 +5,8 @@ import AccountBalanceWalletOutlinedIcon from "@mui/icons-material/AccountBalance
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import MonetizationOnOutlinedIcon from "@mui/icons-material/MonetizationOnOutlined";
 import { TextField } from "@mui/material";
+import { Button } from "@mui/material";
+
 
 const Widget = ({ type }) => {
   let data;
@@ -20,7 +22,7 @@ const Widget = ({ type }) => {
       data = {
         title: "FACTURACION ELECTRONICA",
         isMoney: false,
-        link: "",
+        link: <div><button><a href="/factele">Ver Detalles</a></button></div>,
         icon: (
           <PersonOutlinedIcon
             className="icon"
@@ -36,7 +38,7 @@ const Widget = ({ type }) => {
       data = {
         title: "LIMITE",
         isMoney: false,
-        link: " ",
+        link: <div><button><a href="">Modificar</a></button></div>,
         icon: (
           <ShoppingCartOutlinedIcon
             className="icon"
@@ -88,7 +90,8 @@ const Widget = ({ type }) => {
         <span className="counter">
           {data.isMoney && "$"} {amount}
         </span>
-        
+     
+       
         <span className="link">{data.link}</span>
       </div>
       <div className="right">
