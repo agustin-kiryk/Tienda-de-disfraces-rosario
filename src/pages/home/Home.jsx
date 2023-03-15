@@ -10,7 +10,6 @@ import { Button } from "@mui/material";
 
 const Home = () => {
   const [showSidebar, setShowSidebar] = useState(true);
-
   const handleSidebarToggle = () => {
     setShowSidebar((prevState) => !prevState);
   };
@@ -22,6 +21,7 @@ const Home = () => {
       <Button onClick={handleSidebarToggle} className="toggleSidebarButton"  variant="outlined">B </Button>
     </div>
       <div className="homeContainer">
+        
         <Navbar />
         <Featured />
         <div className="widgets">
