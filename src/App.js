@@ -9,7 +9,6 @@ import Single5 from "./pages/single5/Single";
 import New from "./pages/new/New";
 import New2 from "./pages/new2/New";
 import Nuevafac from "./pages/nuevafac/New";
-
 import Facturacion from "./pages/facturacion/Facturacion";
 import Disfraces from "./components/disfraces/Disfraces";
 import Histfac from "./pages/histfac/Histfac";

@@ -25,6 +25,7 @@ const Home = () => {
       <div class="line2"></div>
       <div class="line3"></div>
     <label></label></label></div>
+
     </div>
       <div className="homeContainer">
         
