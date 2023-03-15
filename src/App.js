@@ -43,6 +43,7 @@ function App() {
 
               <Route index element={<List />} />
 
+
               <Route path=":userId" element={<Single />} />
 
               <Route
@@ -51,6 +52,7 @@ function App() {
               />
 
             </Route>
+
 
 
             <Route path="user">

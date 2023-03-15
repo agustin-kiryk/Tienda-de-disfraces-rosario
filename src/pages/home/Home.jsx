@@ -10,7 +10,6 @@ import { Button } from "@mui/material";
 
 const Home = () => {
   const [showSidebar, setShowSidebar] = useState(true);
-
   const handleSidebarToggle = () => {
     setShowSidebar((prevState) => !prevState);
   };
@@ -28,6 +27,7 @@ const Home = () => {
     <label></label></label></div>
     </div>
       <div className="homeContainer">
+        
         <Navbar />
         <Featured />
         <div className="widgets">
