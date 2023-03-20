@@ -84,6 +84,9 @@ public class ClientEntity {
 
   private boolean deleted = Boolean.FALSE;
 
+  @Column(name = "Last_Rented_Date")
+  private Date lastRentedDate;
+
   @Override
   public boolean equals(Object obj) {
     if (obj == null) {
