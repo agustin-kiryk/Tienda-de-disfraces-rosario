@@ -1,4 +1,5 @@
 package com.dsi.appDisfraces.mapper;
+import org.springframework.http.HttpHeaders;
 
 import com.dsi.appDisfraces.dto.CostumeDTO;
 import com.dsi.appDisfraces.dto.CostumeDetailDTO;
@@ -7,11 +8,13 @@ import com.dsi.appDisfraces.entity.ClientEntity;
 import com.dsi.appDisfraces.entity.CostumeEntity;
 import com.dsi.appDisfraces.enumeration.ClientStatus;
 import com.dsi.appDisfraces.enumeration.CustomeStatus;
+
 import java.util.Comparator;
 import java.util.Date;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 import org.springframework.stereotype.Component;
+import org.springframework.web.servlet.tags.HtmlEscapeTag;
 
 @Component
 public class CostumeMapper {
@@ -28,6 +31,7 @@ public class CostumeMapper {
   }
 
 
+
   public CostumeRequestDTO costumeEntity2DTO(CostumeEntity entitysaved) {
     CostumeRequestDTO dto = new CostumeRequestDTO();
     dto.setId(entitysaved.getId());
@@ -37,6 +41,7 @@ public class CostumeMapper {
     dto.setImage(entitysaved.getImage());
     dto.setCreationDay(String.valueOf(entitysaved.getCreationDate()));
     dto.setStatus(String.valueOf(entitysaved.getStatus()));
+
 
     return dto;
   }
