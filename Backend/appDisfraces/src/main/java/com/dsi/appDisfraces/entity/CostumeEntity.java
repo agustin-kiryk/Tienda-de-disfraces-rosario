@@ -1,8 +1,6 @@
 package com.dsi.appDisfraces.entity;
 
-import com.dsi.appDisfraces.enumeration.ClientStatus;
-import com.dsi.appDisfraces.enumeration.CustomeStatus;
-import jakarta.persistence.CascadeType;
+import com.dsi.appDisfraces.enumeration.CostumeStatus;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -10,11 +8,8 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -24,7 +19,8 @@ import org.hibernate.annotations.CreationTimestamp;
 
 @Entity
 @Table(name = "Disfraces")
-@Getter@Setter
+@Getter
+@Setter
 public class CostumeEntity {
 
   @Id
@@ -40,9 +36,9 @@ public class CostumeEntity {
 
   @Enumerated(EnumType.STRING)
   @Column(name = "Status", columnDefinition = "varchar(255)")
-  private CustomeStatus status;
+  private CostumeStatus status;
   public CostumeEntity() {
-    this.status = CustomeStatus.DISPONIBLE;
+    this.status = CostumeStatus.DISPONIBLE;
   }
 
   @Column(name = "Reserva", nullable = true)
@@ -59,7 +55,7 @@ public class CostumeEntity {
   private boolean deleted = Boolean.FALSE;
 
   public boolean isRented() {
-    return status == CustomeStatus.ALQUILADO;
+    return status == CostumeStatus.ALQUILADO;
   }
 
   @Column (name= "Fecha de creacion")

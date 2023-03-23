@@ -2,13 +2,17 @@ package com.dsi.appDisfraces.controller;
 
 import com.dsi.appDisfraces.dto.CostumeDetailDTO;
 import com.dsi.appDisfraces.dto.CostumeRequestDTO;
+import com.dsi.appDisfraces.dto.CostumeTableDTO;
 import com.dsi.appDisfraces.repository.ICostumeRepository;
 import com.dsi.appDisfraces.service.IcostumeService;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -39,26 +43,26 @@ public class CostumeController {
     return ResponseEntity.ok(client);
   }
 
-  /*@GetMapping
-  public ResponseEntity<List<ClientTableDto>> getAllClients(){
-    List<ClientTableDto> clients = this.clientService.findAll();
-    return ResponseEntity.ok().body(clients);
+  @GetMapping()
+  public ResponseEntity<List<CostumeTableDTO>> getAllCostumes(){
+    List<CostumeTableDTO> costumes = this.costumeService.findAll();
+    return ResponseEntity.ok().body(costumes);
 
   }
 
 
   @PatchMapping("/{id}")
-  public ResponseEntity<ClientRequestDTO> update(
-       @PathVariable Long id, @RequestBody ClientRequestDTO personaje) {
-    ClientRequestDTO result = this.clientService.update(id, personaje);
+  public ResponseEntity<CostumeRequestDTO> update(
+       @PathVariable Long id, @RequestBody CostumeRequestDTO newCostume) {
+    CostumeRequestDTO result = this.costumeService.update(id, newCostume);
     return ResponseEntity.ok(result);
   }
 
   @DeleteMapping("/{id}")
-  public ResponseEntity<Void> deleteUser(@PathVariable Long id){
-    this.clientService.delete(id);
+  public ResponseEntity<Void> deleteCotume(@PathVariable Long id){
+    this.costumeService.delete(id);
     return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
-  }*/
+  }
 
 
 }

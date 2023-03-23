@@ -1,20 +1,19 @@
 package com.dsi.appDisfraces.mapper;
-import org.springframework.http.HttpHeaders;
 
-import com.dsi.appDisfraces.dto.CostumeDTO;
+import com.dsi.appDisfraces.dto.ClientTableDto;
 import com.dsi.appDisfraces.dto.CostumeDetailDTO;
 import com.dsi.appDisfraces.dto.CostumeRequestDTO;
+import com.dsi.appDisfraces.dto.CostumeTableDTO;
 import com.dsi.appDisfraces.entity.ClientEntity;
 import com.dsi.appDisfraces.entity.CostumeEntity;
-import com.dsi.appDisfraces.enumeration.ClientStatus;
-import com.dsi.appDisfraces.enumeration.CustomeStatus;
 
+import com.dsi.appDisfraces.enumeration.CostumeStatus;
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Date;
+import java.util.List;
 import java.util.NoSuchElementException;
-import java.util.Optional;
 import org.springframework.stereotype.Component;
-import org.springframework.web.servlet.tags.HtmlEscapeTag;
 
 @Component
 public class CostumeMapper {
@@ -31,7 +30,6 @@ public class CostumeMapper {
   }
 
 
-
   public CostumeRequestDTO costumeEntity2DTO(CostumeEntity entitysaved) {
     CostumeRequestDTO dto = new CostumeRequestDTO();
     dto.setId(entitysaved.getId());
@@ -41,7 +39,6 @@ public class CostumeMapper {
     dto.setImage(entitysaved.getImage());
     dto.setCreationDay(String.valueOf(entitysaved.getCreationDate()));
     dto.setStatus(String.valueOf(entitysaved.getStatus()));
-
 
     return dto;
   }
@@ -55,13 +52,48 @@ public class CostumeMapper {
     dto.setColour(entity.getColour());
     dto.setStatus(String.valueOf(entity.getStatus()));
     dto.setCreationDay(String.valueOf(entity.getCreationDate()));
-    if (!entity.getClients().isEmpty()){
-    ClientEntity lastClient = entity.getClients().stream()
-        .max(Comparator.comparing(ClientEntity::getLastRentedDate))
-        .orElseThrow(NoSuchElementException::new);
-    dto.setLastClientRented(lastClient.getName());}
-    else {dto.setLastClientRented("Este disfraz todavia no se alquiló");}
+    if (!entity.getClients().isEmpty()) {
+      ClientEntity lastClient = entity.getClients().stream()
+          .max(Comparator.comparing(ClientEntity::getLastRentedDate))
+          .orElseThrow(NoSuchElementException::new);
+      dto.setLastClientRented(lastClient.getName());
+    } else {
+      dto.setLastClientRented("Este disfraz todavia no se alquiló");
+    }
 
     return dto;
+  }
+
+  public List<CostumeTableDTO> costumeTableEntityList2DTO(List<CostumeEntity> entities) {
+    List<CostumeTableDTO> dtos = new ArrayList<>();
+    for (CostumeEntity entity : entities) {
+      dtos.add(costumeTableEntity2DTO(entity));
+    }
+    return dtos;
+
+  }
+
+  private CostumeTableDTO costumeTableEntity2DTO(CostumeEntity entity) {
+    CostumeTableDTO dto = new CostumeTableDTO();
+    dto.setName(entity.getName());
+    dto.setDetail(entity.getDetail());
+    dto.setCostumeStatus(entity.getStatus());
+    if (entity.getStatus().equals(CostumeStatus.ALQUILADO)||
+        entity.getStatus().equals(CostumeStatus.RESERVADO)) {
+      dto.setDeadlineDate(entity.getDeadLine());
+      dto.setReservationDate(entity.getReservationDate());
+      ClientEntity lastClient = entity.getClients().stream()
+          .max(Comparator.comparing(ClientEntity::getLastRentedDate))
+          .orElseThrow(NoSuchElementException::new);
+      dto.setClientRented(lastClient.getName());
+    }
+    return dto;
+  }
+
+  public void costumeUpdateEntity2DTO(CostumeEntity entity, CostumeRequestDTO costumeDTO) {
+    entity.setName(costumeDTO.getName());
+    entity.setColour(costumeDTO.getColour());
+    entity.setDetail(costumeDTO.getDetail());
+    entity.setImage(costumeDTO.getImage());
   }
 }
