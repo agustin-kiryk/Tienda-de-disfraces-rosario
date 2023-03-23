@@ -14,5 +14,6 @@ public class ClientTableDto implements Serializable {
   private String phone;
   private ClientStatus status;
   private Long id;
+  private String deadLine;
 
 }

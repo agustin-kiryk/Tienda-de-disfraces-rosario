@@ -1,5 +1,6 @@
 package com.dsi.appDisfraces.controller;
 
+import com.dsi.appDisfraces.dto.ClientHistoryDTO;
 import com.dsi.appDisfraces.dto.ClientRequestDTO;
 import com.dsi.appDisfraces.dto.ClientTableDto;
 import com.dsi.appDisfraces.entity.ClientEntity;
@@ -60,7 +61,6 @@ public class ClientController {
 
   }
 
-
   @PatchMapping("/{id}")
   public ResponseEntity<ClientRequestDTO> update(
        @PathVariable Long id, @RequestBody ClientRequestDTO personaje) {
@@ -74,6 +74,15 @@ public class ClientController {
     return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
   }
 
+    //trae el historial de disfraces alquilados por el cliente
+
+  @GetMapping("/{id}/history")
+  public ResponseEntity<ClientHistoryDTO> clientHistory(@PathVariable Long id){
+    ClientHistoryDTO history = this.clientService.getHistory(id);
+    return ResponseEntity.ok(history);
   }
-//TODO: QUEDA AGREGAR GET CON EL HISTORIAL DE DISFRACES ALQUILADOS POR EL CLIENTE
+
+
+  }
+
 

@@ -1,5 +1,6 @@
 package com.dsi.appDisfraces.service.impl;
 
+import com.dsi.appDisfraces.dto.ClientHistoryDTO;
 import com.dsi.appDisfraces.dto.ClientRequestDTO;
 import com.dsi.appDisfraces.dto.ClientTableDto;
 import com.dsi.appDisfraces.entity.ClientEntity;
@@ -76,6 +77,14 @@ public class ClientServiceImpl implements IClientService {
     ClientEntity entity = this.clientRepository.findById(id).orElseThrow(
         ()-> new ParamNotFound("El ID del usuario no existe o es incorrecto"));
     this.clientRepository.deleteById(id);
+  }
+
+  @Override
+  public ClientHistoryDTO getHistory(Long id) {
+    ClientEntity entity = this.clientRepository.findById(id).orElseThrow(
+        ()-> new ParamNotFound("El id del cliente no existe"));
+    ClientHistoryDTO history = clientMapper.clientHistoryEntity2Dto(entity);
+    return history;
   }
 
 }

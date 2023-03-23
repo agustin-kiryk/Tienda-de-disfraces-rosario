@@ -7,6 +7,7 @@ public class CostumeDTO {
   private Long id;
   private String name;
   private String deadLine;
+  private String reservationDate;
 
 
 }
