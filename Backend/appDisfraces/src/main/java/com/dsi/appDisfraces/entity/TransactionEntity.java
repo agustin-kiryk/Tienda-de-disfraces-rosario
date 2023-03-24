@@ -30,7 +30,7 @@ public class TransactionEntity {
 
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "Disfraz_id", referencedColumnName = "id")
-  private ClientEntity costume;
+  private CostumeEntity costume;
 
   @Column(name = "Fecha_de_alquiler")
   private Date rentDate;
