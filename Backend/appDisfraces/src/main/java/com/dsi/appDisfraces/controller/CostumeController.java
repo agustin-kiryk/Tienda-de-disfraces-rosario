@@ -42,7 +42,7 @@ public class CostumeController {
     CostumeDetailDTO client = this.costumeService.getDetailsById(id);
     return ResponseEntity.ok(client);
   }
-
+       //Tabla de pantalla principal
   @GetMapping()
   public ResponseEntity<List<CostumeTableDTO>> getAllCostumes(){
     List<CostumeTableDTO> costumes = this.costumeService.findAll();
