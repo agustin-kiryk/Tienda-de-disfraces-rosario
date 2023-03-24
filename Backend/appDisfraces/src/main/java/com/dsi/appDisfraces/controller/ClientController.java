@@ -71,7 +71,9 @@ public class ClientController {
     return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
   }
 
+
     //trae el historial de disfraces alquilados por el cliente, para la lista de detalles del cliente
+
 
   @GetMapping("/{id}/history")
   public ResponseEntity<ClientHistoryDTO> clientHistory(@PathVariable Long id){
