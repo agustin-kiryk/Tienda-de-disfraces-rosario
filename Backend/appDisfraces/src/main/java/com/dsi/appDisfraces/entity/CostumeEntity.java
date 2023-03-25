@@ -68,7 +68,7 @@ public class CostumeEntity {
   @Column ( name= "Color")
   private String colour;
 
-  @OneToMany(mappedBy = "costume", fetch = FetchType.LAZY,
+  @OneToMany(mappedBy = "disfraces", fetch = FetchType.LAZY,
       cascade = CascadeType.ALL) //TODO: Revisar que la cascade ande ok.
   private List<TransactionEntity> transactions = new ArrayList<>();
 
