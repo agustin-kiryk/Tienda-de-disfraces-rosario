@@ -6,7 +6,7 @@ import lombok.Data;
 @Data
 
 public class CostumeTableDTO {
-
+  private Long id;
   private String name;
   private String detail;
   private String clientRented;

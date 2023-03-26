@@ -43,6 +43,8 @@ public class CostumeController {
     return ResponseEntity.ok(client);
   }
 
+       //Tabla de pantalla principal
+
   @GetMapping()
   public ResponseEntity<List<CostumeTableDTO>> getAllCostumes(){
     List<CostumeTableDTO> costumes = this.costumeService.findAll();

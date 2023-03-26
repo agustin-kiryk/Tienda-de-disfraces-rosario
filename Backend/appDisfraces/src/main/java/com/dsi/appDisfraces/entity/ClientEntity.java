@@ -15,6 +15,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.Lob;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import java.util.ArrayList;
 import java.util.Date;
@@ -87,6 +88,10 @@ public class ClientEntity {
 
   @Column(name = "Last_Rented_Date")
   private Date lastRentedDate;
+
+  @OneToMany(mappedBy = "client", fetch = FetchType.LAZY, //TODO: revisar que lacascada este ok
+      cascade = CascadeType.ALL)
+  private List<TransactionEntity> transactions = new ArrayList<>();
 
   @Override
   public boolean equals(Object obj) {

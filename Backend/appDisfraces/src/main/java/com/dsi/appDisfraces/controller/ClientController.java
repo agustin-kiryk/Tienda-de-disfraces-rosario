@@ -36,9 +36,7 @@ public class ClientController {
   @Autowired
   private IClientRepository clientRepository;
 
-  //public ClientController(IClientService clientService) {
-  //  this.clientService = clientService;
-  //}
+
 
   @PostMapping("/newClient")
   public ResponseEntity<ClientRequestDTO> createClient(@RequestBody ClientRequestDTO dto){
@@ -52,8 +50,7 @@ public class ClientController {
     ClientRequestDTO client = this.clientService.getDetailsById(id);
     return ResponseEntity.ok(client);
   }
-      //Trae la lista basica de clientes con el ULTIMO disfraz alquilado, se usa para
-      // la tabla del panel general o la de disfraces @getmaping()
+      //Trae la lista basica de clientes con el ULTIMO disfraz alquilado,
   @GetMapping
   public ResponseEntity<List<ClientTableDto>> getAllClients(){
     List<ClientTableDto> clients = this.clientService.findAll();
@@ -74,7 +71,9 @@ public class ClientController {
     return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
   }
 
-    //trae el historial de disfraces alquilados por el cliente
+
+    //trae el historial de disfraces alquilados por el cliente, para la lista de detalles del cliente
+
 
   @GetMapping("/{id}/history")
   public ResponseEntity<ClientHistoryDTO> clientHistory(@PathVariable Long id){
