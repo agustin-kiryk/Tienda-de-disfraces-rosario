@@ -4,6 +4,8 @@ import com.dsi.appDisfraces.dto.TransactionDTO;
 import com.dsi.appDisfraces.entity.ClientEntity;
 import com.dsi.appDisfraces.entity.CostumeEntity;
 import com.dsi.appDisfraces.entity.TransactionEntity;
+import com.dsi.appDisfraces.enumeration.ClientStatus;
+import com.dsi.appDisfraces.enumeration.CostumeStatus;
 import com.dsi.appDisfraces.exception.ParamNotFound;
 import com.dsi.appDisfraces.mapper.TransactionMapper;
 import com.dsi.appDisfraces.repository.IClientRepository;
@@ -11,6 +13,7 @@ import com.dsi.appDisfraces.repository.ICostumeRepository;
 import com.dsi.appDisfraces.repository.ITransactionRepository;
 import com.dsi.appDisfraces.service.ITransactionService;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -38,7 +41,7 @@ public class ITransactionServiceImpl implements ITransactionService {
     Set<CostumeEntity> costumes = new HashSet<>();
     for(Long costumeId : transactionDTO.getCostumeIds()){
       CostumeEntity costume = costumeRepository.findById(costumeId).orElseThrow(
-          ()->new ParamNotFound("El Id  "+ "" +costumeId+ "" +"  del disfraz"));
+          ()->new ParamNotFound("No existe un disfraz con el ID  "+ "" +costumeId+ "" +" verifique nuevamente"));
       costumes.add(costume);
     }
     TransactionEntity transactionEntity = new TransactionEntity();
@@ -50,9 +53,30 @@ public class ITransactionServiceImpl implements ITransactionService {
     transactionEntity.setBillPayment(transactionDTO.getCheckIn());
     transactionEntity.setType(transactionDTO.getType());
     transactionRepository.save(transactionEntity);
+    //Actualizo el Status del disfraz y del cliente segun la fecha
+    Date reservationDate = transactionDTO.getReservationDate();
+    Date currentDate = new Date();
+    if (currentDate.before(reservationDate)) {
+      costumes.forEach(costume -> {
+        costume.setStatus(CostumeStatus.RESERVADO);
+        costumeRepository.save(costume);
+        client.setClientStatus(ClientStatus.CON_RESERVA);
+      });
+    } else {
+      costumes.forEach(costume -> {
+        costume.setStatus(CostumeStatus.ALQUILADO);
+        costumeRepository.save(costume);
+        client.setClientStatus(ClientStatus.ACTIVO);
+        clientRepository.save(client);
+      });
+    }
+    //Actualizo estado cleinte
+    //client.setClientStatus(ClientStatus.ACTIVO);
+   // clientRepository.save(client);
+
 
     TransactionDTO result = new TransactionDTO();
-    //result.setId(transactionEntity.getId());
+    result.setId(transactionEntity.getId());
     result.setClientId(transactionEntity.getClient().getId());
     result.setCostumeIds(transactionEntity.getDisfraces().stream().map(CostumeEntity::getId).collect(
         Collectors.toList()));
