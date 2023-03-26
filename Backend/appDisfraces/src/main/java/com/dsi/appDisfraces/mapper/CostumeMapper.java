@@ -75,6 +75,7 @@ public class CostumeMapper {
 
   private CostumeTableDTO costumeTableEntity2DTO(CostumeEntity entity) {
     CostumeTableDTO dto = new CostumeTableDTO();
+    dto.setId(entity.getId());
     dto.setName(entity.getName());
     dto.setDetail(entity.getDetail());
     dto.setCostumeStatus(entity.getStatus());

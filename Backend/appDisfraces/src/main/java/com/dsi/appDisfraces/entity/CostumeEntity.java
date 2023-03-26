@@ -15,7 +15,9 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
@@ -55,6 +57,7 @@ public class CostumeEntity {
 
   @ManyToMany(mappedBy = "customes")
   private List<ClientEntity> clients = new ArrayList<>();
+
   private boolean deleted = Boolean.FALSE;
 
   public boolean isRented() {
@@ -68,9 +71,9 @@ public class CostumeEntity {
   @Column ( name= "Color")
   private String colour;
 
-  @OneToMany(mappedBy = "disfraces", fetch = FetchType.LAZY,
-      cascade = CascadeType.ALL) //TODO: Revisar que la cascade ande ok.
-  private List<TransactionEntity> transactions = new ArrayList<>();
+  @ManyToMany(mappedBy = "disfraces") //TODO: Revisar que la cascade ande ok.
+
+  private Set<TransactionEntity> transactions = new HashSet<>();
 
 
 

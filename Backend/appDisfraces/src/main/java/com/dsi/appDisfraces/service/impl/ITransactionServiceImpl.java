@@ -38,7 +38,7 @@ public class ITransactionServiceImpl implements ITransactionService {
     Set<CostumeEntity> costumes = new HashSet<>();
     for(Long costumeId : transactionDTO.getCostumeIds()){
       CostumeEntity costume = costumeRepository.findById(costumeId).orElseThrow(
-          ()->new ParamNotFound("El Id"+costumeId+"del disfraz"));
+          ()->new ParamNotFound("El Id  "+ "" +costumeId+ "" +"  del disfraz"));
       costumes.add(costume);
     }
     TransactionEntity transactionEntity = new TransactionEntity();
@@ -52,7 +52,7 @@ public class ITransactionServiceImpl implements ITransactionService {
     transactionRepository.save(transactionEntity);
 
     TransactionDTO result = new TransactionDTO();
-    result.setId(transactionEntity.getId());
+    //result.setId(transactionEntity.getId());
     result.setClientId(transactionEntity.getClient().getId());
     result.setCostumeIds(transactionEntity.getDisfraces().stream().map(CostumeEntity::getId).collect(
         Collectors.toList()));
