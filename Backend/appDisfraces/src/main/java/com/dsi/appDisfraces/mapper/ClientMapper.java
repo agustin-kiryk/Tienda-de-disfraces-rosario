@@ -4,6 +4,7 @@ import com.dsi.appDisfraces.dto.ClientHistoryDTO;
 import com.dsi.appDisfraces.dto.ClientRequestDTO;
 import com.dsi.appDisfraces.dto.ClientTableDto;
 import com.dsi.appDisfraces.dto.CostumeDTO;
+import com.dsi.appDisfraces.dto.TransactionDTO;
 import com.dsi.appDisfraces.entity.ClientEntity;
 import com.dsi.appDisfraces.entity.CostumeEntity;
 import com.dsi.appDisfraces.enumeration.ClientStatus;
@@ -22,6 +23,8 @@ import org.springframework.stereotype.Component;
 public class ClientMapper {
   @Autowired
   IClientRepository clientRepository;
+  @Autowired
+  TransactionMapper transactionMapper;
 
   public ClientEntity clientDTO2Entity(ClientRequestDTO dto) {
     ClientEntity entity = new ClientEntity();
@@ -123,6 +126,11 @@ public class ClientMapper {
         }).
         collect(Collectors.toList());
     dto.setCostumes(costumes);
+    List<TransactionDTO> transactions = entity.getTransactions().stream()
+        .map(transactionMapper::transactionEntityToDTO)
+        .collect(Collectors.toList());
+    dto.setTransactions(transactions);
+
 
     return dto;
   }

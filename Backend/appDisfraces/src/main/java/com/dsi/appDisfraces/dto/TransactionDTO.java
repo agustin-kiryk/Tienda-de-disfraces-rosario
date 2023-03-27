@@ -7,6 +7,7 @@ import jakarta.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 import lombok.Data;
 
 @Data
@@ -18,6 +19,7 @@ public class TransactionDTO {
   private Long clientId;
   @NotEmpty(message = "El campo id del disfraz a alquilar no puede ser nulo")
   private List<Long> costumeIds;
+  private List<String> names;
   private LocalDate reservationDate;
   private LocalDate deadline;
   private String checkIn;

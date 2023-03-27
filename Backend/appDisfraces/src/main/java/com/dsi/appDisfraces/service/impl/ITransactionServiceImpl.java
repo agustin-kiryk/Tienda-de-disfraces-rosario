@@ -21,6 +21,10 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.TransactionStatus;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.support.TransactionCallbackWithoutResult;
+import org.springframework.transaction.support.TransactionTemplate;
 import org.springframework.ui.ModelMap;
 
 @Service
@@ -34,29 +38,44 @@ public class ITransactionServiceImpl implements ITransactionService {
   ICostumeRepository costumeRepository;
   @Autowired
   TransactionMapper transactionMapper;
+  @Autowired
+  TransactionTemplate transactionTemplate;
 
   @Override
+  public String getCostumeNameById(Long id) {
+    CostumeEntity costume = costumeRepository.findById(id).orElse(null);
+    return costume != null ? costume.getName() : null;
+  }
+
+  @Transactional
+  @Override
   public TransactionDTO create(TransactionDTO transactionDTO) {
-    ClientEntity client = clientRepository.findById(transactionDTO.getClientId()).orElseThrow(
-        ()-> new ParamNotFound("El id del cliente es invalido"));
+    ClientEntity client = clientRepository.findById(transactionDTO.getClientId())
+        .orElseThrow(() -> new ParamNotFound("El id del cliente es invalido"));
+
     Set<CostumeEntity> costumes = new HashSet<>();
-    for(Long costumeId : transactionDTO.getCostumeIds()){
-      CostumeEntity costume = costumeRepository.findById(costumeId).orElseThrow(
-          ()->new ParamNotFound("No existe un disfraz con el ID  "+ "" +costumeId+ "" +" verifique nuevamente"));
+
+    for (Long costumeId : transactionDTO.getCostumeIds()) {
+      CostumeEntity costume = costumeRepository.findById(costumeId)
+          .orElseThrow(() -> new ParamNotFound("No existe un disfraz con el ID " + costumeId + ", verifique nuevamente"));
+
       if (costume.getStatus() == CostumeStatus.ALQUILADO) {
-        throw new ParamNotFound("el disfraz    "+costume.getName()+" ID   " +costumeId+ "    Ya se encuentra alquilado");
+        throw new ParamNotFound("El disfraz " + costume.getName() + " con ID " + costumeId + " ya se encuentra alquilado.");
       }
-      LocalDate reservationDate2 = costume.getReservationDate();
+
       LocalDate returnDate = transactionDTO.getDeadline();
-      Set<TransactionEntity> currentTransaction = costume.getTransactions();
-      costume.setTransactions(currentTransaction);
 
-      if (currentTransaction == null || reservationDate2.isAfter(returnDate.minusDays(3))) {
-        costumes.add(costume);
+      List<TransactionEntity> transactions = transactionRepository.findAllByDisfracesId(costumeId);
 
-      }else throw new ParamNotFound("el disfraz"+costume.getName()+
-          "   se encuentra reservado para la fecha seleccionada");
+      for (TransactionEntity transaction : transactions) {
+        LocalDate reservationDate2 = transaction.getRentDate();
+        if (reservationDate2 != null && ((reservationDate2.isBefore(returnDate.plusDays(1)) && reservationDate2.isAfter(returnDate.minusDays(3)))
+            || (returnDate.isBefore(reservationDate2.plusDays(1)) && returnDate.isAfter(reservationDate2.minusDays(3))))) {
+          throw new ParamNotFound("El disfraz " + costume.getName() + " con ID " + costumeId + " se encuentra reservado para la fecha seleccionada.");
+        }
+      }
 
+      costumes.add(costume);
     }
 
     TransactionEntity transactionEntity = new TransactionEntity();
@@ -68,44 +87,32 @@ public class ITransactionServiceImpl implements ITransactionService {
     transactionEntity.setBillPayment(transactionDTO.getCheckIn());
     transactionEntity.setType(transactionDTO.getType());
     transactionRepository.save(transactionEntity);
-    //Actualizo el Status del disfraz y del cliente segun la fecha
 
-    LocalDate reservationDate = transactionDTO.getReservationDate();//05/04
-    LocalDate currentDate = LocalDate.now();//26/3
-    if (currentDate.isBefore(reservationDate)) {
-      costumes.forEach(costume -> {
-        costume.setStatus(CostumeStatus.RESERVADO);
-        costume.setReservationDate(transactionDTO.getReservationDate());
-        costume.setDeadLine(transactionDTO.getDeadline());
-        costumeRepository.save(costume);
-        client.setClientStatus(ClientStatus.CON_RESERVA);
-        client.setCustomes(costumes);
-        clientRepository.save(client);
-      });
-    } else {
-      costumes.forEach(costume -> {
-        costume.setStatus(CostumeStatus.ALQUILADO);
-        costume.setReservationDate(transactionDTO.getReservationDate());
-        costume.setDeadLine(transactionDTO.getDeadline());
-        costumeRepository.save(costume);
-        client.setClientStatus(ClientStatus.ACTIVO);
-        client.setCustomes(costumes);
-        clientRepository.save(client);
-      });
-    }
+    LocalDate reservationDate = transactionDTO.getReservationDate();
+    LocalDate currentDate = LocalDate.now();
 
+    costumes.forEach(costume -> {
+      costume.setStatus(currentDate.isBefore(reservationDate) ? CostumeStatus.RESERVADO : CostumeStatus.ALQUILADO);
+      costume.setReservationDate(transactionDTO.getReservationDate());
+      costume.setDeadLine(transactionDTO.getDeadline());
+      costumeRepository.save(costume);
+    });
+
+    client.setClientStatus(currentDate.isBefore(reservationDate) ? ClientStatus.CON_RESERVA : ClientStatus.ACTIVO);
+    client.setCustomes(costumes);
+    clientRepository.save(client);
 
     TransactionDTO result = new TransactionDTO();
     result.setId(transactionEntity.getId());
     result.setClientId(transactionEntity.getClient().getId());
-    result.setCostumeIds(transactionEntity.getDisfraces().stream().map(CostumeEntity::getId).collect(
-        Collectors.toList()));
+    result.setCostumeIds(transactionEntity.getDisfraces().stream().map(CostumeEntity::getId).collect(Collectors.toList()));
+    result.setNames(transactionEntity.getDisfraces().stream().map(costume -> getCostumeNameById(costume.getId())).collect(Collectors.toList()));
     result.setReservationDate(transactionEntity.getRentDate());
     result.setDeadline(transactionEntity.getDeadline());
     result.setType(transactionEntity.getType());
     result.setAmount(transactionEntity.getAmmount());
     result.setCheckIn(transactionEntity.getBillPayment());
 
-    return result ;
+    return result;
   }
 }

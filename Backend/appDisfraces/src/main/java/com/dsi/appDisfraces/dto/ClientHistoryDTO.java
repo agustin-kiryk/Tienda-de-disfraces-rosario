@@ -10,5 +10,6 @@ public class ClientHistoryDTO {
   private String name;
   private String lastName;
   private List<CostumeDTO> Costumes;
+  private List<TransactionDTO> transactions;
 
 }
