@@ -12,6 +12,7 @@ import com.dsi.appDisfraces.repository.IClientRepository;
 import com.dsi.appDisfraces.repository.ICostumeRepository;
 import com.dsi.appDisfraces.repository.ITransactionRepository;
 import com.dsi.appDisfraces.service.ITransactionService;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
@@ -42,8 +43,22 @@ public class ITransactionServiceImpl implements ITransactionService {
     for(Long costumeId : transactionDTO.getCostumeIds()){
       CostumeEntity costume = costumeRepository.findById(costumeId).orElseThrow(
           ()->new ParamNotFound("No existe un disfraz con el ID  "+ "" +costumeId+ "" +" verifique nuevamente"));
-      costumes.add(costume);
+      if (costume.getStatus() == CostumeStatus.ALQUILADO) {
+        throw new ParamNotFound("el disfraz    "+costume.getName()+" ID   " +costumeId+ "    Ya se encuentra alquilado");
+      }
+      LocalDate reservationDate2 = costume.getReservationDate();
+      LocalDate returnDate = transactionDTO.getDeadline();
+      Set<TransactionEntity> currentTransaction = costume.getTransactions();
+      costume.setTransactions(currentTransaction);
+
+      if (currentTransaction == null || reservationDate2.isAfter(returnDate.minusDays(3))) {
+        costumes.add(costume);
+
+      }else throw new ParamNotFound("el disfraz"+costume.getName()+
+          "   se encuentra reservado para la fecha seleccionada");
+
     }
+
     TransactionEntity transactionEntity = new TransactionEntity();
     transactionEntity.setClient(client);
     transactionEntity.setDisfraces(costumes);
@@ -54,25 +69,30 @@ public class ITransactionServiceImpl implements ITransactionService {
     transactionEntity.setType(transactionDTO.getType());
     transactionRepository.save(transactionEntity);
     //Actualizo el Status del disfraz y del cliente segun la fecha
-    Date reservationDate = transactionDTO.getReservationDate();
-    Date currentDate = new Date();
-    if (currentDate.before(reservationDate)) {
+
+    LocalDate reservationDate = transactionDTO.getReservationDate();//05/04
+    LocalDate currentDate = LocalDate.now();//26/3
+    if (currentDate.isBefore(reservationDate)) {
       costumes.forEach(costume -> {
         costume.setStatus(CostumeStatus.RESERVADO);
+        costume.setReservationDate(transactionDTO.getReservationDate());
+        costume.setDeadLine(transactionDTO.getDeadline());
         costumeRepository.save(costume);
         client.setClientStatus(ClientStatus.CON_RESERVA);
+        client.setCustomes(costumes);
+        clientRepository.save(client);
       });
     } else {
       costumes.forEach(costume -> {
         costume.setStatus(CostumeStatus.ALQUILADO);
+        costume.setReservationDate(transactionDTO.getReservationDate());
+        costume.setDeadLine(transactionDTO.getDeadline());
         costumeRepository.save(costume);
         client.setClientStatus(ClientStatus.ACTIVO);
+        client.setCustomes(costumes);
         clientRepository.save(client);
       });
     }
-    //Actualizo estado cleinte
-    //client.setClientStatus(ClientStatus.ACTIVO);
-   // clientRepository.save(client);
 
 
     TransactionDTO result = new TransactionDTO();

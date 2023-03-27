@@ -13,6 +13,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
@@ -47,10 +48,10 @@ public class CostumeEntity {
   }
 
   @Column(name = "Reserva", nullable = true)
-  private String reservationDate;
+  private LocalDate reservationDate;
 
   @Column(name = "Entrega", nullable = true)
-  private String deadLine;
+  private LocalDate deadLine;
 
   @Column(name = "Imagen", nullable = true)
   private String image;
@@ -66,7 +67,7 @@ public class CostumeEntity {
 
   @Column (name= "Fecha de creacion")
   @CreationTimestamp
-  private Date creationDate;
+  private LocalDate creationDate;
 
   @Column ( name= "Color")
   private String colour;
