@@ -84,10 +84,13 @@ public class CostumeMapper {
         entity.getStatus().equals(CostumeStatus.RESERVADO)) {
       dto.setDeadlineDate(entity.getDeadLine());
       dto.setReservationDate(entity.getReservationDate());
-      ClientEntity lastClient = entity.getClients().stream()
-          .max(Comparator.comparing(ClientEntity::getLastRentedDate))
-          .orElseThrow(NoSuchElementException::new);
-      dto.setClientRented(lastClient.getName());
+      List<ClientEntity> clients = entity.getClients();
+      if (!clients.isEmpty()) {
+        ClientEntity lastClient = clients.stream()
+            .max(Comparator.comparing(ClientEntity::getLastRentedDate))
+            .orElseThrow(NoSuchElementException::new);
+        dto.setClientRented(lastClient.getName());
+      }
     }
     return dto;
   }
