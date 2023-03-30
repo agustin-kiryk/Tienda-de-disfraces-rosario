@@ -90,9 +90,6 @@ public class ClientEntity {
       cascade = CascadeType.ALL)
   private List<TransactionEntity> transactions = new ArrayList<>();
 
-  @OneToMany(mappedBy = "client", fetch = FetchType.LAZY, //TODO: revisar que lacascada este ok
-      cascade = CascadeType.ALL)
-  private List<TransactionEntity> transactions = new ArrayList<>();
 
   @Override
   public boolean equals(Object obj) {
