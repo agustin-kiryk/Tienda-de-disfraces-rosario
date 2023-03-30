@@ -8,6 +8,7 @@ import com.dsi.appDisfraces.entity.ClientEntity;
 import com.dsi.appDisfraces.entity.CostumeEntity;
 
 import com.dsi.appDisfraces.enumeration.CostumeStatus;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Date;
@@ -24,7 +25,7 @@ public class CostumeMapper {
     entity.setDetail(dto.getDetail());
     entity.setColour(dto.getColour());
     entity.setImage(dto.getImage());
-    entity.setCreationDate(new Date());
+    entity.setCreationDate(LocalDate.now());
 
     return entity;
   }
@@ -37,7 +38,7 @@ public class CostumeMapper {
     dto.setDetail(entitysaved.getDetail());
     dto.setColour(entitysaved.getColour());
     dto.setImage(entitysaved.getImage());
-    dto.setCreationDay(String.valueOf(entitysaved.getCreationDate()));
+    dto.setCreationDay(entitysaved.getCreationDate());
     dto.setStatus(String.valueOf(entitysaved.getStatus()));
 
     return dto;
@@ -51,7 +52,7 @@ public class CostumeMapper {
     dto.setImage(entity.getImage());
     dto.setColour(entity.getColour());
     dto.setStatus(String.valueOf(entity.getStatus()));
-    dto.setCreationDay(String.valueOf(entity.getCreationDate()));
+    dto.setCreationDay(entity.getCreationDate());
     if (!entity.getClients().isEmpty()) {
       ClientEntity lastClient = entity.getClients().stream()
           .max(Comparator.comparing(ClientEntity::getLastRentedDate))
@@ -83,10 +84,13 @@ public class CostumeMapper {
         entity.getStatus().equals(CostumeStatus.RESERVADO)) {
       dto.setDeadlineDate(entity.getDeadLine());
       dto.setReservationDate(entity.getReservationDate());
-      ClientEntity lastClient = entity.getClients().stream()
-          .max(Comparator.comparing(ClientEntity::getLastRentedDate))
-          .orElseThrow(NoSuchElementException::new);
-      dto.setClientRented(lastClient.getName());
+      List<ClientEntity> clients = entity.getClients();
+      if (!clients.isEmpty()) {
+        ClientEntity lastClient = clients.stream()
+            .max(Comparator.comparing(ClientEntity::getLastRentedDate))
+            .orElseThrow(NoSuchElementException::new);
+        dto.setClientRented(lastClient.getName());
+      }
     }
     return dto;
   }

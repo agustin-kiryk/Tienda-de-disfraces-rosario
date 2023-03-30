@@ -2,6 +2,7 @@ package com.dsi.appDisfraces.controller;
 
 import com.dsi.appDisfraces.dto.TransactionDTO;
 import com.dsi.appDisfraces.service.ITransactionService;
+import jakarta.validation.Valid;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -23,7 +24,7 @@ public class TransactionController {
 
 
   @PostMapping("/newTransaction")
-  ResponseEntity<TransactionDTO> createTransaction(@RequestBody TransactionDTO transactionDTO){
+  ResponseEntity<TransactionDTO> createTransaction(@Valid @RequestBody TransactionDTO transactionDTO){
     TransactionDTO result = transactionService.create(transactionDTO);
     return ResponseEntity.status(HttpStatus.CREATED).body(result);
   }

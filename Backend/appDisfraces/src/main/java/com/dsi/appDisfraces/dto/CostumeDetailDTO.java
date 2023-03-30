@@ -1,5 +1,6 @@
 package com.dsi.appDisfraces.dto;
 
+import java.time.LocalDate;
 import lombok.Data;
 
 @Data
@@ -10,7 +11,7 @@ public class CostumeDetailDTO {
   private String colour;
   private String detail;
   private String image;
-  private String creationDay;
+  private LocalDate creationDay;
   private String status;
   private String lastClientRented;
 
