@@ -1,6 +1,7 @@
 package com.dsi.appDisfraces.service;
 
 import com.dsi.appDisfraces.dto.CostumeDetailDTO;
+import com.dsi.appDisfraces.dto.CostumeHistoryDTO;
 import com.dsi.appDisfraces.dto.CostumeRequestDTO;
 import com.dsi.appDisfraces.dto.CostumeTableDTO;
 import java.util.List;
@@ -16,4 +17,6 @@ public interface IcostumeService {
   CostumeRequestDTO update(Long id, CostumeRequestDTO newCostume);
 
   void delete(Long id);
+
+  CostumeHistoryDTO getHistory(Long id);
 }

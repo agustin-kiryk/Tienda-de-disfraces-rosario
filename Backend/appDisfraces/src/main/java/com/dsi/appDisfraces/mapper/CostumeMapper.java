@@ -1,9 +1,14 @@
 package com.dsi.appDisfraces.mapper;
 
+import com.dsi.appDisfraces.dto.ClientHistoryDTO;
 import com.dsi.appDisfraces.dto.ClientTableDto;
+import com.dsi.appDisfraces.dto.ClientsDTO;
+import com.dsi.appDisfraces.dto.CostumeDTO;
 import com.dsi.appDisfraces.dto.CostumeDetailDTO;
+import com.dsi.appDisfraces.dto.CostumeHistoryDTO;
 import com.dsi.appDisfraces.dto.CostumeRequestDTO;
 import com.dsi.appDisfraces.dto.CostumeTableDTO;
+import com.dsi.appDisfraces.dto.TransactionDTO;
 import com.dsi.appDisfraces.entity.ClientEntity;
 import com.dsi.appDisfraces.entity.CostumeEntity;
 
@@ -14,10 +19,15 @@ import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.stream.Collectors;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
 public class CostumeMapper {
+
+  @Autowired
+  TransactionMapper transactionMapper;
 
   public CostumeEntity costumeDTO2Entity(CostumeRequestDTO dto) {
     CostumeEntity entity = new CostumeEntity();
@@ -100,5 +110,26 @@ public class CostumeMapper {
     entity.setColour(costumeDTO.getColour());
     entity.setDetail(costumeDTO.getDetail());
     entity.setImage(costumeDTO.getImage());
+  }
+
+  public CostumeHistoryDTO costumeHistoryEntity2Dto(CostumeEntity entity) {
+    CostumeHistoryDTO dto = new CostumeHistoryDTO();
+    dto.setName(entity.getName());
+    dto.setId(entity.getId());
+    dto.setDetail(entity.getDetail());
+    List<ClientsDTO> clients = entity.getClients().stream().map(ClientEntity->{
+          ClientsDTO clientsDTO = new ClientsDTO();
+          clientsDTO.setName(ClientEntity.getName());
+          clientsDTO.setId(ClientEntity.getId());
+          clientsDTO.setDocumentNumber(ClientEntity.getDocumentNumber());
+          return clientsDTO;
+        }).
+        collect(Collectors.toList());
+    dto.setClients(clients);
+    List<TransactionDTO> transactions = entity.getTransactions().stream()
+        .map(transactionMapper::transactionEntityToDTO)
+        .collect(Collectors.toList());
+    dto.setTransactions(transactions);
+    return dto;
   }
 }

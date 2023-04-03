@@ -1,7 +1,9 @@
 package com.dsi.appDisfraces.service.impl;
 
+import com.dsi.appDisfraces.dto.ClientHistoryDTO;
 import com.dsi.appDisfraces.dto.ClientRequestDTO;
 import com.dsi.appDisfraces.dto.CostumeDetailDTO;
+import com.dsi.appDisfraces.dto.CostumeHistoryDTO;
 import com.dsi.appDisfraces.dto.CostumeRequestDTO;
 import com.dsi.appDisfraces.dto.CostumeTableDTO;
 import com.dsi.appDisfraces.entity.ClientEntity;
@@ -62,6 +64,15 @@ public class CostumeServiceImpl implements IcostumeService {
     CostumeEntity entity = this.costumeRepository.findById(id).orElseThrow(
         ()-> new ParamNotFound("El id del disfraz es invalido"));
     this.costumeRepository.deleteById(id);
+  }
+
+  @Override
+  public CostumeHistoryDTO getHistory(Long id) {
+    CostumeEntity entity = this.costumeRepository.findById(id).orElseThrow(
+        ()-> new ParamNotFound("El id del disfraz no existe"));
+    CostumeHistoryDTO history = costumeMapper.costumeHistoryEntity2Dto(entity);
+    return history;
+
   }
 
 }

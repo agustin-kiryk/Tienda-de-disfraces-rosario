@@ -1,6 +1,8 @@
 package com.dsi.appDisfraces.controller;
 
+import com.dsi.appDisfraces.dto.ClientHistoryDTO;
 import com.dsi.appDisfraces.dto.CostumeDetailDTO;
+import com.dsi.appDisfraces.dto.CostumeHistoryDTO;
 import com.dsi.appDisfraces.dto.CostumeRequestDTO;
 import com.dsi.appDisfraces.dto.CostumeTableDTO;
 import com.dsi.appDisfraces.repository.ICostumeRepository;
@@ -64,6 +66,12 @@ public class CostumeController {
   public ResponseEntity<Void> deleteCotume(@PathVariable Long id){
     this.costumeService.delete(id);
     return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+  }
+
+  @GetMapping("/{id}/history")
+  public ResponseEntity<CostumeHistoryDTO> costumeHistory(@PathVariable Long id){
+    CostumeHistoryDTO history = this.costumeService.getHistory(id);
+    return ResponseEntity.ok(history);
   }
 
 
