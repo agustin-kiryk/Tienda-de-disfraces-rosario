@@ -1,4 +1,5 @@
 com\dsi\appDisfraces\service\ITransactionService.class
+com\dsi\appDisfraces\dto\ClientsDTO.class
 com\dsi\appDisfraces\auth\utilities.class
 com\dsi\appDisfraces\dto\TransactionDTO.class
 com\dsi\appDisfraces\service\impl\ITransactionServiceImpl.class
@@ -17,6 +18,7 @@ com\dsi\appDisfraces\service\IcostumeService.class
 com\dsi\appDisfraces\dto\CostumeRequestDTO.class
 com\dsi\appDisfraces\exception\RepeatedUsername.class
 com\dsi\appDisfraces\mapper\CostumeMapper.class
+com\dsi\appDisfraces\dto\CostumeHistoryDTO.class
 com\dsi\appDisfraces\mapper\TransactionMapper.class
 com\dsi\appDisfraces\service\IClientService.class
 com\dsi\appDisfraces\dto\CostumeDetailDTO.class
