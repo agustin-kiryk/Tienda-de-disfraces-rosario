@@ -20,4 +20,6 @@ public interface IClientService {
   void delete(Long id);
 
   ClientHistoryDTO getHistory(Long id);
+
+  ClientRequestDTO getDetailByDocument(String documentNumber);
 }

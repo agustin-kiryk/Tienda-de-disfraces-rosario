@@ -50,6 +50,12 @@ public class ClientController {
     ClientRequestDTO client = this.clientService.getDetailsById(id);
     return ResponseEntity.ok(client);
   }
+
+  @GetMapping("/document/{documentNumber}")
+  public ResponseEntity<ClientRequestDTO> getClientByDocument(@PathVariable String documentNumber){
+    ClientRequestDTO client = clientService.getDetailByDocument(documentNumber);
+    return ResponseEntity.ok(client);
+  }
       //Trae la lista basica de clientes con el ULTIMO disfraz alquilado,
   @GetMapping
   public ResponseEntity<List<ClientTableDto>> getAllClients(){

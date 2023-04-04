@@ -52,6 +52,17 @@ public class ClientServiceImpl implements IClientService {
   }
 
   @Override
+  public ClientRequestDTO getDetailByDocument(String documentNumber) {
+    ClientEntity entity = clientRepository.findByDocumentNumber(documentNumber);
+    if (entity==null){
+      throw new ParamNotFound("El dni es incorrecto o no esta registrado como cliente");
+    }
+    ClientRequestDTO clienDTO = this.clientMapper.clientEntity2Dto(entity);
+
+    return clienDTO;
+  }
+
+  @Override
   public List<ClientTableDto> findAll() {
     List<ClientEntity> entities = this.clientRepository.findAll();
     List<ClientTableDto> result = this.clientMapper.clientEntityList2DTOList(entities);
@@ -86,6 +97,8 @@ public class ClientServiceImpl implements IClientService {
     ClientHistoryDTO history = clientMapper.clientHistoryEntity2Dto(entity);
     return history;
   }
+
+
 
 }
  
