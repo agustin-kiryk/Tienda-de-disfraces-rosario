@@ -9,6 +9,7 @@ public class CostumeDTO {
   private String name;
   private LocalDate deadLine;
   private LocalDate reservationDate;
+  private String image;
 
 
 }

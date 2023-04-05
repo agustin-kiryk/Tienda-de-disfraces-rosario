@@ -14,5 +14,6 @@ public class CostumeTableDTO {
   private LocalDate reservationDate;
   private LocalDate deadlineDate;
   private CostumeStatus costumeStatus;
+  private String image;
 
 }

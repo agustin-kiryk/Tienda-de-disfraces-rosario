@@ -87,6 +87,7 @@ public class ClientMapper {
    dto.setDeadLine(entity.getDeadLine());
    dto.setName(entity.getName());
 
+
     return dto;
   }
 
@@ -122,6 +123,7 @@ public class ClientMapper {
       costumeDTO.setName(CostumeEntity.getName());
       costumeDTO.setDeadLine(CostumeEntity.getDeadLine());
       costumeDTO.setReservationDate(CostumeEntity.getReservationDate());
+      costumeDTO.setImage(CostumeEntity.getImage());
       return costumeDTO;
         }).
         collect(Collectors.toList());
