@@ -29,11 +29,11 @@ public class TransactionEntity {
   @Column(name = "id", nullable = false)
   private Long id;
 
-  @ManyToOne(fetch = FetchType.LAZY)
+  @ManyToOne(fetch = FetchType.EAGER)
   @JoinColumn(name = "Cliente_id", referencedColumnName = "id")
   private ClientEntity client;
 
-  @ManyToMany(fetch = FetchType.LAZY)
+  @ManyToMany(fetch = FetchType.EAGER)
   @JoinTable(name = "Transaccion_Disfraz",
       joinColumns = @JoinColumn(name = "Transaccion_id"),
       inverseJoinColumns = @JoinColumn(name = "Disfraz_id")

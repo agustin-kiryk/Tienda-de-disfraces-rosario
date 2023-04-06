@@ -72,7 +72,7 @@ public class CostumeEntity {
   @Column ( name= "Color")
   private String colour;
 
-  @ManyToMany(mappedBy = "disfraces", cascade = CascadeType.PERSIST) //TODO: Revisar que la cascade ande ok.
+  @ManyToMany(mappedBy = "disfraces", cascade = CascadeType.PERSIST,fetch = FetchType.EAGER) //TODO: Revisar que la cascade ande ok.
 
   private Set<TransactionEntity> transactions = new HashSet<>();
 

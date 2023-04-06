@@ -73,7 +73,7 @@ public class ClientEntity {
   @CreationTimestamp
   private LocalDate createDataTime;
 
-  @ManyToMany(fetch = FetchType.LAZY)
+  @ManyToMany(fetch = FetchType.EAGER)
   @JoinTable(
       name= "Disfraz_Cliente",
       joinColumns = @JoinColumn(name= "Cliente_id"),
@@ -86,7 +86,7 @@ public class ClientEntity {
   @Column(name = "Last_Rented_Date")
   private LocalDate lastRentedDate;
 
-  @OneToMany(mappedBy = "client", fetch = FetchType.LAZY, //TODO: revisar que lacascada este ok
+  @OneToMany(mappedBy = "client", fetch = FetchType.EAGER, //TODO: revisar que lacascada este ok
       cascade = CascadeType.ALL)
   private List<TransactionEntity> transactions = new ArrayList<>();
 
