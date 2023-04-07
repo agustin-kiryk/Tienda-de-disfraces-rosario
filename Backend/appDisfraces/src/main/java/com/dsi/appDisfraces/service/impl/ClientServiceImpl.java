@@ -57,7 +57,7 @@ public class ClientServiceImpl implements IClientService {
   public ClientRequestDTO getDetailByDocument(String documentNumber) {
     ClientEntity entity = clientRepository.findByDocumentNumber(documentNumber);
     if (entity==null){
-      throw new IdNotFound("El cliente con dni"+documentNumber+"no se encuentra en la base de datos");
+      throw new IdNotFound("El cliente con dni"+ ""+documentNumber+""+"   no se encuentra en la base de datos");
     }
     ClientRequestDTO clienDTO = this.clientMapper.clientEntity2Dto(entity);
 
@@ -77,7 +77,7 @@ public class ClientServiceImpl implements IClientService {
   public ClientRequestDTO update(Long id, ClientRequestDTO clientRequestDTO) {
     Optional<ClientEntity> entity = this.clientRepository.findById(id);
     ClientEntity client = entity.orElseThrow(
-        ()-> new IllegalArgumentException("El ID del cleinte es invalido"));
+        ()-> new ParamNotFound("El ID del cleinte es invalido"));
     this.clientMapper.clientEntityUpdate(client, clientRequestDTO);
     ClientEntity updateEntity = this.clientRepository.save(client);
     ClientRequestDTO result = clientMapper.clientEntity2Dto(updateEntity);

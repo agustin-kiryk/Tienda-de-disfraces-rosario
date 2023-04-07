@@ -8,6 +8,7 @@ import com.dsi.appDisfraces.dto.CostumeRequestDTO;
 import com.dsi.appDisfraces.dto.CostumeTableDTO;
 import com.dsi.appDisfraces.entity.ClientEntity;
 import com.dsi.appDisfraces.entity.CostumeEntity;
+import com.dsi.appDisfraces.exception.IdNotFound;
 import com.dsi.appDisfraces.exception.ParamNotFound;
 import com.dsi.appDisfraces.mapper.CostumeMapper;
 import com.dsi.appDisfraces.repository.ICostumeRepository;
@@ -36,7 +37,7 @@ public class CostumeServiceImpl implements IcostumeService {
   @Override
   public CostumeDetailDTO getDetailsById(Long id) {
     CostumeEntity entity = this.costumeRepository.findById(id).orElseThrow(
-        ()-> new ParamNotFound("El ID del disfraz no existe"));
+        ()-> new IdNotFound("El ID del disfraz no existe"));
     CostumeDetailDTO dto = costumeMapper.costumeDetailEntity2DTO(entity);
     return dto;
   }
@@ -51,7 +52,7 @@ public class CostumeServiceImpl implements IcostumeService {
   @Override
   public CostumeRequestDTO update(Long id, CostumeRequestDTO newCostumeDTO) {
     CostumeEntity entity = this.costumeRepository.findById(id).orElseThrow(
-        ()-> new IllegalArgumentException("El id del disfraz es invalido"));
+        ()-> new IdNotFound("El id del disfraz es invalido"));
     this.costumeMapper.costumeUpdateEntity2DTO(entity, newCostumeDTO);
     CostumeEntity updateEntity = this.costumeRepository.save(entity);
     CostumeRequestDTO result = costumeMapper.costumeEntity2DTO(updateEntity);
@@ -62,14 +63,14 @@ public class CostumeServiceImpl implements IcostumeService {
   @Override
   public void delete(Long id) {
     CostumeEntity entity = this.costumeRepository.findById(id).orElseThrow(
-        ()-> new ParamNotFound("El id del disfraz es invalido"));
+        ()-> new IdNotFound("El id del disfraz es invalido"));
     this.costumeRepository.deleteById(id);
   }
 
   @Override
   public CostumeHistoryDTO getHistory(Long id) {
     CostumeEntity entity = this.costumeRepository.findById(id).orElseThrow(
-        ()-> new ParamNotFound("El id del disfraz no existe"));
+        ()-> new IdNotFound("El id del disfraz no existe"));
     CostumeHistoryDTO history = costumeMapper.costumeHistoryEntity2Dto(entity);
     return history;
 
