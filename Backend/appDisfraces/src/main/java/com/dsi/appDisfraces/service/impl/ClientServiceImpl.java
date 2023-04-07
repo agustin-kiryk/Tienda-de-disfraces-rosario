@@ -15,6 +15,7 @@ import java.util.List;
 import java.util.Optional;
 import javax.swing.text.html.parser.Entity;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -56,7 +57,7 @@ public class ClientServiceImpl implements IClientService {
   public ClientRequestDTO getDetailByDocument(String documentNumber) {
     ClientEntity entity = clientRepository.findByDocumentNumber(documentNumber);
     if (entity==null){
-      throw new IdNotFound("dni no encontrado");
+      throw new IdNotFound("El cliente con dni"+documentNumber+"no se encuentra en la base de datos");
     }
     ClientRequestDTO clienDTO = this.clientMapper.clientEntity2Dto(entity);
 
