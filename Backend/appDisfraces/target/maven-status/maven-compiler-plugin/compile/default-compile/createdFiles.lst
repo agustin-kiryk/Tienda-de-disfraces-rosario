@@ -1,4 +1,5 @@
 com\dsi\appDisfraces\service\ITransactionService.class
+com\dsi\appDisfraces\exception\ErrorDetails.class
 com\dsi\appDisfraces\dto\ClientsDTO.class
 com\dsi\appDisfraces\auth\utilities.class
 com\dsi\appDisfraces\dto\TransactionDTO.class
@@ -11,6 +12,7 @@ com\dsi\appDisfraces\dto\CostumeTableDTO.class
 com\dsi\appDisfraces\entity\ClientEntity.class
 com\dsi\appDisfraces\enumeration\CostumeStatus.class
 com\dsi\appDisfraces\auth\service\seeders\StartData.class
+com\dsi\appDisfraces\exception\CustomExceptionHandler.class
 com\dsi\appDisfraces\service\impl\CostumeServiceImpl.class
 com\dsi\appDisfraces\entity\CostumeEntity.class
 com\dsi\appDisfraces\exception\ParamNotFound.class
@@ -26,6 +28,7 @@ com\dsi\appDisfraces\repository\ICostumeRepository.class
 com\dsi\appDisfraces\service\impl\ClientServiceImpl.class
 com\dsi\appDisfraces\dto\ClientRequestDTO.class
 com\dsi\appDisfraces\controller\TransactionController.class
+com\dsi\appDisfraces\exception\IdNotFound.class
 com\dsi\appDisfraces\dto\CostumeDTO.class
 com\dsi\appDisfraces\entity\TransactionEntity.class
 com\dsi\appDisfraces\controller\CostumeController.class

@@ -4,6 +4,7 @@ import com.dsi.appDisfraces.dto.ClientHistoryDTO;
 import com.dsi.appDisfraces.dto.ClientRequestDTO;
 import com.dsi.appDisfraces.dto.ClientTableDto;
 import com.dsi.appDisfraces.entity.ClientEntity;
+import com.dsi.appDisfraces.exception.IdNotFound;
 import com.dsi.appDisfraces.exception.ParamNotFound;
 import com.dsi.appDisfraces.exception.RepeatedUsername;
 import com.dsi.appDisfraces.mapper.ClientMapper;
@@ -55,7 +56,7 @@ public class ClientServiceImpl implements IClientService {
   public ClientRequestDTO getDetailByDocument(String documentNumber) {
     ClientEntity entity = clientRepository.findByDocumentNumber(documentNumber);
     if (entity==null){
-      throw new ParamNotFound("El dni es incorrecto o no esta registrado como cliente");
+      throw new IdNotFound("dni no encontrado");
     }
     ClientRequestDTO clienDTO = this.clientMapper.clientEntity2Dto(entity);
 
