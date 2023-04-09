@@ -28,13 +28,8 @@ public class ClientServiceImpl implements IClientService {
   @Override
   public ClientRequestDTO save(ClientRequestDTO dto){
 
-  /*  Optional<ClientEntity> entity = this.clientRepository.
-        findByDocumentNumber(dto.getDocumentNumber());
-    if (!entity.isPresent()){
-      new ParamNotFound("usuario repetido");
-    }*/
-    ClientEntity user = clientRepository.findByDocumentNumber(dto.getDocumentNumber());
-    if(user != null) {
+    Optional<ClientEntity> user = clientRepository.findByDocumentNumber(dto.getDocumentNumber());
+    if(user.isPresent()) {
       throw new ParamNotFound("El nombre de usuario ya está en uso");
     }
 
@@ -55,10 +50,8 @@ public class ClientServiceImpl implements IClientService {
 
   @Override
   public ClientRequestDTO getDetailByDocument(String documentNumber) {
-    ClientEntity entity = clientRepository.findByDocumentNumber(documentNumber);
-    if (entity==null){
-      throw new IdNotFound("El cliente con dni"+ ""+documentNumber+""+"   no se encuentra en la base de datos");
-    }
+    ClientEntity entity = clientRepository.findByDocumentNumber(documentNumber).orElseThrow(
+        ()->new ParamNotFound("El nuemro de DNI "+documentNumber+" no se encuentra en la base de datos"));
     ClientRequestDTO clienDTO = this.clientMapper.clientEntity2Dto(entity);
 
     return clienDTO;

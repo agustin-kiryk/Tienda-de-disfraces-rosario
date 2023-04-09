@@ -4,6 +4,7 @@ import com.dsi.appDisfraces.dto.CostumeDetailDTO;
 import com.dsi.appDisfraces.dto.CostumeHistoryDTO;
 import com.dsi.appDisfraces.dto.CostumeRequestDTO;
 import com.dsi.appDisfraces.dto.CostumeTableDTO;
+import com.dsi.appDisfraces.dto.ReturnDTO;
 import java.util.List;
 
 public interface IcostumeService {
@@ -19,4 +20,6 @@ public interface IcostumeService {
   void delete(Long id);
 
   CostumeHistoryDTO getHistory(Long id);
+
+  void returnAndUpdate(ReturnDTO returnDTO);
 }

@@ -59,6 +59,10 @@ public class TransactionEntity {
   @Column(name = "Fecha_pago")
   private LocalDate date;
 
+  @Column(name = "completa")
+  private Boolean complete;
+
+
 
 
 

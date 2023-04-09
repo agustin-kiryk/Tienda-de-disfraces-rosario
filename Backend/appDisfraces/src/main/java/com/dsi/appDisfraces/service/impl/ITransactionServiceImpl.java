@@ -54,22 +54,34 @@ public class ITransactionServiceImpl implements ITransactionService {
       CostumeEntity costume = costumeRepository.findById(costumeId)
           .orElseThrow(() -> new ParamNotFound("No existe un disfraz con el ID " + costumeId + ", verifique nuevamente"));
 
-      if (costume.getStatus() == CostumeStatus.ALQUILADO) {
+     /* if (costume.getStatus() == CostumeStatus.ALQUILADO) {
         throw new ParamNotFound("El disfraz " + costume.getName() + " con ID " + costumeId + " ya se encuentra alquilado.");
-      }
+      }*/
 
       LocalDate returnDate = transactionDTO.getDeadline();
 
       List<TransactionEntity> transactions = transactionRepository.findAllByDisfracesId(costumeId);
-
       for (TransactionEntity transaction : transactions) {
-        LocalDate reservationDate2 = transaction.getRentDate();
-        if (reservationDate2 != null && ((reservationDate2.isBefore(returnDate.plusDays(1)) && reservationDate2.isAfter(returnDate.minusDays(3)))
-            || (returnDate.isBefore(reservationDate2.plusDays(1)) && returnDate.isAfter(reservationDate2.minusDays(3))))) {
-          throw new ParamNotFound("El disfraz " + costume.getName() + " con ID " + costumeId + " se encuentra reservado para la fecha seleccionada.");
+        if (!transaction.getComplete()) {
+          LocalDate reservationDate2 = transaction.getRentDate();
+          if (reservationDate2 != null) {
+            LocalDate deadline2 = transaction.getDeadline();
+            if ((reservationDate2.isEqual(transactionDTO.getReservationDate()) || reservationDate2.isAfter(transactionDTO.getReservationDate())) && reservationDate2.isBefore(
+                transactionDTO.getDeadline())) {
+              throw new ParamNotFound("El disfraz " + costume.getName() + " con ID " + costumeId + " se encuentra reservado para la fecha seleccionada.");
+            } else if ((deadline2.isEqual(transactionDTO.getReservationDate()) || deadline2.isAfter(transactionDTO.getReservationDate())) && deadline2.isBefore(transactionDTO.getDeadline())) {
+              throw new ParamNotFound("El disfraz " + costume.getName() + " con ID " + costumeId + " se encuentra reservado para la fecha seleccionada.");
+            } else if (returnDate.equals(reservationDate2)) {
+              throw new ParamNotFound("El disfraz " + costume.getName() + " con ID " + costumeId + " ya está reservado para la fecha seleccionada.");
+            } else if ((reservationDate2.isBefore(returnDate.plusDays(1)) && reservationDate2.isAfter(returnDate.minusDays(3)))
+                || (returnDate.isBefore(reservationDate2.plusDays(1)) && returnDate.isAfter(reservationDate2.minusDays(3)))) {
+              throw new ParamNotFound("El disfraz " + costume.getName() + " con ID " + costumeId + " se encuentra reservado para la fecha seleccionada.");
+            }
+          }
         }
-      }
 
+
+    }
       costumes.add(costume);
     }
 
@@ -81,6 +93,7 @@ public class ITransactionServiceImpl implements ITransactionService {
     transactionEntity.setAmmount(transactionDTO.getAmount());
     transactionEntity.setBillPayment(transactionDTO.getCheckIn());
     transactionEntity.setType(transactionDTO.getType());
+    transactionEntity.setComplete(false);
     transactionRepository.save(transactionEntity);
 
     LocalDate reservationDate = transactionDTO.getReservationDate();
