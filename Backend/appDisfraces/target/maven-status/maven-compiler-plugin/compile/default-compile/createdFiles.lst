@@ -22,6 +22,7 @@ com\dsi\appDisfraces\exception\RepeatedUsername.class
 com\dsi\appDisfraces\mapper\CostumeMapper.class
 com\dsi\appDisfraces\dto\CostumeHistoryDTO.class
 com\dsi\appDisfraces\mapper\TransactionMapper.class
+com\dsi\appDisfraces\dto\ReturnDTO.class
 com\dsi\appDisfraces\service\IClientService.class
 com\dsi\appDisfraces\dto\CostumeDetailDTO.class
 com\dsi\appDisfraces\repository\ICostumeRepository.class
