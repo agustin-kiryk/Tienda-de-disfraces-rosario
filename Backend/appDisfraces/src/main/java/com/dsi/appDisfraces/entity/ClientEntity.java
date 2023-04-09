@@ -73,7 +73,7 @@ public class ClientEntity {
   @CreationTimestamp
   private LocalDate createDataTime;
 
-  @ManyToMany(fetch = FetchType.LAZY)
+  @ManyToMany(fetch = FetchType.LAZY,cascade = CascadeType.PERSIST)
   @JoinTable(
       name= "Disfraz_Cliente",
       joinColumns = @JoinColumn(name= "Cliente_id"),

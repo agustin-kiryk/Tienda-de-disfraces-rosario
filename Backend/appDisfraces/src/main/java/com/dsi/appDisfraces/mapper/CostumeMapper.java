@@ -12,6 +12,7 @@ import com.dsi.appDisfraces.dto.TransactionDTO;
 import com.dsi.appDisfraces.entity.ClientEntity;
 import com.dsi.appDisfraces.entity.CostumeEntity;
 
+import com.dsi.appDisfraces.entity.TransactionEntity;
 import com.dsi.appDisfraces.enumeration.CostumeStatus;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -19,6 +20,7 @@ import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Objects;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -91,18 +93,29 @@ public class CostumeMapper {
     dto.setName(entity.getName());
     dto.setDetail(entity.getDetail());
     dto.setCostumeStatus(entity.getStatus());
-    if (entity.getStatus().equals(CostumeStatus.ALQUILADO)||
-        entity.getStatus().equals(CostumeStatus.RESERVADO)) {
+
+    if (entity.getStatus().equals(CostumeStatus.ALQUILADO) || entity.getStatus().equals(CostumeStatus.RESERVADO)) {
       dto.setDeadlineDate(entity.getDeadLine());
       dto.setReservationDate(entity.getReservationDate());
+
       List<ClientEntity> clients = entity.getClients();
       if (!clients.isEmpty()) {
-        ClientEntity lastClient = clients.stream()
-            .max(Comparator.comparing(ClientEntity::getLastRentedDate))
-            .orElseThrow(NoSuchElementException::new);
-        dto.setClientRented(lastClient.getName());
+        ClientEntity selectedClient = clients.get(0);
+        LocalDate closestDate = entity.getReservationDate();
+
+        for (ClientEntity client : clients) {
+          if (client.getLastRentedDate() != null && client.getLastRentedDate().isBefore(closestDate)) {
+            selectedClient = client;
+            closestDate = client.getLastRentedDate();
+          }
+        }
+
+        if (selectedClient != null) {
+          dto.setClientRented(selectedClient.getName());
+        }
       }
     }
+
     return dto;
   }
 

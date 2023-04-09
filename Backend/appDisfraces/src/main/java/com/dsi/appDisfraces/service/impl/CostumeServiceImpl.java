@@ -6,15 +6,23 @@ import com.dsi.appDisfraces.dto.CostumeDetailDTO;
 import com.dsi.appDisfraces.dto.CostumeHistoryDTO;
 import com.dsi.appDisfraces.dto.CostumeRequestDTO;
 import com.dsi.appDisfraces.dto.CostumeTableDTO;
+import com.dsi.appDisfraces.dto.ReturnDTO;
 import com.dsi.appDisfraces.entity.ClientEntity;
 import com.dsi.appDisfraces.entity.CostumeEntity;
+import com.dsi.appDisfraces.entity.TransactionEntity;
+import com.dsi.appDisfraces.enumeration.ClientStatus;
+import com.dsi.appDisfraces.enumeration.CostumeStatus;
 import com.dsi.appDisfraces.exception.IdNotFound;
 import com.dsi.appDisfraces.exception.ParamNotFound;
 import com.dsi.appDisfraces.mapper.CostumeMapper;
+import com.dsi.appDisfraces.repository.IClientRepository;
 import com.dsi.appDisfraces.repository.ICostumeRepository;
+import com.dsi.appDisfraces.repository.ITransactionRepository;
 import com.dsi.appDisfraces.service.IcostumeService;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,6 +33,10 @@ public class CostumeServiceImpl implements IcostumeService {
   CostumeMapper costumeMapper;
   @Autowired
   ICostumeRepository costumeRepository;
+  @Autowired
+  IClientRepository clientRepository;
+  @Autowired
+  ITransactionRepository transactionRepository;
 
   @Override
   public CostumeRequestDTO saveCostume(CostumeRequestDTO costumeDTO) {
@@ -75,6 +87,43 @@ public class CostumeServiceImpl implements IcostumeService {
     return history;
 
   }
+
+  @Override
+  public void returnAndUpdate(ReturnDTO returnDTO) {
+
+    TransactionEntity transaction = transactionRepository.findById(returnDTO.getTransactionId()).orElseThrow(
+        ()->new IdNotFound("El id "+returnDTO.getTransactionId()+" no existe en la base de datos"));
+
+   ClientEntity client = this.clientRepository.findByDocumentNumber(returnDTO.getClientDocument()).orElseThrow(
+       ()->new ParamNotFound("El dni "+returnDTO.getClientDocument()+"  No existe en la base de datos"));
+
+    Set<CostumeEntity> costumes = new HashSet<>();
+
+    for (Long costumeId : returnDTO.getCostumesIds()){
+      CostumeEntity costume = costumeRepository.findById(costumeId).orElseThrow(
+          ()->new IdNotFound("El id "+costumeId+"  no existe en la base de datos"));
+      if(!costume.getClients().contains(client)){
+        throw new ParamNotFound("el cliente  "+client.getName()+" "+client.getLastName()+"  no tiene el disfraz con id "+costumeId);
+      }
+      costume.setStatus(CostumeStatus.DISPONIBLE);
+      costume.setReservationDate(null);
+      costume.setDeadLine(null);
+      costume.getClients().remove(client);
+      costumes.add(costume);
+    }
+
+    client.setClientStatus(ClientStatus.INACTIVO);
+    client.getCustomes().removeAll(costumes);
+    transaction.setComplete(true);
+    clientRepository.save(client);
+    costumeRepository.saveAll(costumes);
+    transactionRepository.save(transaction);
+
+
+
+  }
+  //TODO : HACER UN REFRESHVALUES CUANDO SE DEVUELVE UN DISFRAZ QUE ESTA RESERVADO DOS VECES Y VER EL FLUJO CUANDO SE RESERVA DOS VECES EL MISMO DIFRAZ PARA OTRA FECHA
+
 
 }
 
