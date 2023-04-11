@@ -1,8 +1,10 @@
 package com.dsi.appDisfraces.mapper;
 
+import com.dsi.appDisfraces.dto.CostumeTableDTO;
 import com.dsi.appDisfraces.dto.TransactionDTO;
 import com.dsi.appDisfraces.entity.CostumeEntity;
 import com.dsi.appDisfraces.entity.TransactionEntity;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.springframework.stereotype.Component;
@@ -30,4 +32,11 @@ public class TransactionMapper {
   }
 
 
+  public List<TransactionDTO> transactionEntityList2DTOList(List<TransactionEntity> transactions) {
+    List<TransactionDTO> dtos = new ArrayList<>();
+    for (TransactionEntity entity : transactions) {
+      dtos.add(transactionEntityToDTO(entity));
+    }
+    return dtos;
+  }
 }

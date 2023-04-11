@@ -6,6 +6,7 @@ import com.dsi.appDisfraces.entity.CostumeEntity;
 import com.dsi.appDisfraces.entity.TransactionEntity;
 import com.dsi.appDisfraces.enumeration.ClientStatus;
 import com.dsi.appDisfraces.enumeration.CostumeStatus;
+import com.dsi.appDisfraces.exception.IdNotFound;
 import com.dsi.appDisfraces.exception.ParamNotFound;
 import com.dsi.appDisfraces.mapper.TransactionMapper;
 import com.dsi.appDisfraces.repository.IClientRepository;
@@ -40,6 +41,21 @@ public class ITransactionServiceImpl implements ITransactionService {
   public String getCostumeNameById(Long id) {
     CostumeEntity costume = costumeRepository.findById(id).orElse(null);
     return costume != null ? costume.getName() : null;
+  }
+
+  @Override
+  public List<TransactionDTO> findAll() {
+    List<TransactionEntity> transactions = transactionRepository.findAll();
+    List<TransactionDTO> result = transactionMapper.transactionEntityList2DTOList(transactions);
+    return result;
+  }
+
+  @Override
+  public TransactionDTO getDetailById(Long id) {
+    TransactionEntity transaction = transactionRepository.findById(id).orElseThrow(
+        ()->new IdNotFound("El id "+id+" no se encntra en la base de datos"));
+    TransactionDTO result = transactionMapper.transactionEntityToDTO(transaction);
+    return result;
   }
 
   @Transactional
@@ -81,7 +97,7 @@ public class ITransactionServiceImpl implements ITransactionService {
         }
 
 
-    }
+      }
       costumes.add(costume);
     }
 

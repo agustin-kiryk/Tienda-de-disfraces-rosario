@@ -31,10 +31,15 @@ public class TransactionController {
   }
 
 
-  /*@GetMapping()
+  @GetMapping("")
   ResponseEntity<List<TransactionDTO>> getAll(){
     List<TransactionDTO> transactions = transactionService.findAll();
     return ResponseEntity.ok(transactions);
-  }*/
+  }
 
+  @GetMapping("{id}")
+  ResponseEntity<TransactionDTO> transactionById(Long id){
+    TransactionDTO transaction = transactionService.getDetailById(id);
+    return ResponseEntity.ok(transaction);
+  }
 }
