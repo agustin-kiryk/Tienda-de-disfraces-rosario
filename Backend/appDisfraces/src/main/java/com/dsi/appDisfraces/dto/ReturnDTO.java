@@ -9,5 +9,6 @@ public class ReturnDTO {
   private String clientDocument;
   private List<Long> costumesIds;
   private Long transactionId;
+  private Boolean devolution;
 
 }

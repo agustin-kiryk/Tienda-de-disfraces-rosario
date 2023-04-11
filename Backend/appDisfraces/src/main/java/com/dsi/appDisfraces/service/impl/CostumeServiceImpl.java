@@ -102,28 +102,41 @@ public class CostumeServiceImpl implements IcostumeService {
     for (Long costumeId : returnDTO.getCostumesIds()){
       CostumeEntity costume = costumeRepository.findById(costumeId).orElseThrow(
           ()->new IdNotFound("El id "+costumeId+"  no existe en la base de datos"));
+
+      if (!returnDTO.getDevolution()&&!costume.getClients().contains(client)){
+        throw new ParamNotFound("el cliente"+client.getName()+" "+client.getLastName()+" no reservó disfraz con id "+costumeId);
+      }
+
       if(!costume.getClients().contains(client)){
         throw new ParamNotFound("el cliente  "+client.getName()+" "+client.getLastName()+"  no tiene el disfraz con id "+costumeId);
       }
-      costume.setStatus(CostumeStatus.DISPONIBLE);
-      costume.setReservationDate(null);
-      costume.setDeadLine(null);
-      costume.getClients().remove(client);
+
+      if (!returnDTO.getDevolution()){
+        costume.setStatus(CostumeStatus.ALQUILADO);
+      }else {
+        costume.setStatus(CostumeStatus.DISPONIBLE);
+        costume.setReservationDate(null);
+        costume.setDeadLine(null);
+        costume.getClients().remove(client);
+      }
+
       costumes.add(costume);
     }
 
-    client.setClientStatus(ClientStatus.INACTIVO);
-    client.getCustomes().removeAll(costumes);
-    transaction.setComplete(true);
+    if (!returnDTO.getDevolution()){
+      client.setClientStatus(ClientStatus.ACTIVO);
+
+    }else {
+      client.setClientStatus(ClientStatus.INACTIVO);
+      transaction.setComplete(true);
+      client.getCustomes().removeAll(costumes);
+    }
+
     clientRepository.save(client);
     costumeRepository.saveAll(costumes);
     transactionRepository.save(transaction);
 
-
-
   }
-  //TODO : HACER UN REFRESHVALUES CUANDO SE DEVUELVE UN DISFRAZ QUE ESTA RESERVADO DOS VECES Y VER EL FLUJO CUANDO SE RESERVA DOS VECES EL MISMO DIFRAZ PARA OTRA FECHA
-
 
 }
 
