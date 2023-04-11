@@ -69,7 +69,7 @@ public class ITransactionServiceImpl implements ITransactionService {
             if ((reservationDate2.isEqual(transactionDTO.getReservationDate()) || reservationDate2.isAfter(transactionDTO.getReservationDate())) && reservationDate2.isBefore(
                 transactionDTO.getDeadline())) {
               throw new ParamNotFound("El disfraz " + costume.getName() + " con ID " + costumeId + " se encuentra reservado para la fecha seleccionada.");
-            } else if ((deadline2.isEqual(transactionDTO.getReservationDate()) || deadline2.isAfter(transactionDTO.getReservationDate())) && deadline2.isBefore(transactionDTO.getDeadline())) {
+            } else if (reservationDate2.isBefore(transactionDTO.getDeadline()) && deadline2.isAfter(transactionDTO.getReservationDate())) {
               throw new ParamNotFound("El disfraz " + costume.getName() + " con ID " + costumeId + " se encuentra reservado para la fecha seleccionada.");
             } else if (returnDate.equals(reservationDate2)) {
               throw new ParamNotFound("El disfraz " + costume.getName() + " con ID " + costumeId + " ya está reservado para la fecha seleccionada.");
