@@ -12,4 +12,6 @@ public interface ITransactionService {
   List<TransactionDTO> findAll();
 
   TransactionDTO getDetailById(Long id);
+
+  List<TransactionDTO> getDetailByDocumentNumber(String documentNumber);
 }

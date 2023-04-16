@@ -58,6 +58,15 @@ public class ITransactionServiceImpl implements ITransactionService {
     return result;
   }
 
+  @Override
+  public List<TransactionDTO> getDetailByDocumentNumber(String documentNumber) {
+    List<TransactionEntity> transactions = transactionRepository.findByClientDocumentNumber(documentNumber).orElseThrow(
+        ()-> new ParamNotFound("El número de documento " + documentNumber + " no se encuentra en la base de datos."));
+    List<TransactionDTO> result = transactionMapper.transactionEntityList2DTOList(transactions);
+    return result;
+  }
+
+
   @Transactional
   @Override
   public TransactionDTO create(TransactionDTO transactionDTO) {
@@ -140,3 +149,16 @@ public class ITransactionServiceImpl implements ITransactionService {
     return result;
   }
 }
+/*transaccion estados de pago aprove , pending , partial
+
+if(pagostate.aprove){
+ (transaction.getamount)=+ totalAmount
+}
+
+
+
+
+
+
+
+ */
