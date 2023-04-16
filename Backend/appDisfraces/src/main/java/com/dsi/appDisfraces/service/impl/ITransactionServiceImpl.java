@@ -4,6 +4,7 @@ import com.dsi.appDisfraces.dto.TransactionDTO;
 import com.dsi.appDisfraces.entity.ClientEntity;
 import com.dsi.appDisfraces.entity.CostumeEntity;
 import com.dsi.appDisfraces.entity.TransactionEntity;
+import com.dsi.appDisfraces.enumeration.AmountStatus;
 import com.dsi.appDisfraces.enumeration.ClientStatus;
 import com.dsi.appDisfraces.enumeration.CostumeStatus;
 import com.dsi.appDisfraces.exception.IdNotFound;
@@ -87,6 +88,7 @@ public class ITransactionServiceImpl implements ITransactionService {
 
       List<TransactionEntity> transactions = transactionRepository.findAllByDisfracesId(costumeId);
       for (TransactionEntity transaction : transactions) {
+        if ()
         if (!transaction.getComplete()) {
           LocalDate reservationDate2 = transaction.getRentDate();
           if (reservationDate2 != null) {
@@ -104,8 +106,6 @@ public class ITransactionServiceImpl implements ITransactionService {
             }
           }
         }
-
-
       }
       costumes.add(costume);
     }
@@ -115,10 +115,22 @@ public class ITransactionServiceImpl implements ITransactionService {
     transactionEntity.setDisfraces(costumes);
     transactionEntity.setRentDate(transactionDTO.getReservationDate());
     transactionEntity.setDeadline(transactionDTO.getDeadline());
-    transactionEntity.setAmmount(transactionDTO.getAmount());
     transactionEntity.setBillPayment(transactionDTO.getCheckIn());
     transactionEntity.setType(transactionDTO.getType());
     transactionEntity.setComplete(false);
+    transactionEntity.setAmmount(transactionDTO.getAmount());
+    transactionEntity.setPartialPayment(transactionDTO.getPartialPayment());
+    if (transactionDTO.getPartialPayment()==null||transactionDTO.getPartialPayment()==0) {
+      transactionEntity.setPending(0.0);
+    }else {transactionEntity.setPending(transactionDTO.getAmount() - transactionDTO.getPartialPayment());
+    }
+    if (transactionEntity.getPending()==0){
+      transactionEntity.setPartialPayment(0.0);
+      transactionEntity.setStatus(AmountStatus.APROVE);
+    }
+    if(transactionEntity.getPending()!=0){
+      transactionEntity.setStatus(AmountStatus.PENDING);
+    }
     transactionRepository.save(transactionEntity);
 
     LocalDate reservationDate = transactionDTO.getReservationDate();
@@ -145,9 +157,13 @@ public class ITransactionServiceImpl implements ITransactionService {
     result.setType(transactionEntity.getType());
     result.setAmount(transactionEntity.getAmmount());
     result.setCheckIn(transactionEntity.getBillPayment());
+    result.setPartialPayment(transactionEntity.getPartialPayment());
+    result.setPending(transactionEntity.getPending());
+    result.setStatusPayment(String.valueOf(transactionEntity.getStatus()));
+
 
     return result;
-  }
+  }//TODO: ACTUALIZAR STATUS DE AMOUNT CUNADO SE RETIRA UN DISFRAZ
 }
 /*transaccion estados de pago aprove , pending , partial
 
@@ -155,10 +171,10 @@ if(pagostate.aprove){
  (transaction.getamount)=+ totalAmount
 }
 
+AGREGAR BOTON QUE DIGA MONTO 1000 / PAGO PARCIAL 600 / PENDIENTE 400
 
-
-
-
+AGREGAR FUNCION EN FRONT QUE RESUELVA LA LOGICA DEL MONTO CON LOS PARCIALES, QUE VERIFIQUE ANTES DE ENVIAR LOS DATOS
+QUE EL PARCIAL Y EL PENDIENTE SUMEN EL TOTAL, SI ES QUE SON DIFERENTES DE NULL
 
 
  */

@@ -15,6 +15,8 @@ public class TransactionDTO {
 
   private Long id;
   private Double amount;
+  private Double partialPayment;
+  private Double pending;
   private String type;
   private Long clientId;
   @NotEmpty(message = "El campo id del disfraz a alquilar no puede ser nulo")
@@ -23,5 +25,6 @@ public class TransactionDTO {
   private LocalDate reservationDate;
   private LocalDate deadline;
   private String checkIn;
+  private String StatusPayment;
 
 }

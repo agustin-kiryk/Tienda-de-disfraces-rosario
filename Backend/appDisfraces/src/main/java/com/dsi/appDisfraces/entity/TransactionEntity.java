@@ -1,7 +1,10 @@
 package com.dsi.appDisfraces.entity;
 
+import com.dsi.appDisfraces.enumeration.AmountStatus;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -40,15 +43,11 @@ public class TransactionEntity {
   )
   private Set<CostumeEntity> disfraces = new HashSet<>();
 
-
   @Column(name = "Fecha_de_alquiler")
   private LocalDate rentDate;
 
   @Column(name = "Fecha_de_devolucion", nullable = true)
   private LocalDate deadline;
-
-  @Column(name = "Monto")
-  private Double ammount;
 
   @Column(name = "Tipo_de_pago")
   private String type;
@@ -62,15 +61,18 @@ public class TransactionEntity {
   @Column(name = "completa")
   private Boolean complete;
 
+  @Enumerated(EnumType.STRING)
+  @Column(name = "Status pago")
+  private AmountStatus status;
 
+  @Column(name="pago parcial")
+  private Double partialPayment;
 
+  @Column(name = "Monto")
+  private Double ammount;
 
-
-
-
-
-
-
+  @Column(name = "pendiente")
+  private Double pending;
 
 
 
