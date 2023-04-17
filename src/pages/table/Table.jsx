@@ -33,7 +33,7 @@ function ClientHistory() {
               <th style={{ padding: "0 10px" }}>Disfraz</th>
               <th style={{ padding: "0 10px" }}>Fecha de reserva</th>
               <th style={{ padding: "0 10px" }}>Fecha de entrega</th>
-              <th style={{ padding: "0 10px" }}>Check In</th>
+              <th style={{ padding: "0 10px" }}>Tipo de Factura</th>
             </tr>
           </thead>
           <tbody>
@@ -45,13 +45,13 @@ function ClientHistory() {
               <tr key={transaction.id}>
                 <td></td>
                 <td></td>
-                <td  style={{ padding: "0 40px" }}>{transaction.id}</td>
-                <td  style={{ padding: "0 10px" }}>{transaction.amount}</td>
-                <td  style={{ padding: "0 25px" }}>{transaction.type}</td>
-                <td  style={{ padding: "0 10px" }}>{transaction.names[0]}</td>
-                <td  style={{ padding: "0 10px" }}>{transaction.reservationDate}</td>
-                <td  style={{ padding: "0 10px" }}>{transaction.deadline}</td>
-                <td  style={{ padding: "0 10px" }}>{transaction.checkIn}</td>
+                <td  style={{ padding: "7px 40px" }}>{transaction.id}</td>
+                <td  style={{ padding: "7px 10px" }}>{transaction.amount}</td>
+                <td  style={{ padding: "7px 25px" }}>{transaction.type}</td>
+                <td  style={{ padding: "7px 10px" }}>{transaction.names[0]}</td>
+                <td  style={{ padding: "7px 10px" }}>{transaction.reservationDate}</td>
+                <td  style={{ padding: "7px 10px" }}>{transaction.deadline}</td>
+                <td  style={{ padding: "7px 10px" }}>{transaction.checkIn}</td>
               </tr>
             ))}
           </tbody>

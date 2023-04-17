@@ -9,6 +9,7 @@
     display: inline-block;
     cursor: pointer;
     outline: none;
+    margin-bottom: 10px;
     border: 0;
     vertical-align: middle;
     text-decoration: none;
@@ -33,8 +34,8 @@
     position: relative;
     display: block;
     margin: 0;
-    width: 4rem;
-    height: 4rem;
+    width: 3rem;
+    height: 3rem;
     background: #6439ff;
     border-radius: 1.625rem;
    }
@@ -71,7 +72,7 @@
    .learn-more2 .button-text {
     transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
     position: absolute;
-    top: 7wpx;
+    top: 7px;
     left: 0;
     right: 0;
     bottom: 0;

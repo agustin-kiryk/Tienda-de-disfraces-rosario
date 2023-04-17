@@ -46,7 +46,7 @@ export const userColumns = [
   {
     field: "status",
     headerName: "Status",
-    width: 120,
+    width: 160,
     renderCell: (params) => {
       return (
         <div className={`cellWithStatus ${params.row.status}`}>

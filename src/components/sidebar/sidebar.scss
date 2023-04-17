@@ -1,6 +1,6 @@
 .sidebar {
   flex: 1;
-  border-right: 0.5px solid #6439ff;
+  border-right: 0.5px solid #ff3939;
   min-height: 100vh;
   background-color: white;
 
@@ -101,6 +101,7 @@
 
 
 @media screen and (max-width: 1366px) {
+
   .logo{
     color: beige;
   }
@@ -128,6 +129,10 @@
       }
     }
   }
+}
+
+.sidebar{
+  background-color: #f6f2ff;
 }
   
     hr {

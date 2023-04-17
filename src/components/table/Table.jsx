@@ -8,7 +8,6 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import TextField from "@mui/material/TextField";
 
-
 const List = () => {
   const [searchText, setSearchText] = useState("");
   const [data, setData] = useState([]);
@@ -26,19 +25,20 @@ const List = () => {
 
   const filteredRows = data.filter(
     (row) =>
-      row.id.toString().includes(searchText) ||
-      row.name.toLowerCase().includes(searchText.toLowerCase()) ||
-      row.detail.toLowerCase().includes(searchText.toLowerCase()) ||
-      row.clientRented?.toLowerCase().includes(searchText.toLowerCase()) ||
-      row.reservationDate.toLowerCase().includes(searchText.toLowerCase()) ||
-      row.deadlineDate.toLowerCase().includes(searchText.toLowerCase()) ||
-      row.costumeStatus.toLowerCase().includes(searchText.toLowerCase())
+      row.id.toString().match(new RegExp(searchText, "i")) ||
+      (row.name && row.name.toString().match(new RegExp(searchText, "i"))) || // Agregar comprobación de nulidad y convertir a string
+      (row.detail && row.detail.toString().match(new RegExp(searchText, "i"))) || // Agregar comprobación de nulidad y convertir a string
+      (row.clientRented && row.clientRented.toString().match(new RegExp(searchText, "i"))) || // Agregar comprobación de nulidad y convertir a string
+      (row.reservationDate && row.reservationDate.toString().match(new RegExp(searchText, "i"))) || // Agregar comprobación de nulidad y convertir a string
+      (row.deadlineDate && row.deadlineDate.toString().match(new RegExp(searchText, "i"))) || // Agregar comprobación de nulidad y convertir a string
+      (row.costumeStatus && row.costumeStatus.toString().match(new RegExp(searchText, "i"))) // Agregar comprobación de nulidad y convertir a string
   );
 
+  
   return (
     <>
-      <TextField
-        label="Search"
+    <TextField
+        label="Buscar"
         value={searchText}
         onChange={handleSearchTextChange}
       />
@@ -47,6 +47,7 @@ const List = () => {
           <TableHead>
             <TableRow>
               <TableCell>ID</TableCell>
+              <TableCell>Imagen</TableCell>
               <TableCell>Nombre del Disfraz</TableCell>
               <TableCell>Detalle</TableCell>
               <TableCell>Cliente</TableCell>
@@ -59,20 +60,28 @@ const List = () => {
             {filteredRows.map((row) => (
               <TableRow key={row.id}>
                 <TableCell>{row.id}</TableCell>
+                <TableCell>
+                  <img
+                    src={row.image}
+                    alt={row.name}
+                    style={{ width: 100, height: 100 }}
+                  />
+                </TableCell>
                 <TableCell>{row.name}</TableCell>
                 <TableCell>{row.detail}</TableCell>
                 <TableCell>{row.clientRented || "-"}</TableCell>
                 <TableCell>{row.reservationDate}</TableCell>
                 <TableCell>{row.deadlineDate}</TableCell>
                 <TableCell>
-                  <span className={`status ${row.costumeStatus}`}>{row.costumeStatus}</span>
+                  <span className={`status ${row.costumeStatus}`}>
+                    {row.costumeStatus}
+                  </span>
                 </TableCell>
               </TableRow>
             ))}
           </TableBody>
         </Table>
       </TableContainer>
- 
     </>
   );
 };

@@ -1,26 +1,37 @@
+import React, { useState, useEffect } from "react";
 import "./disfraces.scss";
 import { DataGrid } from "@mui/x-data-grid";
 import { userColumns } from "../../datatablesource2";
-import UserTable, { userRows } from "../../datatablesource2";
+import UserTable, { userRows } from "../../disfra/datatablesource2";
 import { Link, useParams } from "react-router-dom";
-import { useState, useEffect  } from "react";
 import axios from "axios";
 
-
-const Datatable2 = () => {
+const Datatable2 = ({ onCostumeSelect }) => {
   const [data, setData] = useState([]);
+  const [selectedRows, setSelectedRows] = useState([]);
+  const [selectedCostumeIds, setSelectedCostumeIds] = useState([]);
 
-  const handleDelete = (id) => {
-    if (window.confirm("¿Estás seguro de que quieres borrar este cliente?")) {
-      axios
-        .delete(`https://disfraces-production.up.railway.app/costumes/${id}`)
-        .then(() => {
-          setData(data.filter((item) => item.id !== id));
-        })
-        .catch((error) => console.log(error));
+  const handleSelect = (id) => {
+    // Añadir la ID seleccionada a la lista de IDs previamente seleccionadas
+    const updatedIds = [...selectedCostumeIds, id];
+    setSelectedCostumeIds(updatedIds);
+    onCostumeSelect(id);
+
+    // Mostrar las IDs que se van sumando en la consola
+    console.log(`IDs seleccionadas: ${updatedIds.join(", ")}`);
+  };
+
+  const handleSelectionChange = (selection) => {
+    setSelectedRows(selection);
+  };
+
+  const handleSelectButtonClick = (params) => {
+    // Obtener la ID del disfraz seleccionado en la fila de la tabla
+    const costumeId = params.getValue(params.id, "id");
+    if (costumeId) {
+      handleSelect(costumeId);
     }
   };
-  
 
   const { id } = useParams(); // Obtener la ID de la URL
 
@@ -32,46 +43,49 @@ const Datatable2 = () => {
     fetchData();
   }, [id]);
 
-  const actionColumn = [
-    {
-      field: "action",
-      headerName: "Accion",
-      width: 190,
-      renderCell: (params) => {
-        return (
-          <div className="cellAction">
-            <Link to={`/single2/${params.row.id}`} style={{ textDecoration: "none" }}>
-              <div className="viewButton">Detalles</div>
-            </Link>
-            <div
-              className="deleteButton"
-              onClick={() => handleDelete(params.row.id)}
-            >
-              Borrar
-            </div>
-          </div>
-        );
-      },
-    },
-  ];
+  const CustomSelectButton = (params) => {
+    return (
+      <button
+        className="selectButton"
+        onClick={() => handleSelectButtonClick(params)}
+      >
+        Seleccionar
+      </button>
+    );
+  };
+  const handleCostumeSelect = (id) => {
+    // Añadir la ID seleccionada a la lista de IDs previamente seleccionadas
+    const updatedIds = [...selectedCostumeIds, id];
+    setSelectedCostumeIds(updatedIds);
+  };
+
   return (
     <div className="datatable">
-  
       <div className="tableWrapper">
-      <DataGrid
-        className="datagrid"
-        rows={data}
-        columns={userColumns.concat(actionColumn)}
-        pageSize={8}
-        rowsPerPageOptions={[8]}
-        checkboxSelection
-        autoHeight
-      />
-    </div>
+        <DataGrid
+          className="datagrid"
+          rows={data}
+          columns={[
+            ...userColumns,
+            {
+              field: "selectButton",
+              headerName: "Seleccionar",
+              width: 120,
+              renderCell: CustomSelectButton,
+            },
+          ]}
+          pageSize={8}
+          rowsPerPageOptions={[8]}
+          checkboxSelection
+          autoHeight
+          rowHeight={130}
+          onSelectionModelChange={(newSelectionModel) => {
+            setSelectedRows(newSelectionModel);
+          }}
+        />
+      </div>
     </div>
   );
 };
-
-
 
 export default Datatable2;

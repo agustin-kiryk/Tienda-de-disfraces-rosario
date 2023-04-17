@@ -73,17 +73,17 @@
     padding: 5px;
     border-radius: 5px;
 
-    &.Activo {
-      background-color: rgba(0, 128, 0, 0.05);
+    &.ACTIVO {
+      background-color: rgba(0, 255, 0, 0.171);
       color: green;
     }
-    &.Reserva {
-      background-color: rgba(255, 217, 0, 0.05);
+    &.CON_RESERVA {
+      background-color: rgba(255, 217, 0, 0.178);
       color: goldenrod;
     }
-    &.Inactivo {
-      background-color: rgba(255, 0, 0, 0.05);
-      color: crimson;
+    &.INACTIVO {
+      background-color: rgba(0, 4, 255, 0.164);
+      color: rgb(20, 23, 220);
     }
   }
 

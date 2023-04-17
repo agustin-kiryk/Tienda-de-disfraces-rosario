@@ -18,6 +18,7 @@ import Disfraces from "./components/disfraces/Disfraces";
 import Histfac from "./pages/histfac/Histfac";
 import Factele from "./pages/factele/Factele";
 import New3 from "./pages/nuevopedido/New";
+import New4 from "./pages/retiro/New";
 
 
 
@@ -45,6 +46,7 @@ function App() {
             <Route path="factele" element={<Factele />} />
             <Route path="disfraces" element={<Disfraces />} />
             <Route path="nuevopedido" element={<New3 />} />
+            <Route path="retiro" element={<New4 />} />
             
 
             <Route path="users">

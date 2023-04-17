@@ -19,8 +19,13 @@ const New = ({ inputs, title, apiUrl }) => {
     image: "",
   });
 
+  const [isButtonDisabled, setIsButtonDisabled] = useState(false);
+
+  const [isUploading, setIsUploading] = useState(false); 
+
   const handleImageUpload = async (e) => {
     e.preventDefault();
+    setIsUploading(true); // Establece el estado de isUploading a true para bloquear el botón de subir imagen
     const formData = new FormData();
     formData.append("file", file);
     formData.append("upload_preset", "qarsntph"); // Reemplaza "tu_upload_preset" con el nombre de tu upload preset en Cloudinary
@@ -30,8 +35,12 @@ const New = ({ inputs, title, apiUrl }) => {
         formData
       );
       setFormData({ ...formData, image: res.data.secure_url }); // Actualiza el estado del formulario con la URL de la imagen subida
+      //setIsUploading(false); // Establece el estado de isUploading a false una vez que la imagen se haya cargado
+      setIsButtonDisabled(true); 
+      alert("La imagen se subio correctamnte");
     } catch (err) {
       console.error(err);
+      setIsUploading(false); // Establece el estado de isUploading a false en caso de error
     }
   };
 
@@ -52,9 +61,12 @@ const New = ({ inputs, title, apiUrl }) => {
       })
       .then((response) => {
         console.log(response);
+        alert("Disfraz creado correctamente")
+        window.location.href = '/disfraces';
       })
       .catch((error) => {
         console.log(error);
+        alert("Faltan campos por rellenar")
       });
   };
 
@@ -63,6 +75,7 @@ const New = ({ inputs, title, apiUrl }) => {
   const handleInputChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
+
 
   return (
     <div className="new">
@@ -81,24 +94,34 @@ const New = ({ inputs, title, apiUrl }) => {
                   : "https://icon-library.com/images/no-image-icon/no-image-icon-0.jpg"
               }
               alt=""
+              style={{
+                width: "500px",
+                height: "400px",
+                borderRadius: "0" // Agrega esta línea para quitar los bordes redondeados
+              }}
             />
           </div>
           <div className="right">
             <form onSubmit={handleSubmit}>
               <div className="formInput">
                 <label htmlFor="image">Imagen:</label>
-             
+
                 <input
                   type="file" // Cambia el tipo de entrada a "file"
                   name="image"
                   onChange={handleFileChange} // Maneja la selección de archivos
                 />
-                   <button type="submit" className="submitButton" onClick={handleImageUpload}>
+                <button
+                  type="submit"
+                  className={`submitButton ${isUploading ? 'disabledButton' : ''}`} // Aplica la clase `disabledButton` si `isUploading` es `true`
+                  onClick={handleImageUpload}
+                  disabled={isButtonDisabled} // Deshabilitar el botón si se está cargando una imagen o si ya se ha cargado una imagen
+                >
                   Subir imagen
                 </button>
-                {imagePreview && (
+                {/*imagePreview && (
                   <img src={imagePreview} alt="Vista previa de la imagen" /> // Muestra la vista previa de la imagen
-                )}
+                )*/}
               </div>
               <div className="formInput">
                 <label htmlFor="name">Nombre:</label>

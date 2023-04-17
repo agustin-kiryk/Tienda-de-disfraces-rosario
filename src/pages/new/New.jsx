@@ -5,10 +5,17 @@ import { useState } from "react";
 import axios from "axios";
 import "./new.scss";
 import { CloudinaryContext, Image, Transformation } from 'cloudinary-react';
+import React, { useRef } from 'react';
+import QrReader from "../../components/readerqr/QrReader";
 
 const New = ({ inputs, title, apiUrl }) => {
+
   const [file, setFile] = useState("");
   const [imagePreview, setImagePreview] = useState("");
+  const [nombre, setNombre] = useState('');
+  const [apellido, setApellido] = useState('');
+  const [dni, setDni] = useState('');
+
   const [formData, setFormData] = useState({
     name: "",
     lastName: "",
@@ -19,30 +26,34 @@ const New = ({ inputs, title, apiUrl }) => {
     image: "",
   });
 
+  const [isButtonDisabled, setIsButtonDisabled] = useState(false);
+  const [isUploading, setIsUploading] = useState(false);
+
   const handleImageUpload = async (e) => {
     e.preventDefault();
+    setIsUploading(true);
     const formData = new FormData();
     formData.append("file", file);
-    formData.append("upload_preset", "qarsntph"); // Reemplaza "tu_upload_preset" con el nombre de tu upload preset en Cloudinary
+    formData.append("upload_preset", "qarsntph");
     try {
       const res = await axios.post(
-        "https://api.cloudinary.com/v1_1/dkzil7l5p/image/upload", // Reemplaza "tu_cloud_name" con el nombre de tu cloud name en Cloudinary
+        "https://api.cloudinary.com/v1_1/dkzil7l5p/image/upload",
         formData
       );
-      setFormData({ ...formData, image: res.data.secure_url }); // Actualiza el estado del formulario con la URL de la imagen subida
+      setFormData({ ...formData, image: res.data.secure_url });
+      setIsButtonDisabled(true); // Deshabilitar el botón
+      alert("La imagen se subió correctamente");
     } catch (err) {
       console.error(err);
+      setIsUploading(false);
     }
   };
 
   const handleFileChange = (e) => {
     setFile(e.target.files[0]);
     setImagePreview(URL.createObjectURL(e.target.files[0]));
-     // Actualiza la vista previa de la imagen
   };
 
-
-  // Maneja el envío del formulario.
   const handleSubmit = (e) => {
     e.preventDefault();
     axios
@@ -53,6 +64,8 @@ const New = ({ inputs, title, apiUrl }) => {
       })
       .then((response) => {
         console.log(response);
+        alert("Cliente creado correctamente")
+        window.location.href = '/users';
       })
       .catch((error) => {
         console.log(error);
@@ -60,10 +73,12 @@ const New = ({ inputs, title, apiUrl }) => {
   };
 
 
-  // Maneja el cambio de los campos de entrada del formulario.
   const handleInputChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
+
+
+
 
   return (
     <div className="new">
@@ -82,27 +97,35 @@ const New = ({ inputs, title, apiUrl }) => {
                   : "https://icon-library.com/images/no-image-icon/no-image-icon-0.jpg"
               }
               alt=""
+              style={{
+                width: "500px",
+                height: "400px",
+                borderRadius: "0" // Agrega esta línea para quitar los bordes redondeados
+              }}
             />
           </div>
+          <QrReader></QrReader>
           <div className="right">
             <form onSubmit={handleSubmit}>
               <div className="formInput">
                 <label htmlFor="image">Imagen:</label>
-             
                 <input
-                  type="file" // Cambia el tipo de entrada a "file"
+                  type="file"
                   name="image"
-                  onChange={handleFileChange} // Maneja la selección de archivos
+                  onChange={handleFileChange}
                 />
-                   <button type="submit" className="submitButton" onClick={handleImageUpload}>
+                <button
+                  type="submit"
+                  className={`submitButton ${isUploading ? 'disabledButton' : ''}`}
+                  onClick={handleImageUpload}
+                  disabled={isButtonDisabled}
+                >
                   Subir imagen
                 </button>
-                {imagePreview && (
-                  <img src={imagePreview} alt="Vista previa de la imagen" /> // Muestra la vista previa de la imagen
-                )}
               </div>
               <div className="formInput">
-                <label htmlFor="name">Nombre:</label>
+                <label>Nombre:</label>
+
                 <input
                   type="text"
                   placeholder="Ingrese su nombre"
@@ -112,7 +135,8 @@ const New = ({ inputs, title, apiUrl }) => {
               </div>
 
               <div className="formInput">
-                <label htmlFor="lastName">Apellido:</label>
+                <label>Apellido:</label>
+
                 <input
                   type="text"
                   placeholder="Ingrese su apellido"
@@ -132,7 +156,8 @@ const New = ({ inputs, title, apiUrl }) => {
               </div>
 
               <div className="formInput">
-                <label htmlFor="documentNumber">Número de documento:</label>
+                <label>DNI:</label>
+
                 <input
                   type="text"
                   placeholder="Ingrese su número de documento"
@@ -159,7 +184,6 @@ const New = ({ inputs, title, apiUrl }) => {
                   onChange={handleInputChange}
                 />
               </div>
-
               <button type="submit" className="submitButton">
                 Guardar
               </button>

@@ -1,6 +1,7 @@
 .datatable {
   height: 800px;
   padding: 20px;
+  background-color: #f5f3ff;
 
   .cellAction {
     gap: 50px;
@@ -16,6 +17,7 @@
       width: 50px;
       height: 50px;
       margin-right: 5px;
+
     }
     
 
@@ -28,14 +30,13 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+   
 
     h1{
-     
       font-size: 50px;
     }
 
     .link {
-      
       text-decoration: none;
       color: green;
       border: 1px solid green;
@@ -49,10 +50,10 @@
 
   .datagrid {
     font-size: 19px;
+    background-color: #ffffff;
   }
 
   .cellWithImg {
-
     display: flex;
     align-items: center;
 
@@ -70,19 +71,19 @@
     padding: 5px;
     border-radius: 5px;
 
-    &.active {
-      background-color: rgba(0, 128, 0, 0.05);
+    &.ALQUILADO {
+      background-color: rgba(0, 128, 0, 0.212);
       color: green;
     }
 
-    &.pending {
-      background-color: rgba(255, 217, 0, 0.05);
+    &.RESERVADO {
+      background-color: rgba(255, 217, 0, 0.192);
       color: goldenrod;
     }
 
-    &.passive {
-      background-color: rgba(255, 0, 0, 0.05);
-      color: crimson;
+    &.DISPONIBLE {
+      background-color: rgba(0, 17, 255, 0.192);
+      color: rgb(20, 23, 220);
     }
   }
 
@@ -108,7 +109,6 @@
     }
   }
   .boton3 {
-   
     display: flex;
     height: 3em;
     width: 100px;

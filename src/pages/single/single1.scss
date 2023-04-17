@@ -2,14 +2,19 @@
   display: flex;
   width: 100%;
   overflow-x: hidden;
+  background-color: #fef4ff;
   
 .dni {
-  width: 500px;
-  height: 400px;
-  padding-right: 300px;
-  margin-top: 150px;
+  margin-top: 2%;
   display: flex;
-  margin-left: 100px;
+  margin-left: 2%;
+}
+.left{
+  background-color: #ffffff;
+}
+
+.datos{
+  background-color: #ffffff;
 }
   
   .singleContainer {
@@ -34,8 +39,8 @@
           right: 0;
           padding: 5px;
           font-size: 25px;
-          color: #7451f8;
-          background-color: #7551f818;
+          color: #ffffff;
+          background-color: #ffffff;
           cursor: pointer;
           border-radius: 0px 0px 0px 5px;
         }
@@ -121,5 +126,9 @@
     padding: 10px;
     margin: 10px;
   }
+}
+
+.tabla{
+  padding-bottom: 5%;
 }
 

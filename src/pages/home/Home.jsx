@@ -17,19 +17,19 @@ const Home = () => {
 
   return (
     <div className="home">
-    {showSidebar && <Sidebar />}
-    <div className="toggleSidebarContainer" onClick={handleSidebarToggle}>
-    <div class="container" onClick={handleSidebarToggle}>  
-  <input class="label-check" id="label-check" type="checkbox"/>
-    <label for="label-check" class="hamburger-label" onClick={handleSidebarToggle} >
-      <div class="line1"></div>
-      <div class="line2"></div>
-      <div class="line3"></div>
-    <label></label></label></div>
+      {showSidebar && <Sidebar />}
+      <div className="toggleSidebarContainer" onClick={handleSidebarToggle}>
+        <div class="container" onClick={handleSidebarToggle}>
+          <input class="label-check" id="label-check" type="checkbox" />
+          <label for="label-check" class="hamburger-label" onClick={handleSidebarToggle} >
+            <div class="line1"></div>
+            <div class="line2"></div>
+            <div class="line3"></div>
+            <label></label></label></div>
 
-    </div>
+      </div>
       <div className="homeContainer">
-        
+
         <Navbar />
         <Featured />
         <div className="widgets">
@@ -37,15 +37,26 @@ const Home = () => {
           <Widget type="order" />
           <Widget type="earning" />
         </div>
-<div className="button2"><button class="learn-more2">
-  <span class="circle" aria-hidden="true">
-  <span class="icon arrow"></span>
-  </span>
-  <Link to="/nuevopedido" style={{ textDecoration: "none" }}>
-  <span class="button-text">Nuevo Pedido</span>
-          </Link>
-</button></div>
-        
+        <div className="buttonContainer">
+          <button className="learn-more2">
+            <span className="circle" aria-hidden="true">
+              <span className="icon arrow"></span>
+            </span>
+            <Link to="/nuevopedido" style={{ textDecoration: "none" }}>
+              <span className="button-text">Nuevo Pedido</span>
+            </Link>
+          </button>
+          <button className="learn-more2">
+            <span className="circle" aria-hidden="true">
+              <span className="icon arrow"></span>
+            </span>
+            <Link to="/retiro" style={{ textDecoration: "none" }}>
+              <span className="button-text">Retiro/Devolucion</span>
+            </Link>
+          </button>
+        </div>
+
+
         <div className="charts"></div>
         <div className="listContainer">
           <div className="listTitle">Vista Previa de Alquileres </div>
