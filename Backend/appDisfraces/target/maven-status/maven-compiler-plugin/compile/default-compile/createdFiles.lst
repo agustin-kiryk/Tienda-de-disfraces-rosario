@@ -38,6 +38,8 @@ com\dsi\appDisfraces\entity\TransactionEntity.class
 com\dsi\appDisfraces\controller\CostumeController.class
 com\dsi\appDisfraces\enumeration\ClientStatus.class
 com\dsi\appDisfraces\dto\ClientTableDto.class
+com\dsi\appDisfraces\auth\Config$1.class
+com\dsi\appDisfraces\auth\Config.class
 com\dsi\appDisfraces\repository\IClientRepository.class
 com\dsi\appDisfraces\mapper\ClientMapper.class
 com\dsi\appDisfraces\controller\ClientController.class
