@@ -22,6 +22,7 @@ com\dsi\appDisfraces\service\IcostumeService.class
 com\dsi\appDisfraces\dto\CostumeRequestDTO.class
 com\dsi\appDisfraces\exception\RepeatedUsername.class
 com\dsi\appDisfraces\mapper\CostumeMapper.class
+com\dsi\appDisfraces\auth\CorsConfig.class
 com\dsi\appDisfraces\dto\CostumeHistoryDTO.class
 com\dsi\appDisfraces\mapper\TransactionMapper.class
 com\dsi\appDisfraces\dto\ReturnDTO.class
@@ -38,7 +39,6 @@ com\dsi\appDisfraces\entity\TransactionEntity.class
 com\dsi\appDisfraces\controller\CostumeController.class
 com\dsi\appDisfraces\enumeration\ClientStatus.class
 com\dsi\appDisfraces\dto\ClientTableDto.class
-com\dsi\appDisfraces\auth\Config.class
 com\dsi\appDisfraces\repository\IClientRepository.class
 com\dsi\appDisfraces\mapper\ClientMapper.class
 com\dsi\appDisfraces\controller\ClientController.class

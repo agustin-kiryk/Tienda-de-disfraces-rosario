@@ -5,7 +5,6 @@ C:\Users\Agustin\Desktop\muestras Marcela Rosario\Aplicacion\Backend\appDisfrace
 C:\Users\Agustin\Desktop\muestras Marcela Rosario\Aplicacion\Backend\appDisfraces\src\main\java\com\dsi\appDisfraces\entity\CostumeEntity.java
 C:\Users\Agustin\Desktop\muestras Marcela Rosario\Aplicacion\Backend\appDisfraces\src\main\java\com\dsi\appDisfraces\dto\CostumeHistoryDTO.java
 C:\Users\Agustin\Desktop\muestras Marcela Rosario\Aplicacion\Backend\appDisfraces\src\main\java\com\dsi\appDisfraces\dto\TransactionMonthTotalsDto.java
-C:\Users\Agustin\Desktop\muestras Marcela Rosario\Aplicacion\Backend\appDisfraces\src\main\java\com\dsi\appDisfraces\auth\Config.java
 C:\Users\Agustin\Desktop\muestras Marcela Rosario\Aplicacion\Backend\appDisfraces\src\main\java\com\dsi\appDisfraces\repository\ITransactionRepository.java
 C:\Users\Agustin\Desktop\muestras Marcela Rosario\Aplicacion\Backend\appDisfraces\src\main\java\com\dsi\appDisfraces\dto\ClientHistoryDTO.java
 C:\Users\Agustin\Desktop\muestras Marcela Rosario\Aplicacion\Backend\appDisfraces\src\main\java\com\dsi\appDisfraces\dto\ClientRequestDTO.java
@@ -26,6 +25,7 @@ C:\Users\Agustin\Desktop\muestras Marcela Rosario\Aplicacion\Backend\appDisfrace
 C:\Users\Agustin\Desktop\muestras Marcela Rosario\Aplicacion\Backend\appDisfraces\src\main\java\com\dsi\appDisfraces\exception\RepeatedUsername.java
 C:\Users\Agustin\Desktop\muestras Marcela Rosario\Aplicacion\Backend\appDisfraces\src\main\java\com\dsi\appDisfraces\service\IcostumeService.java
 C:\Users\Agustin\Desktop\muestras Marcela Rosario\Aplicacion\Backend\appDisfraces\src\main\java\com\dsi\appDisfraces\dto\CostumeTableDTO.java
+C:\Users\Agustin\Desktop\muestras Marcela Rosario\Aplicacion\Backend\appDisfraces\src\main\java\com\dsi\appDisfraces\auth\CorsConfig.java
 C:\Users\Agustin\Desktop\muestras Marcela Rosario\Aplicacion\Backend\appDisfraces\src\main\java\com\dsi\appDisfraces\entity\ClientEntity.java
 C:\Users\Agustin\Desktop\muestras Marcela Rosario\Aplicacion\Backend\appDisfraces\src\main\java\com\dsi\appDisfraces\AppDisfracesApplication.java
 C:\Users\Agustin\Desktop\muestras Marcela Rosario\Aplicacion\Backend\appDisfraces\src\main\java\com\dsi\appDisfraces\controller\TransactionController.java

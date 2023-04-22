@@ -29,7 +29,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/clients")
-@CrossOrigin(origins = { "http://localhost:3000", "http://localhost:8080" ,"https://venomous-front-production.up.railway.app",}, allowCredentials = "true")
+@CrossOrigin(origins = "*")
 public class ClientController {
   @Autowired
   private IClientService clientService;
