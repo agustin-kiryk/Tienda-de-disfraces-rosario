@@ -10,6 +10,7 @@ import com.dsi.appDisfraces.dto.ReturnDTO;
 import com.dsi.appDisfraces.entity.ClientEntity;
 import com.dsi.appDisfraces.entity.CostumeEntity;
 import com.dsi.appDisfraces.entity.TransactionEntity;
+import com.dsi.appDisfraces.enumeration.AmountStatus;
 import com.dsi.appDisfraces.enumeration.ClientStatus;
 import com.dsi.appDisfraces.enumeration.CostumeStatus;
 import com.dsi.appDisfraces.exception.IdNotFound;
@@ -49,7 +50,7 @@ public class CostumeServiceImpl implements IcostumeService {
   @Override
   public CostumeDetailDTO getDetailsById(Long id) {
     CostumeEntity entity = this.costumeRepository.findById(id).orElseThrow(
-        ()-> new IdNotFound("El ID del disfraz no existe"));
+        () -> new IdNotFound("El ID del disfraz no existe"));
     CostumeDetailDTO dto = costumeMapper.costumeDetailEntity2DTO(entity);
     return dto;
   }
@@ -64,7 +65,7 @@ public class CostumeServiceImpl implements IcostumeService {
   @Override
   public CostumeRequestDTO update(Long id, CostumeRequestDTO newCostumeDTO) {
     CostumeEntity entity = this.costumeRepository.findById(id).orElseThrow(
-        ()-> new IdNotFound("El id del disfraz es invalido"));
+        () -> new IdNotFound("El id del disfraz es invalido"));
     this.costumeMapper.costumeUpdateEntity2DTO(entity, newCostumeDTO);
     CostumeEntity updateEntity = this.costumeRepository.save(entity);
     CostumeRequestDTO result = costumeMapper.costumeEntity2DTO(updateEntity);
@@ -75,14 +76,14 @@ public class CostumeServiceImpl implements IcostumeService {
   @Override
   public void delete(Long id) {
     CostumeEntity entity = this.costumeRepository.findById(id).orElseThrow(
-        ()-> new IdNotFound("El id del disfraz es invalido"));
+        () -> new IdNotFound("El id del disfraz es invalido"));
     this.costumeRepository.deleteById(id);
   }
 
   @Override
   public CostumeHistoryDTO getHistory(Long id) {
     CostumeEntity entity = this.costumeRepository.findById(id).orElseThrow(
-        ()-> new IdNotFound("El id del disfraz no existe"));
+        () -> new IdNotFound("El id del disfraz no existe"));
     CostumeHistoryDTO history = costumeMapper.costumeHistoryEntity2Dto(entity);
     return history;
 
@@ -92,28 +93,28 @@ public class CostumeServiceImpl implements IcostumeService {
   public void returnAndUpdate(ReturnDTO returnDTO) {
 
     TransactionEntity transaction = transactionRepository.findById(returnDTO.getTransactionId()).orElseThrow(
-        ()->new IdNotFound("El id "+returnDTO.getTransactionId()+" no existe en la base de datos"));
+        () -> new IdNotFound("El id " + returnDTO.getTransactionId() + " no existe en la base de datos"));
 
-   ClientEntity client = this.clientRepository.findByDocumentNumber(returnDTO.getClientDocument()).orElseThrow(
-       ()->new ParamNotFound("El dni "+returnDTO.getClientDocument()+"  No existe en la base de datos"));
+    ClientEntity client = this.clientRepository.findByDocumentNumber(returnDTO.getClientDocument()).orElseThrow(
+        () -> new ParamNotFound("El dni " + returnDTO.getClientDocument() + "  No existe en la base de datos"));
 
     Set<CostumeEntity> costumes = new HashSet<>();
 
-    for (Long costumeId : returnDTO.getCostumesIds()){
+    for (Long costumeId : returnDTO.getCostumesIds()) {
       CostumeEntity costume = costumeRepository.findById(costumeId).orElseThrow(
-          ()->new IdNotFound("El id "+costumeId+"  no existe en la base de datos"));
+          () -> new IdNotFound("El id " + costumeId + "  no existe en la base de datos"));
 
-      if (!returnDTO.getDevolution()&&!costume.getClients().contains(client)){
-        throw new ParamNotFound("el cliente"+client.getName()+" "+client.getLastName()+" no reservó disfraz con id "+costumeId);
+      if (!returnDTO.getDevolution() && !costume.getClients().contains(client)) {
+        throw new ParamNotFound("el cliente" + client.getName() + " " + client.getLastName() + " no reservó disfraz con id " + costumeId);
       }
 
-      if(!costume.getClients().contains(client)){
-        throw new ParamNotFound("el cliente  "+client.getName()+" "+client.getLastName()+"  no tiene el disfraz con id "+costumeId);
+      if (!costume.getClients().contains(client)) {
+        throw new ParamNotFound("el cliente  " + client.getName() + " " + client.getLastName() + "  no tiene el disfraz con id " + costumeId);
       }
 
-      if (!returnDTO.getDevolution()){
+      if (!returnDTO.getDevolution()) {
         costume.setStatus(CostumeStatus.ALQUILADO);
-      }else {
+      } else {
         costume.setStatus(CostumeStatus.DISPONIBLE);
         costume.setReservationDate(null);
         costume.setDeadLine(null);
@@ -123,19 +124,23 @@ public class CostumeServiceImpl implements IcostumeService {
       costumes.add(costume);
     }
 
-    if (!returnDTO.getDevolution()){
+    if (!returnDTO.getDevolution()) {
       client.setClientStatus(ClientStatus.ACTIVO);
 
-    }else {
+    } else {
       client.setClientStatus(ClientStatus.INACTIVO);
       transaction.setComplete(true);
       client.getCustomes().removeAll(costumes);
     }
-
+    if (returnDTO.getTotalPayment()){
+      transaction.setPending(0.0);
+      transaction.setPartialPayment(0.0);
+      transaction.setTotalPayment(true);
+      transaction.setStatus(AmountStatus.APROVE);
+    }
     clientRepository.save(client);
     costumeRepository.saveAll(costumes);
     transactionRepository.save(transaction);
-
   }
 
 }

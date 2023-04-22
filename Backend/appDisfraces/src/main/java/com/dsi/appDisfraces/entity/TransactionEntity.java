@@ -59,7 +59,7 @@ public class TransactionEntity {
   private LocalDate date;
 
   @Column(name = "completa")
-  private Boolean complete;
+  private Boolean complete; //TRUE SI DEVOLVIÓ EL DISFRAZ, FALSE SI NO DEVOLVIO EL DISFRAZ
 
   @Enumerated(EnumType.STRING)
   @Column(name = "Status pago")
@@ -74,6 +74,7 @@ public class TransactionEntity {
   @Column(name = "pendiente")
   private Double pending;
 
-
+  @Column(name= "Pago Realizado")// SI ABONA UN APARTE AL RESERVAR POR TELEFONO Y ABONA EL RESTO AL RETIRAR EL DISEFRAZ
+  private Boolean totalPayment;//TRUE SI AL MOMENTO DE RETIRAR EL DISFRAZ ABONA EL TOTAL ADEUDADO, FALSE SI TIENE SALDO PENDIENTE AL RETIRAR
 
 }

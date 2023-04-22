@@ -1,6 +1,8 @@
 package com.dsi.appDisfraces.controller;
 
 import com.dsi.appDisfraces.dto.TransactionDTO;
+import com.dsi.appDisfraces.dto.TransactionMonthTotalsDto;
+import com.dsi.appDisfraces.dto.TransactionTotalsDto;
 import com.dsi.appDisfraces.service.ITransactionService;
 import jakarta.validation.Valid;
 import java.util.List;
@@ -47,5 +49,22 @@ public class TransactionController {
     List<TransactionDTO> transactions = transactionService.getDetailByDocumentNumber(documentNumber);
     return ResponseEntity.ok(transactions);
   }
+
+  @GetMapping("/totals")
+  public ResponseEntity<TransactionTotalsDto> getTransactionTotals() {
+    TransactionTotalsDto transactionTotals = transactionService.getTransactionTotals();
+    return ResponseEntity.ok(transactionTotals);
+  }
+  @GetMapping("/totals/current-month")
+  public ResponseEntity<TransactionMonthTotalsDto> getCurrentMonthTransactionTotals() {
+    TransactionMonthTotalsDto currentMonthTotals = transactionService.getCurrentMonthTransactionTotals();
+    if (currentMonthTotals == null) {
+      return ResponseEntity.notFound().build();
+    } else {
+      return ResponseEntity.ok(currentMonthTotals);
+    }
+  }
+
+
 
 }

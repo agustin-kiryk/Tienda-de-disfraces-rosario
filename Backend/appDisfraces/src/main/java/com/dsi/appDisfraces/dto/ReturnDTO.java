@@ -10,5 +10,6 @@ public class ReturnDTO {
   private List<Long> costumesIds;
   private Long transactionId;
   private Boolean devolution;
+  private Boolean totalPayment;
 
 }
