@@ -4,6 +4,7 @@ C:\Users\Agustin\Desktop\muestras Marcela Rosario\Aplicacion\Backend\appDisfrace
 C:\Users\Agustin\Desktop\muestras Marcela Rosario\Aplicacion\Backend\appDisfraces\src\main\java\com\dsi\appDisfraces\mapper\CostumeMapper.java
 C:\Users\Agustin\Desktop\muestras Marcela Rosario\Aplicacion\Backend\appDisfraces\src\main\java\com\dsi\appDisfraces\entity\CostumeEntity.java
 C:\Users\Agustin\Desktop\muestras Marcela Rosario\Aplicacion\Backend\appDisfraces\src\main\java\com\dsi\appDisfraces\dto\CostumeHistoryDTO.java
+C:\Users\Agustin\Desktop\muestras Marcela Rosario\Aplicacion\Backend\appDisfraces\src\main\java\com\dsi\appDisfraces\dto\TransactionMonthTotalsDto.java
 C:\Users\Agustin\Desktop\muestras Marcela Rosario\Aplicacion\Backend\appDisfraces\src\main\java\com\dsi\appDisfraces\repository\ITransactionRepository.java
 C:\Users\Agustin\Desktop\muestras Marcela Rosario\Aplicacion\Backend\appDisfraces\src\main\java\com\dsi\appDisfraces\dto\ClientHistoryDTO.java
 C:\Users\Agustin\Desktop\muestras Marcela Rosario\Aplicacion\Backend\appDisfraces\src\main\java\com\dsi\appDisfraces\dto\ClientRequestDTO.java
@@ -32,6 +33,8 @@ C:\Users\Agustin\Desktop\muestras Marcela Rosario\Aplicacion\Backend\appDisfrace
 C:\Users\Agustin\Desktop\muestras Marcela Rosario\Aplicacion\Backend\appDisfraces\src\main\java\com\dsi\appDisfraces\service\impl\ITransactionServiceImpl.java
 C:\Users\Agustin\Desktop\muestras Marcela Rosario\Aplicacion\Backend\appDisfraces\src\main\java\com\dsi\appDisfraces\exception\IdNotFound.java
 C:\Users\Agustin\Desktop\muestras Marcela Rosario\Aplicacion\Backend\appDisfraces\src\main\java\com\dsi\appDisfraces\service\impl\ClientServiceImpl.java
+C:\Users\Agustin\Desktop\muestras Marcela Rosario\Aplicacion\Backend\appDisfraces\src\main\java\com\dsi\appDisfraces\enumeration\AmountStatus.java
+C:\Users\Agustin\Desktop\muestras Marcela Rosario\Aplicacion\Backend\appDisfraces\src\main\java\com\dsi\appDisfraces\dto\TransactionTotalsDto.java
 C:\Users\Agustin\Desktop\muestras Marcela Rosario\Aplicacion\Backend\appDisfraces\src\main\java\com\dsi\appDisfraces\dto\ClientsDTO.java
 C:\Users\Agustin\Desktop\muestras Marcela Rosario\Aplicacion\Backend\appDisfraces\src\main\java\com\dsi\appDisfraces\mapper\TransactionMapper.java
 C:\Users\Agustin\Desktop\muestras Marcela Rosario\Aplicacion\Backend\appDisfraces\src\main\java\com\dsi\appDisfraces\service\impl\CostumeServiceImpl.java
