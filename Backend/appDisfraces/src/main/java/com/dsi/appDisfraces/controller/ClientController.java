@@ -29,7 +29,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/clients")
-@CrossOrigin(origins =" *")
+@CrossOrigin(origins =" *",allowedHeaders = {"Authorization", "Content-Type"})
 public class ClientController {
   @Autowired
   private IClientService clientService;
