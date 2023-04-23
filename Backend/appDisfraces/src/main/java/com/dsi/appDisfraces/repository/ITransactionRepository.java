@@ -25,4 +25,6 @@ public interface ITransactionRepository extends JpaRepository<TransactionEntity,
   @Query("SELECT new com.dsi.appDisfraces.dto.TransactionMonthTotalsDto(SUM(t.ammount), SUM(t.pending)) FROM TransactionEntity t WHERE YEAR(t.rentDate) = YEAR(CURRENT_DATE()) AND MONTH(t.rentDate) = MONTH(CURRENT_DATE())")
   TransactionMonthTotalsDto getCurrentMonthTransactionTotals();
 
+
+
 }

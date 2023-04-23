@@ -26,5 +26,6 @@ public class TransactionDTO {
   private LocalDate deadline;
   private String checkIn;
   private String StatusPayment;
+  private Double limit;
 
 }

@@ -1,9 +1,12 @@
 package com.dsi.appDisfraces.service.impl;
 
+import com.dsi.appDisfraces.dto.LimitDTO;
+import com.dsi.appDisfraces.dto.TotalsDTO;
 import com.dsi.appDisfraces.dto.TransactionDTO;
 import com.dsi.appDisfraces.dto.TransactionMonthTotalsDto;
 import com.dsi.appDisfraces.dto.TransactionTotalsDto;
 import com.dsi.appDisfraces.entity.ClientEntity;
+import com.dsi.appDisfraces.entity.ConfigurationEntity;
 import com.dsi.appDisfraces.entity.CostumeEntity;
 import com.dsi.appDisfraces.entity.TransactionEntity;
 import com.dsi.appDisfraces.enumeration.AmountStatus;
@@ -13,6 +16,7 @@ import com.dsi.appDisfraces.exception.IdNotFound;
 import com.dsi.appDisfraces.exception.ParamNotFound;
 import com.dsi.appDisfraces.mapper.TransactionMapper;
 import com.dsi.appDisfraces.repository.IClientRepository;
+import com.dsi.appDisfraces.repository.IConfigurattionRepository;
 import com.dsi.appDisfraces.repository.ICostumeRepository;
 import com.dsi.appDisfraces.repository.ITransactionRepository;
 import com.dsi.appDisfraces.service.ITransactionService;
@@ -39,7 +43,7 @@ public class ITransactionServiceImpl implements ITransactionService {
   @Autowired
   TransactionMapper transactionMapper;
   @Autowired
-  TransactionTemplate transactionTemplate;
+  IConfigurattionRepository configurattionRepository;
 
   @Override
   public String getCostumeNameById(Long id) {
@@ -70,19 +74,85 @@ public class ITransactionServiceImpl implements ITransactionService {
     return result;
   }
 
+
   @Override
-  public TransactionTotalsDto getTransactionTotals() {
-    Map<String, Object> totalsMap = (Map<String, Object>) transactionRepository.getTransactionTotals();//TODO REVISAR PARA DEPLOY
-    Double totalAmount = (Double) totalsMap.get("totalAmount");
-    Double pendingAmount = (Double) totalsMap.get("pendingAmount");
-    return new TransactionTotalsDto(totalAmount, pendingAmount);
+  public TotalsDTO getTotalst(Integer month) {
+
+    TotalsDTO totalsDTO = new TotalsDTO();
+    List<TransactionEntity> transactions = transactionRepository.findAll();
+    Double totalAmounts = transactions.stream()
+        .mapToDouble(TransactionEntity::getAmmount)
+        .sum();
+    Double totalMonth = transactions.stream()
+        .filter(t -> t.getRentDate().getMonth() == LocalDate.now().getMonth())
+        .mapToDouble(TransactionEntity::getAmmount)
+        .sum();
+    Double totalYear = transactions.stream().filter(t->t.getRentDate().getYear()==LocalDate.now().getYear())
+        .mapToDouble(TransactionEntity::getAmmount)
+        .sum();
+
+    if (month != null) {
+      Double totalSelectMonth = transactions.stream()
+          .filter(t -> t.getRentDate().getMonthValue() == month
+              && t.getRentDate().getYear() == LocalDate.now().getYear())
+          .mapToDouble(TransactionEntity::getAmmount)
+          .sum();
+      totalsDTO.setSelectMonth(totalSelectMonth);
+
+      Double totalSelectMonthPending = transactions.stream()
+          .filter(t -> t.getPending() != null &&  t.getRentDate().getMonthValue() == month
+              && t.getRentDate().getYear() == LocalDate.now().getYear() )
+          .mapToDouble(TransactionEntity::getPending)
+          .sum();
+      totalsDTO.setSelectMonthPending2(totalSelectMonthPending);
+
+      Double totalSelectMonthPaid = transactions.stream()
+          .filter(t -> t.getPartialPayment() != null &&  t.getRentDate().getMonthValue() == month
+              && t.getRentDate().getYear() == LocalDate.now().getYear() )
+          .mapToDouble(TransactionEntity::getPartialPayment)
+          .sum();
+      totalsDTO.setSelectMonthPaid2(totalSelectMonthPaid);
+    }
+
+    totalsDTO.setTotals(totalAmounts);
+    totalsDTO.setCurrentMonth(totalMonth);
+    totalsDTO.setCurrentYear(totalYear);
+
+    return totalsDTO;
   }
 
   @Override
-  @Transactional
-  public TransactionMonthTotalsDto getCurrentMonthTransactionTotals() {
-    TransactionMonthTotalsDto dto = transactionRepository.getCurrentMonthTransactionTotals();
-    return dto;
+  public TotalsDTO getTotalsMain() {
+
+    TotalsDTO totalsDTO = new TotalsDTO();
+    ConfigurationEntity configurationEntity = configurattionRepository.findFirstByOrderByIdAsc();
+    Double billingLimit = configurationEntity.getBillingLimit();
+
+    List<TransactionEntity> transactions = transactionRepository.findAll();
+    Double totalMonthCurrent = transactions.stream()
+        .filter(t -> t.getRentDate().getMonth() == LocalDate.now().getMonth())
+        .mapToDouble(TransactionEntity::getAmmount)
+        .sum();
+    Double totalMonthPending = transactions.stream()
+        .filter(t -> t.getPending() != null && t.getRentDate().getMonth() == LocalDate.now().getMonth())
+        .mapToDouble(TransactionEntity::getPending)
+        .sum();
+    Double totalMonthPartial = transactions.stream()
+        .filter(t -> t.getPartialPayment() != null &&   t.getRentDate().getMonth() == LocalDate.now().getMonth())
+        .mapToDouble(TransactionEntity::getPartialPayment)
+        .sum();
+
+    Double totalmonthElectronic = transactions.stream()
+        .filter(t -> t.getType().equals("factura electronica") && t.getRentDate().getMonth() == LocalDate.now().getMonth())
+        .mapToDouble(TransactionEntity::getAmmount)
+        .sum();
+    totalsDTO.setTotalElectronic(totalmonthElectronic);
+    totalsDTO.setTotals(totalMonthCurrent);
+    totalsDTO.setSelectMonthPending2(totalMonthPending);
+    totalsDTO.setSelectMonthPaid2(totalMonthPartial);
+    totalsDTO.setRest(billingLimit-totalmonthElectronic);
+    totalsDTO.setLimit(billingLimit);
+    return totalsDTO;
   }
 
 
@@ -137,6 +207,8 @@ public class ITransactionServiceImpl implements ITransactionService {
     transactionEntity.setComplete(false);
     transactionEntity.setAmmount(transactionDTO.getAmount());
     transactionEntity.setPartialPayment(transactionDTO.getPartialPayment());
+    transactionEntity.setDate(LocalDate.now());
+    transactionEntity.setLimit(transactionDTO.getLimit());
     if (transactionDTO.getPartialPayment()==null||transactionDTO.getPartialPayment()==0) {
       transactionEntity.setPending(0.0);
     }else {transactionEntity.setPending(transactionDTO.getAmount() - transactionDTO.getPartialPayment());
@@ -178,9 +250,8 @@ public class ITransactionServiceImpl implements ITransactionService {
     result.setPending(transactionEntity.getPending());
     result.setStatusPayment(String.valueOf(transactionEntity.getStatus()));
 
-
     return result;
-  }//TODO: ACTUALIZAR STATUS DE AMOUNT CUNADO SE RETIRA UN DISFRAZ
+  }
 }
 /*transaccion estados de pago aprove , pending , partial
 

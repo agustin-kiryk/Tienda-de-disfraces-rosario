@@ -1,5 +1,7 @@
 package com.dsi.appDisfraces.service;
 
+import com.dsi.appDisfraces.dto.LimitDTO;
+import com.dsi.appDisfraces.dto.TotalsDTO;
 import com.dsi.appDisfraces.dto.TransactionDTO;
 import com.dsi.appDisfraces.dto.TransactionMonthTotalsDto;
 import com.dsi.appDisfraces.dto.TransactionTotalsDto;
@@ -17,7 +19,9 @@ public interface ITransactionService {
 
   List<TransactionDTO> getDetailByDocumentNumber(String documentNumber);
 
-  TransactionTotalsDto getTransactionTotals();
 
-  TransactionMonthTotalsDto getCurrentMonthTransactionTotals();
+  TotalsDTO getTotalst(Integer month);
+
+  TotalsDTO getTotalsMain();
+
 }

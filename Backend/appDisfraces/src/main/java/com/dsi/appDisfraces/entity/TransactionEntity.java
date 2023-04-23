@@ -74,7 +74,17 @@ public class TransactionEntity {
   @Column(name = "pendiente")
   private Double pending;
 
+  @Column(name= "tope facturacion")
+  private Double limit;
+
+  @Column(name= "Resto_facturar")
+  private Double rest;
+
+
   @Column(name= "Pago Realizado")// SI ABONA UN APARTE AL RESERVAR POR TELEFONO Y ABONA EL RESTO AL RETIRAR EL DISEFRAZ
   private Boolean totalPayment;//TRUE SI AL MOMENTO DE RETIRAR EL DISFRAZ ABONA EL TOTAL ADEUDADO, FALSE SI TIENE SALDO PENDIENTE AL RETIRAR
+
+  public TransactionEntity() {
+  }
 
 }
