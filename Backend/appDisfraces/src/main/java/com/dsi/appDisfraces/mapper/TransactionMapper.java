@@ -22,6 +22,8 @@ public class TransactionMapper {
         .map(CostumeEntity::getName)
         .collect(Collectors.toList());
     dto.setNames(costumeNames);
+    dto.setClientName(entity.getClient().getName());
+    dto.setClientLastName(entity.getClient().getLastName());
 
     dto.setReservationDate(entity.getRentDate());
     dto.setDeadline(entity.getDeadline());

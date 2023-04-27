@@ -27,5 +27,8 @@ public class TransactionDTO {
   private String checkIn;
   private String StatusPayment;
   private Double limit;
+  private String clientName;
+  private String clientLastName;
+
 
 }
