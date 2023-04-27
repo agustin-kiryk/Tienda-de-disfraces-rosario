@@ -27,4 +27,14 @@ public class ConfigurationServiceImpl implements IConfigurationService {
     return dto;
   }
 
+  @Override
+  public LimitDTO findAll() {
+    //ConfigurationEntity entity = new ConfigurationEntity();
+    /*ConfigurationEntity entity1 = configurattionRepository.findAll();
+    LimitDTO dto = new LimitDTO();
+    dto.setLimit();*/
+
+    return null;
+  }
+
 }

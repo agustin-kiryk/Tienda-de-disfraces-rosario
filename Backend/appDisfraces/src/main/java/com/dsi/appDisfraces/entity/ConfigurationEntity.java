@@ -18,7 +18,7 @@ public class ConfigurationEntity {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  @Column(name = "billing_limit")
+  @Column(name = "billing_limit", unique = true)
   private Double billingLimit;
 
 

@@ -43,6 +43,7 @@ com\dsi\appDisfraces\auth\CorsConfig.class
 com\dsi\appDisfraces\repository\ICostumeRepository.class
 com\dsi\appDisfraces\dto\ClientRequestDTO.class
 com\dsi\appDisfraces\controller\TransactionController.class
+com\dsi\appDisfraces\dto\TransactionDNIDTO.class
 com\dsi\appDisfraces\entity\TransactionEntity.class
 com\dsi\appDisfraces\controller\CostumeController.class
 com\dsi\appDisfraces\repository\IConfigurattionRepository.class

@@ -6,6 +6,7 @@ C:\Users\Agustin\Desktop\muestras Marcela Rosario\Aplicacion\Backend\appDisfrace
 C:\Users\Agustin\Desktop\muestras Marcela Rosario\Aplicacion\Backend\appDisfraces\src\main\java\com\dsi\appDisfraces\dto\ClientRequestDTO.java
 C:\Users\Agustin\Desktop\muestras Marcela Rosario\Aplicacion\Backend\appDisfraces\src\main\java\com\dsi\appDisfraces\exception\ParamNotFound.java
 C:\Users\Agustin\Desktop\muestras Marcela Rosario\Aplicacion\Backend\appDisfraces\src\main\java\com\dsi\appDisfraces\service\ITransactionService.java
+C:\Users\Agustin\Desktop\muestras Marcela Rosario\Aplicacion\Backend\appDisfraces\src\main\java\com\dsi\appDisfraces\dto\TransactionDNIDTO.java
 C:\Users\Agustin\Desktop\muestras Marcela Rosario\Aplicacion\Backend\appDisfraces\src\main\java\com\dsi\appDisfraces\mapper\ClientMapper.java
 C:\Users\Agustin\Desktop\muestras Marcela Rosario\Aplicacion\Backend\appDisfraces\src\main\java\com\dsi\appDisfraces\service\IClientService.java
 C:\Users\Agustin\Desktop\muestras Marcela Rosario\Aplicacion\Backend\appDisfraces\src\main\java\com\dsi\appDisfraces\controller\ConfigController.java
