@@ -20,6 +20,7 @@ import com.dsi.appDisfraces.service.ITransactionService;
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,19 +54,20 @@ public class ITransactionServiceImpl implements ITransactionService {
     return result;
   }
 
+
  @Override
-  public List<TransactionDTO> findByMonth() {
-    List<TransactionEntity> transactions = transactionRepository.findAll();
-    List<TransactionDTO> result = transactions.stream()
-        .filter(transaction -> {
-          LocalDate currentDate = LocalDate.now();
-          LocalDate transactionDate = transaction.getDate();
-          return transactionDate.getMonth() == currentDate.getMonth() && transactionDate.getYear() == currentDate.getYear();
-        })
-        .map(transactionMapper::transactionEntityToDTO)
-        .collect(Collectors.toList());
-    return result;
-  }
+ public List<TransactionDTO> findByMonth() {
+   List<TransactionEntity> transactions = transactionRepository.findAll();
+   List<TransactionDTO> result = transactions.stream()
+       .filter(transaction -> {
+         LocalDate currentDate = LocalDate.now();
+         LocalDate transactionDate = transaction.getDate();
+         return transactionDate != null && Objects.nonNull(transactionDate.getMonth()) && transactionDate.getMonth() == currentDate.getMonth() && transactionDate.getYear() == currentDate.getYear();
+       })
+       .map(transactionMapper::transactionEntityToDTO)
+       .collect(Collectors.toList());
+   return result;
+ }
 
 
 
