@@ -46,6 +46,11 @@ public class TransactionController {
     List<TransactionDTO> transactions = transactionService.findAll();
     return ResponseEntity.ok(transactions);
   }
+  @GetMapping("currentMonth")
+  ResponseEntity<List<TransactionDTO>> getMonth() {
+    List<TransactionDTO> transactions = transactionService.findByMonth();
+    return ResponseEntity.ok(transactions);
+  }
 
   @GetMapping("/{id}")
   ResponseEntity<TransactionDTO> transactionById(@PathVariable Long id) {

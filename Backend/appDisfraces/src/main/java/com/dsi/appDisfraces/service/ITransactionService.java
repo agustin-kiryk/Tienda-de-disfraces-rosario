@@ -15,6 +15,8 @@ public interface ITransactionService {
 
   List<TransactionDTO> findAll();
 
+  List<TransactionDTO> findByMonth();
+
   TransactionDTO getDetailById(Long id);
 
   List<TransactionDTO> getDetailByDocumentNumber(String documentNumber);

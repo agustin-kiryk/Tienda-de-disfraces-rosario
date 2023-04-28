@@ -1,10 +1,7 @@
 package com.dsi.appDisfraces.service.impl;
 
-import com.dsi.appDisfraces.dto.LimitDTO;
 import com.dsi.appDisfraces.dto.TotalsDTO;
 import com.dsi.appDisfraces.dto.TransactionDTO;
-import com.dsi.appDisfraces.dto.TransactionMonthTotalsDto;
-import com.dsi.appDisfraces.dto.TransactionTotalsDto;
 import com.dsi.appDisfraces.entity.ClientEntity;
 import com.dsi.appDisfraces.entity.ConfigurationEntity;
 import com.dsi.appDisfraces.entity.CostumeEntity;
@@ -23,13 +20,11 @@ import com.dsi.appDisfraces.service.ITransactionService;
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.transaction.support.TransactionTemplate;
 
 @Service
 public class ITransactionServiceImpl implements ITransactionService {
@@ -57,6 +52,22 @@ public class ITransactionServiceImpl implements ITransactionService {
     List<TransactionDTO> result = transactionMapper.transactionEntityList2DTOList(transactions);
     return result;
   }
+
+ @Override
+  public List<TransactionDTO> findByMonth() {
+    List<TransactionEntity> transactions = transactionRepository.findAll();
+    List<TransactionDTO> result = transactions.stream()
+        .filter(transaction -> {
+          LocalDate currentDate = LocalDate.now();
+          LocalDate transactionDate = transaction.getDate();
+          return transactionDate.getMonth() == currentDate.getMonth() && transactionDate.getYear() == currentDate.getYear();
+        })
+        .map(transactionMapper::transactionEntityToDTO)
+        .collect(Collectors.toList());
+    return result;
+  }
+
+
 
   @Override
   public TransactionDTO getDetailById(Long id) {
