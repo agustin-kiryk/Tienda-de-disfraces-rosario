@@ -82,7 +82,7 @@ public class TransactionController {
     return ResponseEntity.ok(totalsDTO);
 
   }
-
+  
 
 
 

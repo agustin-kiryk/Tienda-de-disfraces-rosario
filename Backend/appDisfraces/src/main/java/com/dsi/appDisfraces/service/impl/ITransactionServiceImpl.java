@@ -103,6 +103,21 @@ public class ITransactionServiceImpl implements ITransactionService {
     Double totalYear = transactions.stream().filter(t->t.getRentDate().getYear()==LocalDate.now().getYear())
         .mapToDouble(TransactionEntity::getAmmount)
         .sum();
+    Double pendingm = transactions.stream()
+        .filter(t -> t.getPending() != null && t.getRentDate().getMonth() == LocalDate.now().getMonth())
+        .mapToDouble(TransactionEntity::getPending)
+        .sum();
+    totalsDTO.setSelectMonthPending2(pendingm);
+    Double paidm = transactions.stream()
+        .filter(t -> t.getPartialPayment()!=null && t.getRentDate().getMonth() == LocalDate.now().getMonth())
+        .mapToDouble(TransactionEntity::getPartialPayment)
+        .sum();
+    totalsDTO.setSelectMonthPaid2(paidm);
+    Double totalmonthElectronic = transactions.stream()
+        .filter(t -> t.getType().equals("factura electronica") && t.getRentDate().getMonth() == LocalDate.now().getMonth())
+        .mapToDouble(TransactionEntity::getAmmount)
+        .sum();
+    totalsDTO.setTotalElectronic(totalmonthElectronic);
 
     if (month != null) {
       Double totalSelectMonth = transactions.stream()
@@ -130,6 +145,7 @@ public class ITransactionServiceImpl implements ITransactionService {
     totalsDTO.setTotals(totalAmounts);
     totalsDTO.setCurrentMonth(totalMonth);
     totalsDTO.setCurrentYear(totalYear);
+
 
     return totalsDTO;
   }
