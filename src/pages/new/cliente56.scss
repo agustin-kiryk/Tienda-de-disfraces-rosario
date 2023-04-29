@@ -1,7 +1,19 @@
 .new {
   width: 100%;
   display: flex;
+  
+/*
+  .dni{
+    //editor dni
+  }
+*/
 
+  @media screen and (max-width: 992px) {
+    .bottom {
+      flex-direction: column !important;
+    }
+  }
+  
   .newContainer {
     flex: 6;
 
@@ -12,6 +24,7 @@
       padding: 10px;
       margin: 20px;
       display: flex;
+      flex-direction: row;
 
       h1 {
         color: lightgray;

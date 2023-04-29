@@ -3,9 +3,10 @@ import Navbar from "../../components/navbar/Navbar";
 import DriveFolderUploadOutlinedIcon from "@mui/icons-material/DriveFolderUploadOutlined";
 import { useState } from "react";
 import axios from "axios";
-import "./new.scss";
+import "./cliente56.scss";
 import { CloudinaryContext, Image, Transformation } from 'cloudinary-react';
 import React, { useRef } from 'react';
+import Dni from "../../components/lectordni/Dni";
 
 
 const New = ({ inputs, title, apiUrl }) => {
@@ -57,9 +58,9 @@ const New = ({ inputs, title, apiUrl }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     axios
-      .post("https://disfraces-production.up.railway.app/clients/newClient", JSON.stringify(formData), {
+      .post("https://disfracesrosario.up.railway.app/clients/newClient", JSON.stringify(formData), {
         headers: {
-          "Content-Type": "application/json",
+          "Content-Type": "application/json", 'Access-Control-Allow-Origin': '*'
         },
       })
       .then((response) => {
@@ -88,6 +89,9 @@ const New = ({ inputs, title, apiUrl }) => {
         <div className="top">
           <h1>{title}</h1>
         </div>
+        <div className="dni">
+        <Dni></Dni>
+        </div>
         <div className="bottom">
           <div className="left">
             <img
@@ -104,9 +108,10 @@ const New = ({ inputs, title, apiUrl }) => {
               }}
             />
           </div>
-      
+          
           <div className="right">
             <form onSubmit={handleSubmit}>
+            
               <div className="formInput">
                 <label htmlFor="image">Imagen:</label>
                 <input
@@ -123,6 +128,7 @@ const New = ({ inputs, title, apiUrl }) => {
                   Subir imagen
                 </button>
               </div>
+             
               <div className="formInput">
                 <label>Nombre:</label>
 

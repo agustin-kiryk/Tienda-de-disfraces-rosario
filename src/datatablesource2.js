@@ -97,7 +97,7 @@ export function UserTable() {
 export async function userRows() {
   try {
     const response = await axios.get(
-      "https://disfraces-production.up.railway.app/costumes"
+      "https://disfracesrosario.up.railway.app/costumes"
     );
     return response.data;
   } catch (error) {

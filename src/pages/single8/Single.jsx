@@ -6,7 +6,7 @@ import List2 from '../lista/ListaDis';
 import "./single.scss";
 
 const Single2 = () => {
-  
+
   const [isEditing, setIsEditing] = useState(false);
   const [details, setDetails] = useState({
     id: '',
@@ -15,18 +15,18 @@ const Single2 = () => {
     detail: '',
     creationDay: '',
     lastClientRented: '',
-    image:'',
-    status:'',
-    lastClientRented:''
+    image: '',
+    status: '',
+    lastClientRented: ''
   });
-  
+
   const url = window.location.href;
-const id = url.split("/").pop();// Obtener la id de la URL actual
+  const id = url.split("/").pop();// Obtener la id de la URL actual
 
   useEffect(() => {
     async function fetchData() {
       console.log(id)
-      const response = await fetch(`https://disfracesrosario.up.railway.app/costumes/${id}`);
+      const response = await fetch(`https://disfracesrosario.up.railway.app/transactions/${id}`);
       const data = await response.json();
       setDetails(data);
     }
@@ -62,7 +62,7 @@ const id = url.split("/").pop();// Obtener la id de la URL actual
             <h1 className="title1">Informacion</h1>
             <div className="item">
               <div className="details">
-                <h1 className="itemTitle">Disfraz</h1>
+                <h1 className="itemTitle">Transaccion</h1>
                 <div className="detailItem">
                   <div className="detailItem">
                     <span className="itemKey">ID:</span>
@@ -79,73 +79,85 @@ const id = url.split("/").pop();// Obtener la id de la URL actual
                   <span className="itemKey">Nombre:</span>
                   <span className="itemValue">
                     {isEditing ? (
-                      <input type="text" name="name" value={details.name} onChange={handleInputChange} />
+                      <input type="text" name="clientName" value={details.clientName} onChange={handleInputChange} />
                     ) : (
-                      details.name
+                      details.clientName
                     )}
                   </span>
                 </div>
                 <div className="detailItem">
-                  <span className="itemKey">Color:</span>
+                  <span className="itemKey">Tipo:</span>
                   <span className="itemValue">
                     {isEditing ? (
-                      <input type="text" name="colour" value={details.colour} onChange={handleInputChange} />
+                      <input type="text" name="type" value={details.type} onChange={handleInputChange} />
                     ) : (
-                      details.colour
+                      details.type
                     )}
                   </span>
                 </div>
                 <div className="detailItem">
-                  <span className="itemKey">Detalle:</span>
+                  <span className="itemKey">Disfraz:</span>
                   <span className="itemValue">
                     {isEditing ? (
-                      <input type="text" name="detail" value={details.detail} onChange={handleInputChange} />
+                      <input type="text" name="names" value={details.names} onChange={handleInputChange} />
                     ) : (
-                      details.detail
+                      details.names
                     )}
                   </span>
                 </div>
                 <div className="detailItem">
-                  <span className="itemKey">Dia de creacion:</span>
+                  <span className="itemKey">CheckIn:</span>
                   <span className="itemValue">
                     {isEditing ? (
-                      <input type="text" name="creationDay" value={details.creationDay} onChange={handleInputChange} />
+                      <input type="text" name="checkIn" value={details.checkIn} onChange={handleInputChange} />
                     ) : (
-                      details.creationDay
+                      details.checkIn
                     )}
                   </span>
                 </div>
                 <div className="detailItem">
-                  <span className="itemKey">Estatus:</span>
+                  <span className="itemKey">Pago parcial:</span>
                   <span className="itemValue">
                     {isEditing ? (
-                      <input type="text" name="status" value={details.status} onChange={handleInputChange} />
+                      <input type="text" name="partialPayment" value={details.partialPayment} onChange={handleInputChange} />
                     ) : (
-                      details.status
+                      details.partialPayment == null ? "No realizo un pago parcial" : details.partialPayment
                     )}
                   </span>
                 </div>
                 <div className="detailItem">
-                  <span className="itemKey">Ultimo Cliente:</span>
+                  <span className="itemKey">Pago Pendiente:</span>
                   <span className="itemValue">
                     {isEditing ? (
-                      <input type="text" name="lastClientRented" value={details.lastClientRented} onChange={handleInputChange} />
+                      <input type="text" name="pending" value={details.pending} onChange={handleInputChange} />
                     ) : (
-                      details.lastClientRented
+                      details.pending == null ? "No debe dinero" : details.pending
+                    )}
+                  </span>
+                </div>
+                <div className="detailItem">
+                  <span className="itemKey">Fecha de retrio:</span>
+                  <span className="itemValue">
+                    {isEditing ? (
+                      <input type="text" name="reservationDate" value={details.reservationDate} onChange={handleInputChange} />
+                    ) : (
+                      details.reservationDate
+                    )}
+                  </span>
+                </div>  <div className="detailItem">
+                  <span className="itemKey">Fecha de devolucion:</span>
+                  <span className="itemValue">
+                    {isEditing ? (
+                      <input type="text" name="deadline" value={details.deadline} onChange={handleInputChange} />
+                    ) : (
+                      details.deadline
                     )}
                   </span>
                 </div>
               </div>
             </div>
           </div>
-          <div className="dni">
-          <img src={details.image} alt=""  width="500px" height="400px"/>
-          </div>
         </div>
-        <div className="bottom">
-          <h1 className="title">Historial de Alquileres</h1>
-        </div>
-        <List2/>
       </div>
     </div>
   );

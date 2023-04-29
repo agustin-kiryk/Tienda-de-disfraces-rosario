@@ -22,38 +22,15 @@ export const userColumns = [
     headerName: "Apellido",
     width: 200,
   },
-
   {
-    field: "rentedCustome",
-    headerName: "Disfraz Alquilado",
+    field: "documentnumNber",
+    headerName: "Documento",
     width: 200,
   },
   {
-    field: "fecahentrega",
-    headerName: "Fecha de Entrega",
-    width: 100,
-  },
-  {
-    field: "type",
-    headerName: "Tipo De Cliente",
-    width: 150,
-  },
-  {
-    field: "phone",
-    headerName: "Telefono",
-    width: 160,
-  },
-  {
-    field: "status",
-    headerName: "Status",
-    width: 160,
-    renderCell: (params) => {
-      return (
-        <div className={`cellWithStatus ${params.row.status}`}>
-          {params.row.status}
-        </div>
-      );
-    },
+    field: "id",
+    headerName: "ID del Cliente",
+    width: 200,
   },
 ];
 

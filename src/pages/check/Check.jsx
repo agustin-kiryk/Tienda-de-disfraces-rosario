@@ -11,6 +11,11 @@ const Check = ({ name, onCheckInChange }) => {
     onCheckInChange(name, event.target.checked);
   };
 
+  const handleChange = (event) => {
+    const { name, checked } = event.target;
+    onCheckInChange(name, checked);
+  };
+
   return (
     <div className="check-box">
       <FormControlLabel

@@ -8,7 +8,7 @@
   height: 100px;
   background-color: rgb(255, 255, 255);
   
-
+ 
   .left,
   .right {
     display: flex;
@@ -59,7 +59,7 @@
     }
   }
 
-
+  
 
   @media screen and (max-width: 1000px ) {
     flex-direction: column;

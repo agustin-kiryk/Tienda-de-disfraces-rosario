@@ -1,80 +1,64 @@
-import { useState, useEffect } from "react";
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
-import Paper from "@mui/material/Paper";
-import TextField from "@mui/material/TextField";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import { useParams } from 'react-router-dom';
 
 
-const List = () => {
-    const [searchText, setSearchText] = useState("");
-    const [data, setData] = useState(null);
-    const url = window.location.href;
-    const id = url.split("/").pop();
+function ClientHistory() {
+  const [clientData, setClientData] = useState(null);
+  const url = window.location.href;
+  const id = url.split("/").pop(); // Obtener la id de la URL actual
 
-    function handleSearchTextChange(event) {
-        const newSearchText = event.target.value;
-        setSearchText(newSearchText);
-    }
 
-    
-    useEffect(() => {
-        fetch(`https://disfraces-production.up.railway.app/costumes/${id}/history`)
-            .then((response) => response.json())
-            .then((data) => setData(data));
-    }, [id]);
-    
+  useEffect(() => {
+    const fetchData = async () => {
+      const result = await axios(
+        `https://disfracesrosario.up.railway.app/costumes/${id}/history`
+      );
+      setClientData(result.data);
+    };
+    fetchData();
+  }, [id]);
+  
+  return (
+    <div>
+      {clientData && (
+        <table>
+          <thead>
+            <tr>
+              <th style={{ padding: "0 10px" }}>Nombre</th>
+              <th style={{ padding: "0 10px" }}>Apellido</th>
+              <th style={{ padding: "0 10px" }}>ID Transaccion</th>
+              <th style={{ padding: "0 10px" }}>Precio</th>
+              <th style={{ padding: "0 10px" }}>Forma de pago</th>
+              <th style={{ padding: "0 10px" }}>Nombre disfraz</th>
+              <th style={{ padding: "0 10px" }}>Fecha de entrega</th>
+              <th style={{ padding: "0 10px" }}>Tipo de Factura</th>
+              <th style={{ padding: "0 10px" }}>Factura</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style={{ padding: "0 10px" }}>{clientData.clientName}</td>
+              <td style={{ padding: "0 10px" }}>{clientData.clientLastName}</td>
+            </tr>
+            {clientData.transactions.map((transaction) => (
+              <tr key={transaction.id}>
+                <td></td>
+                <td></td>
+                <td  style={{ padding: "7px 40px" }}>{transaction.id}</td>
+                <td  style={{ padding: "7px 10px" }}>{transaction.amount}</td>
+                <td  style={{ padding: "7px 25px" }}>{transaction.type}</td>
+                <td  style={{ padding: "7px 10px" }}>{transaction.names[0]}</td>
+                <td  style={{ padding: "7px 10px" }}>{transaction.reservationDate}</td>
+                <td  style={{ padding: "7px 10px" }}>{transaction.deadline}</td>
+                <td  style={{ padding: "7px 10px" }}>{transaction.checkIn}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      )}
+    </div>
+  );
+}
 
-    if (!data) {
-        return <div>Loading...</div>;
-    }
-
-    return (
-        <>
-            <TextField
-                label="Search"
-                value={searchText}
-                onChange={handleSearchTextChange}
-            />
-            <TableContainer component={Paper} className="table">
-                <Table sx={{ minWidth: 250 }} aria-label="simple table">
-                    <TableHead>
-                    <TableRow>
-            <TableCell sx={{ width: 5 }}>ID</TableCell>
-            <TableCell sx={{ width: 20 }}>Nombre del Disfraz</TableCell>
-            <TableCell sx={{ width: 30 }}>Detalle</TableCell>
-            <TableCell sx={{ width: 10 }}>Cliente</TableCell>
-            <TableCell sx={{ width: 15 }}>Fecha de Retiro</TableCell>
-            <TableCell sx={{ width: 15 }}>Fecha de Entrega</TableCell>
-            <TableCell sx={{ width: 10 }}>Estatus</TableCell>
-        </TableRow>
-
-                    </TableHead>
-                    <TableBody>
-                        {data && (
-                            <TableRow>
-                                <TableCell>{data.id}</TableCell>
-                                <TableCell>{data.name}</TableCell>
-                                <TableCell>{data.detail}</TableCell>
-                                <TableCell>{data.clients && data.clients[0] && data.clients[0].name}</TableCell>
-                                <TableCell>{data.transactions && data.transactions[0] && data.transactions[0].reservationDate}</TableCell>
-                                <TableCell>{data.transactions && data.transactions[0] && data.transactions[0].deadline}</TableCell>
-                                <TableCell>
-                                    <span className={`status ${data.transactions && data.transactions[0] && data.transactions[0].checkIn}`}>
-                                        {data.transactions && data.transactions[0] && data.transactions[0].checkIn}
-                                    </span>
-                                </TableCell>
-                            </TableRow>
-                        )}
-                    </TableBody>
-                </Table>
-            </TableContainer>
-
-        </>
-    );
-};
-
-export default List;
+export default ClientHistory;

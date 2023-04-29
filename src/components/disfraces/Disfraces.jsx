@@ -13,7 +13,7 @@ const Datatable = () => {
   const handleDelete = (id) => {
     if (window.confirm("¿Estás seguro de que quieres borrar este cliente?")) {
       axios
-        .delete(`https://disfraces-production.up.railway.app/costumes/${id}`)
+        .delete(`https://disfracesrosario.up.railway.app/costumes/${id}`)
         .then(() => {
           setData(data.filter((item) => item.id !== id));
         })

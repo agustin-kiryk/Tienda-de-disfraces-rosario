@@ -6,16 +6,16 @@ import UserTable, { userRows } from "../../disfra/datatablesource2";
 import { Link, useParams } from "react-router-dom";
 import axios from "axios";
 
-const Datatable2 = ({ onCostumeSelect }) => {
+const Datatable2 = ({ onCostumeSelect, selectedCostume }) => { // Paso el estado del input como una prop llamada "selectedCostume"
   const [data, setData] = useState([]);
   const [selectedRows, setSelectedRows] = useState([]);
   const [selectedCostumeIds, setSelectedCostumeIds] = useState([]);
 
-  const handleSelect = (id) => {
+  const handleSelect = (id, name) => { // Incluyo el nombre del disfraz en la función handleSelect
     // Añadir la ID seleccionada a la lista de IDs previamente seleccionadas
     const updatedIds = [...selectedCostumeIds, id];
     setSelectedCostumeIds(updatedIds);
-    onCostumeSelect(id);
+    onCostumeSelect(id, name); // Llamo la función onCostumeSelect con la ID y el nombre del disfraz seleccionado
 
     // Mostrar las IDs que se van sumando en la consola
     console.log(`IDs seleccionadas: ${updatedIds.join(", ")}`);
@@ -28,8 +28,9 @@ const Datatable2 = ({ onCostumeSelect }) => {
   const handleSelectButtonClick = (params) => {
     // Obtener la ID del disfraz seleccionado en la fila de la tabla
     const costumeId = params.getValue(params.id, "id");
+    const costumeName = params.getValue(params.id, "name"); // Obtener el nombre del disfraz seleccionado
     if (costumeId) {
-      handleSelect(costumeId);
+      handleSelect(costumeId, costumeName); // Llamar la función handleSelect con la ID y el nombre del disfraz seleccionado
     }
   };
 
@@ -59,33 +60,60 @@ const Datatable2 = ({ onCostumeSelect }) => {
     setSelectedCostumeIds(updatedIds);
   };
 
-  return (
-    <div className="datatable">
-      <div className="tableWrapper">
-        <DataGrid
-          className="datagrid"
-          rows={data}
-          columns={[
-            ...userColumns,
-            {
-              field: "selectButton",
-              headerName: "Seleccionar",
-              width: 120,
-              renderCell: CustomSelectButton,
-            },
-          ]}
-          pageSize={8}
-          rowsPerPageOptions={[8]}
-          checkboxSelection
-          autoHeight
-          rowHeight={130}
-          onSelectionModelChange={(newSelectionModel) => {
-            setSelectedRows(newSelectionModel);
-          }}
-        />
-      </div>
+return (
+  <div className="datatable">
+    <div className="tableWrapper">
+      <DataGrid
+        className="datagrid"
+        rows={data}
+        columns={[
+          ...userColumns,
+          {
+            field: "selectButton",
+            headerName: "Seleccionar",
+            width: 120,
+            renderCell: CustomSelectButton,
+          },
+        ]}
+        pageSize={8}
+        rowsPerPageOptions={[8]}
+        checkboxSelection
+        autoHeight
+        rowHeight={130}
+        onSelectionModelChange={(newSelectionModel) => {
+          setSelectedRows(newSelectionModel);
+        }}
+      />
     </div>
-  );
+    <div className="selectedCostumes">
+      <h2>Disfraces seleccionados:</h2>
+      {selectedCostumeIds.length > 0 ? (
+        <ul>
+          {selectedCostumeIds.map((id) => (
+            <li key={id}>{`Disfraz ${id}`}</li>
+          ))}
+        </ul>
+      ) : (
+        <p>No se ha seleccionado ningún disfraz</p>
+      )}
+      {selectedCostumeIds.length > 0 ? (
+        <input
+          type="text"
+          className="selectedCostumesInput"
+          value={`Disfraces seleccionados: ${selectedCostumeIds.join(", ")}`}
+          readOnly
+        />
+      ) : (
+        <input
+          type="text"
+          className="selectedCostumesInput"
+          value="No se ha seleccionado ningún disfraz"
+          readOnly
+        />
+      )}
+    </div>
+  </div>
+);
 };
 
 export default Datatable2;

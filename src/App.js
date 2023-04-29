@@ -7,6 +7,7 @@ import Single2 from "./pages/single2/Single"
 import Single3 from "./pages/single3/Single";
 import Single4 from "./pages/single4/Single";
 import Single5 from "./pages/single5/Single";
+import Single8 from "./pages/single8/Single";
 import New from "./pages/new/New";
 import New2 from "./pages/new2/New";
 
@@ -47,7 +48,7 @@ function App() {
             <Route path="disfraces" element={<Disfraces />} />
             <Route path="nuevopedido" element={<New3 />} />
             <Route path="retiro" element={<New4 />} />
-            
+
 
             <Route path="users">
 
@@ -79,7 +80,7 @@ function App() {
 
 
 
-            
+
 
 
             <Route path="single2">
@@ -87,6 +88,15 @@ function App() {
               <Route index element={<Single2 />} />
 
               <Route path=":userId" element={<Single2 />} />
+
+
+            </Route>
+
+            <Route path="single8">
+
+              <Route index element={<Single8 />} />
+
+              <Route path=":userId" element={<Single8 />} />
 
 
             </Route>

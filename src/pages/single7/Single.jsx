@@ -22,26 +22,55 @@ const Item = styled(Sheet)(({ theme }) => ({
   backgroundColor: "#e7e7e7"
 }));
 
-export default function BasicGrid({ onImageUrlChange, onIdChange, onTransactionIdChange }) {
+export default function BasicGrid({ onImageUrlChange, onIdChange, onTransactionIdChange, onDocumentNumberChange }) {
   const [documentNumber, setDocumentNumber] = useState('');
   const [clientData, setClientData] = useState(null);
   const [id, setId] = useState('');
   const [imageUrl, setImageUrl] = useState(null);
   const [transactionId, setTransactionId] = useState("");
+  const [dni, setDni] = useState('');
+  const [searchDni, setSearchDni] = useState('');
 
   // Función para manejar el cambio del ID del cliente
-  const handleIdChange = (e) => {
-    setId(e.target.value);
+  const handleDocumentNumberChange = (value) => {
+    setDocumentNumber(value);
   }
 
   const handleSearch = async () => {
     try {
-      const response = await axios.get(`https://disfraces-production.up.railway.app/clients/${id}/history`);
+      const response = await axios.get(`https://disfracesrosario.up.railway.app/clients/${documentNumber}/history`);
+      console.log(response.data);
       setClientData(response.data);
+      const imageUrl = response.data.imageUrl;
+      if (imageUrl) {
+        setImageUrl(imageUrl);
+        // Llama a la prop onImageUrlChange para actualizar el estado del padre con la URL de la imagen
+        if (onImageUrlChange) {
+          onImageUrlChange(imageUrl);
+        }
+      }
+
+      // Establece el ID del cliente
+      setId(response.data.id);
+      if (onIdChange) {
+        onIdChange(response.data.id);
+      }
+
     } catch (error) {
       console.error(error);
+      alert("La ID no existe")
     }
-  }
+  };
+
+
+  const handleDniChange = (event) => {
+    setDocumentNumber(event.target.value);
+  };
+
+  const handleIdChange = (event) => {
+    setId(event.target.value);
+  };
+
   // Función para manejar la selección de un disfraz
   const handleSelectCostume = (costume) => {
     onImageUrlChange(costume.image);
@@ -60,17 +89,20 @@ export default function BasicGrid({ onImageUrlChange, onIdChange, onTransactionI
           <Grid xs={2}>
             <Item>Apellido: {clientData ? clientData.lastName : ''}</Item>
           </Grid>
+          <Grid xs={2}>
+            <Item>Dni: {clientData ? clientData.documentNumber : ''}</Item>
+          </Grid>
           <Grid container spacing={2} sx={{ flexGrow: 1 }}>
             <Grid item xs={4}>
               <Input
+                color="info"
                 type="text"
-                placeholder="ID del cliente"
-                value={id}
-                onChange={handleIdChange}
+                placeholder="Escribir ID cliente "
+                onChange={handleDniChange}
               />
-            </Grid>
-            <Grid item xs={2}>
+              <Grid item xs={2}>
               <Button onClick={handleSearch}>Buscar</Button>
+            </Grid>
             </Grid>
           </Grid>
         </Grid>
@@ -92,12 +124,12 @@ export default function BasicGrid({ onImageUrlChange, onIdChange, onTransactionI
             </TableHead>
             <TableBody>
               {clientData && clientData.transactions && clientData.transactions.map((costume) => (
-                 <TableRow key={costume.id} style={{ minWidth: '500px' }}>
-                 <TableCell style={{ minWidth: '50px', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{costume.id}</TableCell>
-                 <TableCell style={{ maxWidth: '100px', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{costume.names}</TableCell>
-                 <TableCell style={{ maxWidth: '100px', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{costume.reservationDate}</TableCell>
-                 <TableCell style={{ maxWidth: '100px', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{costume.deadline}</TableCell>
-                 <TableCell>
+                <TableRow key={costume.id} style={{ minWidth: '10px' }}>
+                  <TableCell style={{ minWidth: '25px', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{costume.id}</TableCell>
+                  <TableCell style={{ maxWidth: '100px', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{costume.names}</TableCell>
+                  <TableCell style={{ maxWidth: '100px', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{costume.reservationDate}</TableCell>
+                  <TableCell style={{ maxWidth: '100px', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{costume.deadline}</TableCell>
+                  <TableCell>
                     {costume.image && (
                       <img src={costume.image} alt="Disfraz" height="100" width="100" />
                     )}
@@ -113,7 +145,6 @@ export default function BasicGrid({ onImageUrlChange, onIdChange, onTransactionI
           </Table>
         </TableContainer>
       }
-    
     </div>
   );
 

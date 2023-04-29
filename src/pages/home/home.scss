@@ -194,10 +194,22 @@
 }
 
 /* Estilos para dispositivos móviles */
-@media screen and (max-width: 760px) {
+@media screen and (max-width: 860px) {
   .homeContainer {
-    /* Cambiar el ancho de los widgets y las gráficas */
-    .widgets,
+    font-size: 20px; /* Aumenta el tamaño de fuente */
+    .widgets{
+      width: 100%; /* Ancho completo */
+    }
+    .buttonContainer {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .buttonContainer button {
+      margin-bottom: 20px;
+      width: 80%; /* Ancho del 80% del contenedor */
+      font-size: 18px; /* Aumenta el tamaño de fuente */
+    }
     .charts {
       padding: 5px;
       gap: 5px;
@@ -213,7 +225,7 @@
     }
     /* Cambiar el tamaño de la fuente del título de la lista */
     .listTitle {
-      font-size: 25px;
+      font-size: 24px; /* Aumenta el tamaño de fuente */
     }
     /* Ocultar la barra lateral */
     .sidebar {

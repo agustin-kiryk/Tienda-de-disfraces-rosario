@@ -54,7 +54,7 @@ const New = ({ inputs, title, apiUrl }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     axios
-      .post("https://disfraces-production.up.railway.app/costumes/newCostume", JSON.stringify(formData), {
+      .post("https://disfracesrosario.up.railway.app/costumes/newCostume", JSON.stringify(formData), {
         headers: {
           "Content-Type": "application/json",
         },

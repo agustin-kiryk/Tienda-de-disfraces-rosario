@@ -12,7 +12,7 @@ function ClientHistory() {
   useEffect(() => {
     const fetchData = async () => {
       const result = await axios(
-        `https://disfraces-production.up.railway.app/clients/${id}/history`
+        `https://disfracesrosario.up.railway.app/clients/${id}/history`
       );
       setClientData(result.data);
     };

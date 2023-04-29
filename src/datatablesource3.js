@@ -1,146 +1,132 @@
+import { useState, useEffect } from "react";
+import axios from "axios";
+import { DataGrid } from "@mui/x-data-grid";
+import TextField from "@mui/material/TextField";
+
+
 export const userColumns = [
- 
-    {
-      field: "user",
-      headerName: "ID",
-      width: 80,
-      renderCell: (params) => {
-        return (
-          <div className="">
-            <img className=""  alt="" />
-            {params.row.username}
-          </div>
-        );
-      },
+  {
+    field: "id",
+    headerName: "Id",
+    width: 20,
+  },
+  {
+    field: "name",
+    headerName: "Nombre",
+    width: 290,
+    renderCell: (params) => {
+      return (
+        <div>
+          {params.row.clientLastName + ' ' + params.row.clientName}
+        </div>
+      );
     },
-    {
-      
-      field: "monto",
-      headerName: "Monto",
-      width: 150,
+  },
+  {
+    field: "amount",
+    headerName: "Monto",
+    width: 230,
+  },
+  {
+    field: "type",
+    headerName: "Tipo",
+    width: 230,
+  },
+  {
+    field: "checkIn",
+    headerName: "CheckIn",
+    width: 200,
+    renderCell: (params) => {
     },
-    {
-      field: "fecha",
-      headerName: "Fecha",
-      width: 130,
+  },
+  {
+    field: "reservationDate",
+    headerName: "Fecha de entrega",
+    width: 200,
+    renderCell: (params) => {
+      return (
+        <div>
+          {new Date(params.row.checkIn).toLocaleDateString()}
+        </div>
+      );
     },
-    {
-      field: "tipodepago",
-      headerName: "Tipo De Pago",
-      width: 230,
+  },
+  {
+    field: "reservationDate",
+    headerName: "Fecha de Reserva",
+    width: 230,
+    renderCell: (params) => {
+      return (
+        <div>
+          {new Date(params.row.reservationDate).toLocaleDateString()}
+        </div>
+      );
     },
-  
-    {
-      field: "cliente",
-      headerName: "Cliente",
-      width: 200,
-    },
-    {
-      field: "remi",
-      headerName: "Remito",
-      width: 200,
-    },
-    /*
-    {
-      field: "status",
-      headerName: "Status",
-      width: 200,
-      renderCell: (params) => {
-        return (
-          <div className={`cellWithStatus ${params.row.status}`}>
-            {params.row.status}
-          </div>
-        );
-      },
-    },
-    */
-    
-  ];
-  
-  
-  //temporary data
-  export const userRows = [
-    {
-      id: 1,
-      username: "12",
-      status: "active",
-      monto:"5000$",
-      fecha: "2/4/23",
-      tipodepago: "Mercado Pago",
-      cliente: "Juan Perez",
-      remi: <button><a>Descargar</a></button>
-    },
-    {
-      id: 2,
-      username: "Messi",
-      
-      email: "2snow@gmail.com",
-      status: "passive",
-      age: 42,
-    },
-    {
-      id: 3,
-      username: "T34-85",
-      
-      email: "3snow@gmail.com",
-      status: "pending",
-      age: 45,
-    },
-    {
-      id: 4,
-      username: "Stark",
-      
-      email: "4snow@gmail.com",
-      status: "active",
-      age: 16,
-    },
-    {
-      id: 5,
-      username: "Targaryen",
-      
-      email: "5snow@gmail.com",
-      status: "passive",
-      age: 22,
-    },
-    {
-      id: 6,
-      username: "Melisandre",
-  
-      email: "6snow@gmail.com",
-      status: "active",
-      age: 15,
-    },
-    {
-      id: 7,
-      username: "Clifford",
-     
-      email: "7snow@gmail.com",
-      status: "passive",
-      age: 44,
-    },
-    {
-      id: 8,
-      username: "Frances",
-     
-      email: "8snow@gmail.com",
-      status: "active",
-      age: 36,
-    },
-    {
-      id: 9,
-      username: "Roxie",
-      
-      email: "snow@gmail.com",
-      status: "pending",
-      age: 65,
-    },
-    {
-      id: 10,
-      username: "Roxie",
-      
-      email: "snow@gmail.com",
-      status: "active",
-      age: 65,
-    },
-  ];
-  
+  },
+
+];
+
+export function UserTable() {
+  const [userRows, setUserRows] = useState([]);
+  const [searchValue, setSearchValue] = useState("");
+
+  useEffect(() => {
+    async function fetchData() {
+      const rows = await userRows();
+      setUserRows(rows);
+    }
+    fetchData();
+  }, []);
+
+  const handleSearchChange = (e) => {
+    setSearchValue(e.target.value);
+  };
+
+  // Filtrar los disfraces en función de la búsqueda
+  const filteredData = userRows.filter((row) => {
+    const costumeName = row.name.toLowerCase();
+    return costumeName.includes(searchValue.toLowerCase());
+  });
+
+  return (
+    <div>
+      <h1>Tabla de usuarios</h1>
+      <TextField
+        label="Buscar disfraces"
+        variant="outlined"
+        value={searchValue}
+        onChange={handleSearchChange}
+        fullWidth
+      />
+      <DataGrid rows={filteredData} columns={userColumns} />
+    </div>
+  );
+}
+
+export async function userRows() {
+  try {
+    const response = await axios.get(
+      "https://disfracesrosario.up.railway.app/transactions"
+    );
+    return response.data;
+  } catch (error) {
+    console.log(error);
+    return [];
+  }
+}
+
+// Estilos CSS
+const styles = {
+  imageContainer: {
+    display: "flex",
+    alignItems: "center",
+  },
+  userImage: {
+    width: "50px",
+    height: "50px",
+    borderRadius: "50%",
+    marginRight: "10px",
+  },
+};
+
+export default UserTable;

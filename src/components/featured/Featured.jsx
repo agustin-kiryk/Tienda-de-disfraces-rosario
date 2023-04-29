@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react';
 import "./featured.scss";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import { CircularProgressbar } from "react-circular-progressbar";
@@ -8,6 +9,16 @@ import IconButton from '@mui/material/IconButton';
 import { Link } from "react-router-dom";
 
 const Featured = () => {
+  const [totals, setTotals] = useState(0);
+
+  useEffect(() => {
+    fetch('https://disfracesrosario.up.railway.app/transactions/totalsMain')
+      .then(response => response.json())
+      .then(data => setTotals(data.totals));
+  }, []);
+
+
+  
   return (
     <div className="featured">
      
@@ -15,7 +26,7 @@ const Featured = () => {
         <div className="featuredChart">
         </div>
         <p className="title">Ingresos Totales del Mes</p>
-        <p className="amount">$100.000</p>
+        <p className="amount">${totals.toFixed(2)}</p>
 
         <button class="learn-more">
         <span class="circle" aria-hidden="true">

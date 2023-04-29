@@ -30,7 +30,7 @@ const Single = () => {
 
   useEffect(() => {
     async function fetchData() {
-      const response = await fetch(`https://disfraces-production.up.railway.app/clients/${id}`);
+      const response = await fetch(`https://disfracesrosario.up.railway.app/clients/${id}`);
       const data = await response.json();
       setDetails(data);
     }
@@ -55,7 +55,7 @@ const Single = () => {
 
   const handleSaveClick = async () => {
     try {
-      const response = await fetch(`https://disfraces-production.up.railway.app/clients/${id}`, {
+      const response = await fetch(`https://disfracesrosario.up.railway.app/clients/${id}`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
