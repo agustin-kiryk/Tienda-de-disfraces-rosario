@@ -62,6 +62,7 @@ public class ClientMapper {
     dto.setType(entity.getType());
     dto.setPhone(entity.getPhone());
     dto.setStatus(entity.getClientStatus());
+    dto.setDocumentNumber(entity.getDocumentNumber());
 
     if(entity.getClientStatus().equals(ClientStatus.ACTIVO)){
       Optional<CostumeEntity> lastCostume = entity.getCustomes().stream()
