@@ -15,8 +15,10 @@ import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import lombok.Getter;
 import lombok.Setter;
@@ -42,6 +44,13 @@ public class TransactionEntity {
       inverseJoinColumns = @JoinColumn(name = "Disfraz_id")
   )
   private Set<CostumeEntity> disfraces = new HashSet<>();
+
+  @ManyToMany(fetch = FetchType.LAZY)
+  @JoinTable(name = "Transaccion_PRODUCTO",
+      joinColumns = @JoinColumn(name = "Transaccion_id"),
+      inverseJoinColumns = @JoinColumn(name = "PRODUCTO_id")
+  )
+  private Set<ProductEntity> products = new HashSet<>();
 
   @Column(name = "Fecha_de_alquiler")
   private LocalDate rentDate;
@@ -83,6 +92,9 @@ public class TransactionEntity {
 
   @Column(name= "Pago Realizado")// SI ABONA UN APARTE AL RESERVAR POR TELEFONO Y ABONA EL RESTO AL RETIRAR EL DISEFRAZ
   private Boolean totalPayment;//TRUE SI AL MOMENTO DE RETIRAR EL DISFRAZ ABONA EL TOTAL ADEUDADO, FALSE SI TIENE SALDO PENDIENTE AL RETIRAR
+
+
+
 
   public TransactionEntity() {
   }

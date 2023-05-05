@@ -81,6 +81,14 @@ public class ClientEntity {
   )
   private Set<CostumeEntity> customes = new HashSet<>();
 
+  @ManyToMany(fetch = FetchType.LAZY,cascade = CascadeType.PERSIST)
+  @JoinTable(
+      name= "PRODCUTO_CLIENTE",
+      joinColumns = @JoinColumn(name= "CLIENTE_ID"),
+      inverseJoinColumns = @JoinColumn(name="PRODUCTO_ID")
+  )
+  private Set<ProductEntity> products = new HashSet<>();
+
   private boolean deleted = Boolean.FALSE;
 
   @Column(name = "Last_Rented_Date")
