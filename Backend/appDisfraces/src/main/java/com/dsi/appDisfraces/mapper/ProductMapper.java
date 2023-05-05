@@ -3,8 +3,9 @@ package com.dsi.appDisfraces.mapper;
 import com.dsi.appDisfraces.dto.ProductDTO;
 import com.dsi.appDisfraces.entity.ProductEntity;
 import lombok.Data;
+import org.springframework.stereotype.Component;
 
-@Data
+@Component
 public class ProductMapper {
 
 
