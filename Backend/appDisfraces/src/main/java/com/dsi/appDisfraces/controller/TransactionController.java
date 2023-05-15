@@ -1,10 +1,6 @@
 package com.dsi.appDisfraces.controller;
 
-import com.dsi.appDisfraces.dto.LimitDTO;
-import com.dsi.appDisfraces.dto.TotalsDTO;
-import com.dsi.appDisfraces.dto.TransactionDTO;
-import com.dsi.appDisfraces.dto.TransactionMonthTotalsDto;
-import com.dsi.appDisfraces.dto.TransactionTotalsDto;
+import com.dsi.appDisfraces.dto.*;
 import com.dsi.appDisfraces.entity.TransactionEntity;
 import com.dsi.appDisfraces.repository.ITransactionRepository;
 import com.dsi.appDisfraces.service.ITransactionService;
@@ -38,6 +34,11 @@ public class TransactionController {
   @PostMapping("/newTransaction")
   ResponseEntity<TransactionDTO> createTransaction(@Valid @RequestBody TransactionDTO transactionDTO) {
     TransactionDTO result = transactionService.create(transactionDTO);
+    return ResponseEntity.status(HttpStatus.CREATED).body(result);
+  }
+  @PostMapping("/newTransactionSale")
+  ResponseEntity<TransactionSaleDTO> createTransactionSale(@Valid @RequestBody TransactionSaleDTO transactionSaleDTO) {
+    TransactionSaleDTO result = transactionService.createSale(transactionSaleDTO);
     return ResponseEntity.status(HttpStatus.CREATED).body(result);
   }
 

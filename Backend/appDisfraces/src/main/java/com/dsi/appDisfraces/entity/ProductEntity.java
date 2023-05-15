@@ -1,6 +1,7 @@
 package com.dsi.appDisfraces.entity;
 
 import com.dsi.appDisfraces.enumeration.ProductStatus;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -22,16 +23,16 @@ import org.hibernate.annotations.CreationTimestamp;
 @Data
 @Entity
 @Table(name = "PRODUCTOS")
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class ProductEntity {
 
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
   @Column(name = "ID", nullable = false)
   private Long id;
-
   private String productName;
   private String productDescription;
-  private Long price;
+  private Double price;
   private Long stock;
   private String productImage;
   @Enumerated(EnumType.STRING)

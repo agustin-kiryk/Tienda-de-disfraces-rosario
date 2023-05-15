@@ -1,10 +1,7 @@
 package com.dsi.appDisfraces.service;
 
-import com.dsi.appDisfraces.dto.LimitDTO;
-import com.dsi.appDisfraces.dto.TotalsDTO;
-import com.dsi.appDisfraces.dto.TransactionDTO;
-import com.dsi.appDisfraces.dto.TransactionMonthTotalsDto;
-import com.dsi.appDisfraces.dto.TransactionTotalsDto;
+import com.dsi.appDisfraces.dto.*;
+
 import java.util.List;
 
 public interface ITransactionService {
@@ -26,4 +23,5 @@ public interface ITransactionService {
 
   TotalsDTO getTotalsMain();
 
+  TransactionSaleDTO createSale(TransactionSaleDTO transactionSaleDTO);
 }
