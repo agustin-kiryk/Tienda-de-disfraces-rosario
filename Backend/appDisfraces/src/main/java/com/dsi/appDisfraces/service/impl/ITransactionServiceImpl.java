@@ -2,6 +2,7 @@ package com.dsi.appDisfraces.service.impl;
 
 import com.dsi.appDisfraces.dto.TotalsDTO;
 import com.dsi.appDisfraces.dto.TransactionDTO;
+import com.dsi.appDisfraces.dto.TransactionDetailDTO;
 import com.dsi.appDisfraces.dto.TransactionSaleDTO;
 import com.dsi.appDisfraces.entity.*;
 import com.dsi.appDisfraces.enumeration.AmountStatus;
@@ -13,6 +14,7 @@ import com.dsi.appDisfraces.mapper.TransactionMapper;
 import com.dsi.appDisfraces.repository.*;
 import com.dsi.appDisfraces.service.ITransactionService;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -181,17 +183,51 @@ public class ITransactionServiceImpl implements ITransactionService {
 
     @Override
     public TransactionSaleDTO createSale(TransactionSaleDTO transactionSaleDTO) {
-
         ClientEntity client = clientRepository.findById(transactionSaleDTO.getClientId()).orElseThrow(
                 ()->new IdNotFound("El id del cliente es invalido"));
         List<ProductEntity> products = new ArrayList<>();
-        for (Long productId : transactionSaleDTO.getProductsIds()){
+        Double totalGeneral = 0.0;
+        List<TransactionDetailDTO> transactionDetails = new ArrayList<>();
+
+        for (Long productId : transactionSaleDTO.getProductsIds()) {
             ProductEntity product = productRepository.findById(productId).orElseThrow(
                     ()-> new IdNotFound("No existe un producto con el id "+ productId + ", verifique nuevamente"));
+            if (product.getStock() < transactionSaleDTO.getQuantity()) {
+                throw new ParamNotFound("No hay stock suficiente del producto " + product.getProductName() + " solo quedan " + product.getStock());
+            }
 
+            // Calcular totales y actualizar stock
+            Double totalUnitario = (product.getPrice());
+            Double totalParcial = totalUnitario * transactionSaleDTO.getQuantity();
+            totalGeneral = totalParcial += totalGeneral;
+
+            product.setStock(product.getStock() - transactionSaleDTO.getQuantity());
+            products.add(product);
+
+            // Crear detalle de transacción
+            TransactionDetailDTO transactionDetail = new TransactionDetailDTO();
+            transactionDetail.setProduct(product);
+            transactionDetail.setQuantity(transactionSaleDTO.getQuantity());
+            transactionDetail.setTotalUnitario(totalUnitario);
+            transactionDetail.setTotalParcial(totalParcial);
+            transactionDetails.add(transactionDetail);
         }
 
-        return null;
+        // Crear transacción y asociar productos y cliente
+        TransactionEntity transaction = new TransactionEntity();
+        transaction.setClient(client);
+        transaction.setProducts(products);
+        transaction.setAmmount((totalGeneral));
+
+        // Realizar acciones adicionales con la transacción (guardar en la base de datos, etc.)
+
+        // Devolver detalle de transacción
+        TransactionSaleDTO transactionSaleResult = new TransactionSaleDTO();
+        transactionSaleResult.setClient(client);
+        transactionSaleResult.setTransactionDetails(transactionDetails);
+        transactionSaleResult.setTotalGeneral(totalGeneral);
+
+        return transactionSaleResult;
     }
     /* public TransactionSaleDTO createSale(TransactionSaleDTO transactionSaleDTO) {
 
