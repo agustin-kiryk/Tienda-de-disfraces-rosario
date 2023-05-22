@@ -94,46 +94,46 @@ public class ITransactionServiceImpl implements ITransactionService {
                 .mapToDouble(TransactionEntity::getAmmount)
                 .sum();
         Double totalMonth = transactions.stream()
-                .filter(t -> t.getRentDate().getMonth() == LocalDate.now().getMonth())
+                .filter(t -> t.getDate().getMonth() == LocalDate.now().getMonth())
                 .mapToDouble(TransactionEntity::getAmmount)
                 .sum();
-        Double totalYear = transactions.stream().filter(t -> t.getRentDate().getYear() == LocalDate.now().getYear())
+        Double totalYear = transactions.stream().filter(t -> t.getDate().getYear() == LocalDate.now().getYear())
                 .mapToDouble(TransactionEntity::getAmmount)
                 .sum();
         Double pendingm = transactions.stream()
-                .filter(t -> t.getPending() != null && t.getRentDate().getMonth() == LocalDate.now().getMonth())
+                .filter(t -> t.getPending() != null && t.getDate().getMonth() == LocalDate.now().getMonth())
                 .mapToDouble(TransactionEntity::getPending)
                 .sum();
         totalsDTO.setSelectMonthPending2(pendingm);
         Double paidm = transactions.stream()
-                .filter(t -> t.getPartialPayment() != null && t.getRentDate().getMonth() == LocalDate.now().getMonth())
+                .filter(t -> t.getPartialPayment() != null && t.getDate().getMonth() == LocalDate.now().getMonth())
                 .mapToDouble(TransactionEntity::getPartialPayment)
                 .sum();
         totalsDTO.setSelectMonthPaid2(paidm);
         Double totalmonthElectronic = transactions.stream()
-                .filter(t -> t.getType().equals("factura electronica") && t.getRentDate().getMonth() == LocalDate.now().getMonth())
+                .filter(t -> t.getType().equals("factura electronica") && t.getDate().getMonth() == LocalDate.now().getMonth())
                 .mapToDouble(TransactionEntity::getAmmount)
                 .sum();
         totalsDTO.setTotalElectronic(totalmonthElectronic);
 
         if (month != null) {
             Double totalSelectMonth = transactions.stream()
-                    .filter(t -> t.getRentDate().getMonthValue() == month
-                            && t.getRentDate().getYear() == LocalDate.now().getYear())
+                    .filter(t -> t.getDate().getMonthValue() == month
+                            && t.getDate().getYear() == LocalDate.now().getYear())
                     .mapToDouble(TransactionEntity::getAmmount)
                     .sum();
             totalsDTO.setSelectMonth(totalSelectMonth);
 
             Double totalSelectMonthPending = transactions.stream()
-                    .filter(t -> t.getPending() != null && t.getRentDate().getMonthValue() == month
-                            && t.getRentDate().getYear() == LocalDate.now().getYear())
+                    .filter(t -> t.getPending() != null && t.getDate().getMonthValue() == month
+                            && t.getDate().getYear() == LocalDate.now().getYear())
                     .mapToDouble(TransactionEntity::getPending)
                     .sum();
             totalsDTO.setSelectMonthPending2(totalSelectMonthPending);
 
             Double totalSelectMonthPaid = transactions.stream()
-                    .filter(t -> t.getPartialPayment() != null && t.getRentDate().getMonthValue() == month
-                            && t.getRentDate().getYear() == LocalDate.now().getYear())
+                    .filter(t -> t.getPartialPayment() != null && t.getDate().getMonthValue() == month
+                            && t.getDate().getYear() == LocalDate.now().getYear())
                     .mapToDouble(TransactionEntity::getPartialPayment)
                     .sum();
             totalsDTO.setSelectMonthPaid2(totalSelectMonthPaid);
@@ -156,20 +156,20 @@ public class ITransactionServiceImpl implements ITransactionService {
 
         List<TransactionEntity> transactions = transactionRepository.findAll();
         Double totalMonthCurrent = transactions.stream()
-                .filter(t -> t.getRentDate().getMonth() == LocalDate.now().getMonth())
+                .filter(t -> t.getDate().getMonth() == LocalDate.now().getMonth())
                 .mapToDouble(TransactionEntity::getAmmount)
                 .sum();
         Double totalMonthPending = transactions.stream()
-                .filter(t -> t.getPending() != null && t.getRentDate().getMonth() == LocalDate.now().getMonth())
+                .filter(t -> t.getPending() != null && t.getDate().getMonth() == LocalDate.now().getMonth())
                 .mapToDouble(TransactionEntity::getPending)
                 .sum();
         Double totalMonthPartial = transactions.stream()
-                .filter(t -> t.getPartialPayment() != null && t.getRentDate().getMonth() == LocalDate.now().getMonth())
+                .filter(t -> t.getPartialPayment() != null && t.getDate().getMonth() == LocalDate.now().getMonth())
                 .mapToDouble(TransactionEntity::getPartialPayment)
                 .sum();
 
         Double totalmonthElectronic = transactions.stream()
-                .filter(t -> t.getType().equals("factura electronica") && t.getRentDate().getMonth() == LocalDate.now().getMonth())
+                .filter(t -> t.getType().equals("factura electronica") && t.getDate().getMonth() == LocalDate.now().getMonth())
                 .mapToDouble(TransactionEntity::getAmmount)
                 .sum();
         totalsDTO.setTotalElectronic(totalmonthElectronic);
@@ -184,14 +184,14 @@ public class ITransactionServiceImpl implements ITransactionService {
     @Override
     public TransactionSaleDTO createSale(TransactionSaleDTO transactionSaleDTO) {
         ClientEntity client = clientRepository.findById(transactionSaleDTO.getClientId()).orElseThrow(
-                ()->new IdNotFound("El id del cliente es invalido"));
-        List<ProductEntity> products = new ArrayList<>();
+                () -> new IdNotFound("El id del cliente es invalido"));
+        Set<ProductEntity> products = new HashSet<>();
         Double totalGeneral = 0.0;
         List<TransactionDetailDTO> transactionDetails = new ArrayList<>();
 
         for (Long productId : transactionSaleDTO.getProductsIds()) {
             ProductEntity product = productRepository.findById(productId).orElseThrow(
-                    ()-> new IdNotFound("No existe un producto con el id "+ productId + ", verifique nuevamente"));
+                    () -> new IdNotFound("No existe un producto con el id " + productId + ", verifique nuevamente"));
             if (product.getStock() < transactionSaleDTO.getQuantity()) {
                 throw new ParamNotFound("No hay stock suficiente del producto " + product.getProductName() + " solo quedan " + product.getStock());
             }
@@ -204,9 +204,11 @@ public class ITransactionServiceImpl implements ITransactionService {
             product.setStock(product.getStock() - transactionSaleDTO.getQuantity());
             products.add(product);
 
+            productRepository.save(product);
+
             // Crear detalle de transacción
             TransactionDetailDTO transactionDetail = new TransactionDetailDTO();
-            transactionDetail.setProduct(product);
+            transactionDetail.setProduct(product.getProductName());
             transactionDetail.setQuantity(transactionSaleDTO.getQuantity());
             transactionDetail.setTotalUnitario(totalUnitario);
             transactionDetail.setTotalParcial(totalParcial);
@@ -218,63 +220,32 @@ public class ITransactionServiceImpl implements ITransactionService {
         transaction.setClient(client);
         transaction.setProducts(products);
         transaction.setAmmount((totalGeneral));
+        transaction.setDate(LocalDate.now());
+        transaction.setBillPayment(transactionSaleDTO.getBillPayment());
+        transaction.setRentDate(null);
+        transaction.setDeadline(null);
+        transaction.setType(transactionSaleDTO.getType());
+        transaction.setPending(null);
+        transaction.setPartialPayment(null);
+        transaction.setStatus(AmountStatus.APROVE);
+        transaction.setTotalPayment(true);
+
+
+        transactionRepository.save(transaction);
 
         // Realizar acciones adicionales con la transacción (guardar en la base de datos, etc.)
 
         // Devolver detalle de transacción
         TransactionSaleDTO transactionSaleResult = new TransactionSaleDTO();
-        transactionSaleResult.setClient(client);
+        transactionSaleResult.setClientName(client.getName());
+        transactionSaleResult.setClientId(client.getId());
         transactionSaleResult.setTransactionDetails(transactionDetails);
-        transactionSaleResult.setTotalGeneral(totalGeneral);
+        transactionSaleResult.setAmount(totalGeneral); //todo: agregar demas detalles de transacciones.
+
 
         return transactionSaleResult;
+
     }
-    /* public TransactionSaleDTO createSale(TransactionSaleDTO transactionSaleDTO) {
-
-    // Validar que el cliente exista
-    ClientEntity client = clientRepository.findById(transactionSaleDTO.getClientId()).orElseThrow(
-        ()->new IdNotFound("El id del cliente es invalido"));
-
-    // Validar que los productos existan
-    List<ProductEntity> products = new ArrayList<>();
-    for (Long productId : transactionSaleDTO.getProductsIds()){
-        ProductEntity product = productRepository.findById(productId).orElseThrow(
-            ()-> new IdNotFound("No existe un producto con el id "+ productId + ", verifique nuevamente"));
-        products.add(product);
-    }
-
-    // Validar que el stock de los productos sea suficiente
-    for (ProductEntity product : products){
-        if (product.getStock() < transactionSaleDTO.getQuantity(product.getId())){
-            throw new NotEnoughStockException("No hay suficiente stock del producto " + product.getName());
-        }
-    }
-
-    // Crear la venta
-    TransactionSaleEntity transactionSaleEntity = new TransactionSaleEntity();
-    transactionSaleEntity.setClient(client);
-    transactionSaleEntity.setProducts(products);
-    transactionSaleEntity.setQuantity(transactionSaleDTO.getQuantity());
-    transactionSaleEntity.setTotal(transactionSaleDTO.getTotal());
-    transactionSaleEntity.setDate(new Date());
-    transactionSaleRepository.save(transactionSaleEntity);
-
-    // Actualizar el stock de los productos
-    for (ProductEntity product : products){
-        product.setStock(product.getStock() - transactionSaleDTO.getQuantity(product.getId()));
-        productRepository.save(product);
-    }
-
-    // Devolver la información de la venta
-    TransactionSaleDTO response = new TransactionSaleDTO();
-    response.setId(transactionSaleEntity.getId());
-    response.setClientId(transactionSaleEntity.getClient().getId());
-    response.setProductsIds(transactionSaleEntity.getProducts().stream().map(ProductEntity::getId).collect(Collectors.toList()));
-    response.setQuantity(transactionSaleEntity.getQuantity());
-    response.setTotal(transactionSaleEntity.getTotal());
-    response.setDate(transactionSaleEntity.getDate());
-    return response;
-}*/
 
 
     @Transactional

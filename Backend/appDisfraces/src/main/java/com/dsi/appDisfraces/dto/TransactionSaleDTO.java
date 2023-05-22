@@ -10,6 +10,7 @@ import java.util.List;
 public class TransactionSaleDTO {
 
     private Long id;
+  //  @NotEmpty(message = "the field amount it cant be empty")
     private Double amount;
     private Long quantity;
     private String type;
@@ -20,5 +21,8 @@ public class TransactionSaleDTO {
     private String StatusPayment;
     private String clientName;
     private String clientLastName;
+    private List<TransactionDetailDTO> transactionDetails;
+    private String billPayment;
+
 
 }

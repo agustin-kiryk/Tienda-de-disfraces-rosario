@@ -7,5 +7,8 @@ import java.util.List;
 
 @Data
 public class TransactionDetailDTO {
-    private List<ClientEntity> clients;
+     private String product;
+     private Long quantity;
+     private Double totalUnitario;
+     private Double totalParcial;
 }

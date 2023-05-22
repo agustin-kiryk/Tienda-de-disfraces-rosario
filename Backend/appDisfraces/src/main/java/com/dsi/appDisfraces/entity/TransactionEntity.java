@@ -46,51 +46,51 @@ public class TransactionEntity {
   private Set<CostumeEntity> disfraces = new HashSet<>();
 
   @ManyToMany(fetch = FetchType.LAZY)
-  @JoinTable(name = "Transaccion_PRODUCTO",
-      joinColumns = @JoinColumn(name = "Transaccion_id"),
-      inverseJoinColumns = @JoinColumn(name = "PRODUCTO_id")
+  @JoinTable(name = "TRANSACCION_PRODUCTO",
+      joinColumns = @JoinColumn(name = "TRANSACCION_ID"),
+      inverseJoinColumns = @JoinColumn(name = "PRODUCTO_ID")
   )
   private Set<ProductEntity> products = new HashSet<>();
 
-  @Column(name = "Fecha_de_alquiler")
+  @Column(name = "FECHA_DE_ALQUILER")
   private LocalDate rentDate;
 
-  @Column(name = "Fecha_de_devolucion", nullable = true)
+  @Column(name = "FECHA_DE_DEVOLUCION", nullable = true)
   private LocalDate deadline;
 
-  @Column(name = "Tipo_de_pago")
+  @Column(name = "TIPO_DE_PAGO")
   private String type;
 
   @Column(name = "REMITO")
   private String billPayment;
 
-  @Column(name = "Fecha_pago")
+  @Column(name = "FECHA_PAGO")
   private LocalDate date;
 
-  @Column(name = "completa")
+  @Column(name = "COMPLETA")
   private Boolean complete; //TRUE SI DEVOLVIÓ EL DISFRAZ, FALSE SI NO DEVOLVIO EL DISFRAZ
 
   @Enumerated(EnumType.STRING)
-  @Column(name = "Status pago")
+  @Column(name = "STATUS_PAGO")
   private AmountStatus status;
 
-  @Column(name="pago parcial")
+  @Column(name="PAGO_PARCIAL")
   private Double partialPayment;
 
-  @Column(name = "Monto")
+  @Column(name = "MONTO")
   private Double ammount;
 
-  @Column(name = "pendiente")
+  @Column(name = "PENDIENTE")
   private Double pending;
 
-  @Column(name= "tope facturacion")
+  @Column(name= "TOPE_FACTURACION")
   private Double limit;
 
-  @Column(name= "Resto_facturar")
+  @Column(name= "RESTO_FACTURAR")
   private Double rest;
 
 
-  @Column(name= "Pago Realizado")// SI ABONA UN APARTE AL RESERVAR POR TELEFONO Y ABONA EL RESTO AL RETIRAR EL DISEFRAZ
+  @Column(name= "PAGO_REALIZADO")// SI ABONA UN APARTE AL RESERVAR POR TELEFONO Y ABONA EL RESTO AL RETIRAR EL DISEFRAZ
   private Boolean totalPayment;//TRUE SI AL MOMENTO DE RETIRAR EL DISFRAZ ABONA EL TOTAL ADEUDADO, FALSE SI TIENE SALDO PENDIENTE AL RETIRAR
 
 
