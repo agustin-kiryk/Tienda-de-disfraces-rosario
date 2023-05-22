@@ -1,12 +1,14 @@
 import Home from "./pages/home/Home";
 import Login from "./pages/login/Login";
 import List from "./pages/list/List";
+import Productos from "./pages/productos/Disfraces"
 import Usuarios from "./components/datatable/Datatable";
 import Single from "./pages/single/Single";
 import Single2 from "./pages/single2/Single"
 import Single3 from "./pages/single3/Single";
 import Single4 from "./pages/single4/Single";
 import Single5 from "./pages/single5/Single";
+
 import Single8 from "./pages/single8/Single";
 import New from "./pages/new/New";
 import New2 from "./pages/new2/New";
@@ -20,7 +22,7 @@ import Histfac from "./pages/histfac/Histfac";
 import Factele from "./pages/factele/Factele";
 import New3 from "./pages/nuevopedido/New";
 import New4 from "./pages/retiro/New";
-
+import New5 from "./pages/nuevacompra/New";
 
 
 import { BrowserRouter, Routes, Route } from "react-router-dom";
@@ -46,9 +48,10 @@ function App() {
             <Route path="histfac" element={<Histfac />} />
             <Route path="factele" element={<Factele />} />
             <Route path="disfraces" element={<Disfraces />} />
+            <Route path="productos" element={<Productos />} />
             <Route path="nuevopedido" element={<New3 />} />
             <Route path="retiro" element={<New4 />} />
-
+            <Route path="nuevacompra" element={<New5 />} />
 
             <Route path="users">
 

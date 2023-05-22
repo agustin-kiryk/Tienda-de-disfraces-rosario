@@ -1,61 +1,6 @@
-
-.bar{
-  width: 12%;
-  padding-top: 1%;
-  display: flex;
-  align-items: center;
-}
-
-.bar1 {
-  display: none;
-}
-
-.info-cliente{
-  margin-top: 1%;
-  margin-bottom: 5%;
-}
-
-.info{
-  overflow-x: hidden;
-  display: flex;
-  align-items: center;
-  padding-left: 45%;
-  .calendario{
-    color: black;
-    margin-top: 10%;
-    margin-bottom: 10%;
-    padding-bottom: 2%;
-  }
-  img{
-    width: 600px;
-    height: 400px;
-    display: flex;
-    margin-right: 20%;
-    margin-left: 20%;
-  }
- 
-}
-
-.botones{
-  display: flex;
-  align-items: center;
-  justify-content: space-evenly;
-  background-color: rgb(255, 255, 255);
-  padding-top: 5%;
-  padding-bottom: 5%;
-  a{
-    color: blue;
-  }
-}
-.check {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-}
 .datatable {
   height: 800px;
   padding: 20px;
-  overflow-x: hidden;
 
   .cellAction {
     gap: 50px;
@@ -162,45 +107,55 @@
       cursor: pointer;
     }
   }
-
-
+  .boton3 {
+   
+    display: flex;
+    height: 3em;
+    width: 100px;
+    align-items: center;
+    justify-content: center;
+    background-color: #eeeeee4b;
+    border-radius: 3px;
+    letter-spacing: 1px;
+    transition: all 0.2s linear;
+    cursor: pointer;
+    border: none;
+    background: #fff;
+   }
+   
+   .boton3 > svg {
+    margin-right: 5px;
+    margin-left: 5px;
+    font-size: 20px;
+    transition: all 0.4s ease-in;
+   }
+   
+   .boton3:hover > svg {
+    font-size: 1.2em;
+    transform: translateX(-5px);
+   }
+   
+   .boton3:hover {
+    box-shadow: 9px 9px 33px #d1d1d1, -9px -9px 33px #ffffff;
+    transform: translateY(-2px);
+   }
+   @media (max-width: 860px) {
+    .datatable {
+      height: auto;
+      padding: 10px;
+    }
     
   }
-  @media (max-width: 1366px) {
-  .bar{
-    width: 15%;
-  }
-  .info-cliente{
-    width: 120%;
-  }    
-  }
-  @media (max-width: 700px ) {
-    .bar{
-     width: 50%;
-    }
-    .info-cliente{
-      width: 160%;
-    }
-    .info{
-      display: flex;
-      flex-direction: column;
-      .calendario{
-        padding-right: 45%;
-      }
-    }
-    .botones{
-      display: flex;
-      flex-direction: column;
-      
-    }
    
-  }
-
-  .final{
-    display: flex;
-    flex-direction: column;
-
-    align-items: flex-end;
+  .boton3 {
+      height: 2em;
+      width: 70px;
+      font-size: 12px;
+    }
+    
+    .boton3 > svg {
+      font-size: 14px;
+    }
   }
 
 a{

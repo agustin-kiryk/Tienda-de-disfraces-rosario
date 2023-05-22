@@ -63,6 +63,12 @@ const Sidebar = () => {
               <span>Disfraces</span>
             </li>
           </Link>
+          <Link to="/productos" style={{ textDecoration: "none" }}>
+            <li>
+              <StoreIcon className="icon" />
+              <span>Productos</span>
+            </li>
+          </Link>
           <Link to="/histfac" style={{ textDecoration: "none" }}>
             <li>
               <CreditCardIcon className="icon" />

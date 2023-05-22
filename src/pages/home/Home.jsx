@@ -54,6 +54,14 @@ const Home = () => {
               <span className="button-text">Retiro/Devolucion</span>
             </Link>
           </button>
+          <button className="learn-more2">
+            <span className="circle" aria-hidden="true">
+              <span className="icon arrow"></span>
+            </span>
+            <Link to="/nuevacompra" style={{ textDecoration: "none" }}>
+              <span className="button-text">Nueva Venta</span>
+            </Link>
+          </button>
         </div>
 
 
