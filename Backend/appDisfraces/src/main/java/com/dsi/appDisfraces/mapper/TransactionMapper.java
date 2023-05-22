@@ -22,6 +22,8 @@ public class TransactionMapper {
         .map(CostumeEntity::getName)
         .collect(Collectors.toList());
     dto.setNames(costumeNames);
+    //TODO: RESOLVER EN GET TRANSACTIONS QUE DEVUELVA LOS DATOS DE LA VENTA DEL PRODUCTO
+
     dto.setClientName(entity.getClient().getName());
     dto.setClientLastName(entity.getClient().getLastName());
 
@@ -30,6 +32,7 @@ public class TransactionMapper {
     dto.setType(entity.getType());
     dto.setAmount(entity.getAmmount());
     dto.setCheckIn(entity.getBillPayment());
+
     return dto;
   }
 

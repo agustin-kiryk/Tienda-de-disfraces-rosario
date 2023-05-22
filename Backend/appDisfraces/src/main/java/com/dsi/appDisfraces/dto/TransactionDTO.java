@@ -29,6 +29,7 @@ public class TransactionDTO {
   private Double limit;
   private String clientName;
   private String clientLastName;
+  private List<String> products;
 
 
 }
