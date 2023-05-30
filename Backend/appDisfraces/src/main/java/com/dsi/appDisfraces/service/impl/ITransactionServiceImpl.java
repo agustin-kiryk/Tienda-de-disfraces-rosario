@@ -1,9 +1,6 @@
 package com.dsi.appDisfraces.service.impl;
 
-import com.dsi.appDisfraces.dto.TotalsDTO;
-import com.dsi.appDisfraces.dto.TransactionDTO;
-import com.dsi.appDisfraces.dto.TransactionDetailDTO;
-import com.dsi.appDisfraces.dto.TransactionSaleDTO;
+import com.dsi.appDisfraces.dto.*;
 import com.dsi.appDisfraces.entity.*;
 import com.dsi.appDisfraces.enumeration.AmountStatus;
 import com.dsi.appDisfraces.enumeration.ClientStatus;
@@ -184,34 +181,38 @@ public class ITransactionServiceImpl implements ITransactionService {
     @Override
     public TransactionSaleDTO createSale(TransactionSaleDTO transactionSaleDTO) {
         ClientEntity client = clientRepository.findById(transactionSaleDTO.getClientId()).orElseThrow(
-                () -> new IdNotFound("El id del cliente es invalido"));
+                () -> new IdNotFound("El id del cliente es inválido"));
+
         Set<ProductEntity> products = new HashSet<>();
         Double totalGeneral = 0.0;
         List<TransactionDetailDTO> transactionDetails = new ArrayList<>();
 
-        for (Long productId : transactionSaleDTO.getProductsIds()) {
+        for (TransactionProductDTO productDTO : transactionSaleDTO.getProducts()) {
+            Long productId = productDTO.getProductId();
+            Long quantity = productDTO.getQuantity();
+
             ProductEntity product = productRepository.findById(productId).orElseThrow(
                     () -> new IdNotFound("No existe un producto con el id " + productId + ", verifique nuevamente"));
-            if (product.getStock() < transactionSaleDTO.getQuantity()) {
-                throw new ParamNotFound("No hay stock suficiente del producto " + product.getProductName() + " solo quedan " + product.getStock());
+
+            if (product.getStock() < quantity) {
+                throw new ParamNotFound("No hay stock suficiente del producto " + product.getProductName() + ". Solo quedan " + product.getStock());
             }
 
             // Calcular totales y actualizar stock
-            Double totalUnitario = (product.getPrice());
-            Double totalParcial = totalUnitario * transactionSaleDTO.getQuantity();
-            totalGeneral = totalParcial += totalGeneral;
+            Double totalUnitario = product.getPrice();
+            Double totalProduct = totalUnitario * quantity;
+            totalGeneral += totalProduct;
 
-            product.setStock(product.getStock() - transactionSaleDTO.getQuantity());
+            product.setStock(product.getStock() - quantity);
             products.add(product);
-
             productRepository.save(product);
 
             // Crear detalle de transacción
             TransactionDetailDTO transactionDetail = new TransactionDetailDTO();
             transactionDetail.setProduct(product.getProductName());
-            transactionDetail.setQuantity(transactionSaleDTO.getQuantity());
+            transactionDetail.setQuantity(quantity);
             transactionDetail.setTotalUnitario(totalUnitario);
-            transactionDetail.setTotalParcial(totalParcial);
+            transactionDetail.setTotalProduct(totalProduct);
             transactionDetails.add(transactionDetail);
         }
 
@@ -219,17 +220,17 @@ public class ITransactionServiceImpl implements ITransactionService {
         TransactionEntity transaction = new TransactionEntity();
         transaction.setClient(client);
         transaction.setProducts(products);
-        transaction.setAmmount((totalGeneral));
+        transaction.setAmmount(totalGeneral);
         transaction.setDate(LocalDate.now());
-        transaction.setBillPayment(transactionSaleDTO.getBillPayment());
-        transaction.setRentDate(null);
-        transaction.setDeadline(null);
+        transaction.setBillPayment(transactionSaleDTO.getCheckIn());
+        transaction.setRentDate(LocalDate.now());
+        transaction.setDeadline(LocalDate.now());
         transaction.setType(transactionSaleDTO.getType());
-        transaction.setPending(null);
-        transaction.setPartialPayment(null);
+        transaction.setPending(0.0);
+        transaction.setPartialPayment(0.0);
         transaction.setStatus(AmountStatus.APROVE);
         transaction.setTotalPayment(true);
-
+        transaction.setComplete(true);
 
         transactionRepository.save(transaction);
 
@@ -238,14 +239,19 @@ public class ITransactionServiceImpl implements ITransactionService {
         // Devolver detalle de transacción
         TransactionSaleDTO transactionSaleResult = new TransactionSaleDTO();
         transactionSaleResult.setClientName(client.getName());
+        transactionSaleResult.setClientLastName(client.getLastName());
         transactionSaleResult.setClientId(client.getId());
         transactionSaleResult.setTransactionDetails(transactionDetails);
-        transactionSaleResult.setAmount(totalGeneral); //todo: agregar demas detalles de transacciones.
-
+        transactionSaleResult.setAmount(totalGeneral);
+        transactionSaleResult.setStatusPayment(String.valueOf(transaction.getStatus()));
+        transactionSaleResult.setId(transaction.getId());
+        transactionSaleResult.setType(transaction.getType());
+        transactionSaleResult.setCheckIn(transaction.getBillPayment());
+        transactionSaleResult.setBillPayment(transaction.getBillPayment());
 
         return transactionSaleResult;
+    } //TODO: HACER UN TIPO DE TRANSACCION PARA VENTA Y OTRO PARA ALQUILER ASI EN EL MOMENTO DE VER EL HISTORIAL SE PUEDE SETEAR LA VISTA
 
-    }
 
 
     @Transactional

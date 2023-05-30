@@ -1,5 +1,6 @@
 package com.dsi.appDisfraces.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.Data;
 
@@ -12,11 +13,12 @@ public class TransactionSaleDTO {
     private Long id;
   //  @NotEmpty(message = "the field amount it cant be empty")
     private Double amount;
-    private Long quantity;
+    //private Long quantity;
     private String type;
     private Long clientId;
-    private List<Long> productsIds;
-    private List<String> names;
+    private List<TransactionProductDTO> products;
+    //private List<Long> productsIds;
+  //  private List<String> names;
     private String checkIn;
     private String StatusPayment;
     private String clientName;

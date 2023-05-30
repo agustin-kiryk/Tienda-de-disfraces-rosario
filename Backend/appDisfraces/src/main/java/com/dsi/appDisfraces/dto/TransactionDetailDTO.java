@@ -10,5 +10,6 @@ public class TransactionDetailDTO {
      private String product;
      private Long quantity;
      private Double totalUnitario;
-     private Double totalParcial;
+     private Double totalProduct;
+
 }
