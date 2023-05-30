@@ -41,6 +41,7 @@ com\dsi\appDisfraces\dto\TransactionDTO.class
 com\dsi\appDisfraces\auth\service\token.class
 com\dsi\appDisfraces\dto\TotalsDTO.class
 com\dsi\appDisfraces\AppDisfracesApplication.class
+com\dsi\appDisfraces\dto\TransactionProductDTO.class
 com\dsi\appDisfraces\exception\CustomExceptionHandler.class
 com\dsi\appDisfraces\service\impl\CostumeServiceImpl.class
 com\dsi\appDisfraces\entity\CostumeEntity.class
