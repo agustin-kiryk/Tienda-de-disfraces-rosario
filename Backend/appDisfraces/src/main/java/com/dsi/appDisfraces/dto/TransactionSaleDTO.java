@@ -25,6 +25,9 @@ public class TransactionSaleDTO {
     private String clientLastName;
     private List<TransactionDetailDTO> transactionDetails;
     private String billPayment;
+    private String clientAdress;
+    private String clientDocument;
+
 
 
 }

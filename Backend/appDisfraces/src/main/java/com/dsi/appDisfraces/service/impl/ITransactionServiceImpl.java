@@ -214,6 +214,8 @@ public class ITransactionServiceImpl implements ITransactionService {
             transactionDetail.setTotalUnitario(totalUnitario);
             transactionDetail.setTotalProduct(totalProduct);
             transactionDetails.add(transactionDetail);
+
+
         }
 
         // Crear transacción y asociar productos y cliente
@@ -231,6 +233,7 @@ public class ITransactionServiceImpl implements ITransactionService {
         transaction.setStatus(AmountStatus.APROVE);
         transaction.setTotalPayment(true);
         transaction.setComplete(true);
+        transaction.setDetails(String.valueOf(transactionDetails));
 
         transactionRepository.save(transaction);
 
@@ -241,6 +244,8 @@ public class ITransactionServiceImpl implements ITransactionService {
         transactionSaleResult.setClientName(client.getName());
         transactionSaleResult.setClientLastName(client.getLastName());
         transactionSaleResult.setClientId(client.getId());
+        transactionSaleResult.setClientAdress(client.getAdress());
+        transactionSaleResult.setClientDocument(client.getDocumentNumber());
         transactionSaleResult.setTransactionDetails(transactionDetails);
         transactionSaleResult.setAmount(totalGeneral);
         transactionSaleResult.setStatusPayment(String.valueOf(transaction.getStatus()));

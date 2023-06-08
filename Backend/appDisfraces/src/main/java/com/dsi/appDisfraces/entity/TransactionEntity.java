@@ -1,6 +1,9 @@
 package com.dsi.appDisfraces.entity;
 
+import com.dsi.appDisfraces.dto.TransactionDetailDTO;
 import com.dsi.appDisfraces.enumeration.AmountStatus;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -93,6 +96,29 @@ public class TransactionEntity {
   @Column(name= "PAGO_REALIZADO")// SI ABONA UN APARTE AL RESERVAR POR TELEFONO Y ABONA EL RESTO AL RETIRAR EL DISEFRAZ
   private Boolean totalPayment;//TRUE SI AL MOMENTO DE RETIRAR EL DISFRAZ ABONA EL TOTAL ADEUDADO, FALSE SI TIENE SALDO PENDIENTE AL RETIRAR
 
+  @Column(name= "DETALLE")
+  private String details;
+
+  public void setDetails(Object details) {
+    ObjectMapper objectMapper = new ObjectMapper();
+    try {
+      this.details = objectMapper.writeValueAsString(details);
+    } catch (JsonProcessingException e) {
+      // Manejar la excepción adecuadamente
+      e.printStackTrace();
+    }
+  }
+
+  public Object getDetails() {
+    ObjectMapper objectMapper = new ObjectMapper();
+    try {
+      return objectMapper.readValue(details, Object.class);
+    } catch (JsonProcessingException e) {
+      // Manejar la excepción adecuadamente
+      e.printStackTrace();
+      return null;
+    }
+  }
 
 
 

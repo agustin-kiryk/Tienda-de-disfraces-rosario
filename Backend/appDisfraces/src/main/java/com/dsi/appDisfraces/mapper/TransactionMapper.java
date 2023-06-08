@@ -32,6 +32,7 @@ public class TransactionMapper {
     dto.setType(entity.getType());
     dto.setAmount(entity.getAmmount());
     dto.setCheckIn(entity.getBillPayment());
+    dto.setDetails(entity.getDetails());
 
     return dto;
   }

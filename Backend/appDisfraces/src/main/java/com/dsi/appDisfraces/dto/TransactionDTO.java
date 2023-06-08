@@ -7,6 +7,7 @@ import jakarta.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 import lombok.Data;
 
@@ -30,6 +31,7 @@ public class TransactionDTO {
   private String clientName;
   private String clientLastName;
   private List<String> products;
+  private Object details;
 
 
 }
