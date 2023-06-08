@@ -27,6 +27,7 @@ public class TransactionSaleDTO {
     private String billPayment;
     private String clientAdress;
     private String clientDocument;
+    private String clientPhone;
 
 
 

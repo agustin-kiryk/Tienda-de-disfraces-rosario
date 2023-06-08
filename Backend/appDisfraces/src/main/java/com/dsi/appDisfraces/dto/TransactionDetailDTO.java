@@ -11,5 +11,6 @@ public class TransactionDetailDTO {
      private Long quantity;
      private Double totalUnitario;
      private Double totalProduct;
+     private Long productId;
 
 }

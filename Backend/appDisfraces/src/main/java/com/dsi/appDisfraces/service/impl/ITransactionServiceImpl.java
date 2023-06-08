@@ -210,6 +210,7 @@ public class ITransactionServiceImpl implements ITransactionService {
             // Crear detalle de transacción
             TransactionDetailDTO transactionDetail = new TransactionDetailDTO();
             transactionDetail.setProduct(product.getProductName());
+            transactionDetail.setProductId(product.getId());
             transactionDetail.setQuantity(quantity);
             transactionDetail.setTotalUnitario(totalUnitario);
             transactionDetail.setTotalProduct(totalProduct);
@@ -253,6 +254,7 @@ public class ITransactionServiceImpl implements ITransactionService {
         transactionSaleResult.setType(transaction.getType());
         transactionSaleResult.setCheckIn(transaction.getBillPayment());
         transactionSaleResult.setBillPayment(transaction.getBillPayment());
+        transactionSaleResult.setClientPhone(client.getPhone());
 
         return transactionSaleResult;
     } //TODO: HACER UN TIPO DE TRANSACCION PARA VENTA Y OTRO PARA ALQUILER ASI EN EL MOMENTO DE VER EL HISTORIAL SE PUEDE SETEAR LA VISTA
