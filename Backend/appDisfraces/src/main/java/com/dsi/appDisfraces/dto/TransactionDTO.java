@@ -32,6 +32,13 @@ public class TransactionDTO {
   private String clientLastName;
   private List<String> products;
   private Object details;
+  private String clientDocument;
+  private String clientPhone;
+  private String clientAdress;
+
+
+
+
 
 
 }

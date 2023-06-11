@@ -217,6 +217,7 @@ public class ITransactionServiceImpl implements ITransactionService {
             transactionDetails.add(transactionDetail);
 
 
+
         }
 
         // Crear transacción y asociar productos y cliente
@@ -235,6 +236,7 @@ public class ITransactionServiceImpl implements ITransactionService {
         transaction.setTotalPayment(true);
         transaction.setComplete(true);
         transaction.setDetails(String.valueOf(transactionDetails));
+
 
         transactionRepository.save(transaction);
 
@@ -255,6 +257,7 @@ public class ITransactionServiceImpl implements ITransactionService {
         transactionSaleResult.setCheckIn(transaction.getBillPayment());
         transactionSaleResult.setBillPayment(transaction.getBillPayment());
         transactionSaleResult.setClientPhone(client.getPhone());
+        transactionSaleResult.setDetail(transactionSaleDTO.getDetail());
 
         return transactionSaleResult;
     } //TODO: HACER UN TIPO DE TRANSACCION PARA VENTA Y OTRO PARA ALQUILER ASI EN EL MOMENTO DE VER EL HISTORIAL SE PUEDE SETEAR LA VISTA
@@ -356,6 +359,11 @@ public class ITransactionServiceImpl implements ITransactionService {
         result.setPartialPayment(transactionEntity.getPartialPayment());
         result.setPending(transactionEntity.getPending());
         result.setStatusPayment(String.valueOf(transactionEntity.getStatus()));
+        result.setClientName(transactionEntity.getClient().getName());
+        result.setClientLastName(transactionEntity.getClient().getLastName());
+        result.setClientDocument(transactionEntity.getClient().getDocumentNumber());
+        result.setClientPhone(transactionEntity.getClient().getPhone());
+        result.setClientAdress(transactionEntity.getClient().getAdress());
 
         return result;
     }
