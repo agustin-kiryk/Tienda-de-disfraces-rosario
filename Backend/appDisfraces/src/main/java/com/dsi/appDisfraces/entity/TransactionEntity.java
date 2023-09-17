@@ -96,7 +96,7 @@ public class TransactionEntity {
   @Column(name= "PAGO_REALIZADO")// SI ABONA UN APARTE AL RESERVAR POR TELEFONO Y ABONA EL RESTO AL RETIRAR EL DISEFRAZ
   private Boolean totalPayment;//TRUE SI AL MOMENTO DE RETIRAR EL DISFRAZ ABONA EL TOTAL ADEUDADO, FALSE SI TIENE SALDO PENDIENTE AL RETIRAR
 
-  @Column(name= "DETALLE")
+  @Column(name= "DETALLE", length = 500)
   private String details;
 
   public void setDetails(Object details) {
