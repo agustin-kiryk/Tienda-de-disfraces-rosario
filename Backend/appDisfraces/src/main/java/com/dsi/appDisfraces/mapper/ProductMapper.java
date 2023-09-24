@@ -21,7 +21,7 @@ public class ProductMapper {
     entity.setProductDescription(productDTO.getProductDescription());
     entity.setPrice(productDTO.getPrice());
     entity.setStock(productDTO.getStock());
-    entity.setProductImage(productDTO.getProductDescription());
+    entity.setProductImage(productDTO.getImage());
 
     return entity;
   }

@@ -99,6 +99,9 @@ public class TransactionEntity {
   @Column(name= "DETALLE", length = 500)
   private String details;
 
+  @Column(name = "VENTA")
+  private Boolean sale;
+
   public void setDetails(Object details) {
     ObjectMapper objectMapper = new ObjectMapper();
     try {

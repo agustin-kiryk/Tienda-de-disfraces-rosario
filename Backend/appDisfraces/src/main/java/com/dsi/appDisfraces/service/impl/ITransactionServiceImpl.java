@@ -235,7 +235,8 @@ public class ITransactionServiceImpl implements ITransactionService {
         transaction.setStatus(AmountStatus.APROVE);
         transaction.setTotalPayment(true);
         transaction.setComplete(true);
-        transaction.setDetails(String.valueOf(transactionDetails));
+        transaction.setDetails(transactionDetails);
+        transaction.setSale(true);
 
 
         transactionRepository.save(transaction);
@@ -260,7 +261,7 @@ public class ITransactionServiceImpl implements ITransactionService {
         transactionSaleResult.setDetail(transactionSaleDTO.getDetail());
 
         return transactionSaleResult;
-    } //TODO: HACER UN TIPO DE TRANSACCION PARA VENTA Y OTRO PARA ALQUILER ASI EN EL MOMENTO DE VER EL HISTORIAL SE PUEDE SETEAR LA VISTA
+    }
 
 
 
@@ -318,6 +319,8 @@ public class ITransactionServiceImpl implements ITransactionService {
         transactionEntity.setPartialPayment(transactionDTO.getPartialPayment());
         transactionEntity.setDate(LocalDate.now());
         transactionEntity.setLimit(transactionDTO.getLimit());
+        transactionEntity.setDetails("ALQUILER");
+        transactionEntity.setSale(false);
         if (transactionDTO.getPartialPayment() == null || transactionDTO.getPartialPayment() == 0) {
             transactionEntity.setPending(0.0);
         } else {

@@ -40,6 +40,7 @@ public class ClientServiceImpl implements IClientService {
     return result;
   }
 
+
   @Override
   public ClientRequestDTO getDetailsById(Long id) {
     ClientEntity entity = clientRepository.findById(id).orElseThrow(
