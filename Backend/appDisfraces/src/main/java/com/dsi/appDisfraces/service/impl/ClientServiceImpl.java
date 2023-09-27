@@ -94,7 +94,13 @@ public class ClientServiceImpl implements IClientService {
     return history;
   }
 
-
+  @Override
+  public ClientHistoryDTO getHistoryCostume(Long id) {
+    ClientEntity entity = this.clientRepository.findById(id).orElseThrow(
+            ()-> new ParamNotFound("El id del cliente no existe"));
+    ClientHistoryDTO historyCostume = clientMapper.clientHistoryCostumeEntity2Dto(entity);
+    return historyCostume;
+  }
 
 }
  

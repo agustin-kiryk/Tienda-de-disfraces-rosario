@@ -87,6 +87,12 @@ public class ClientController {
     return ResponseEntity.ok(history);
   }
 
+  @GetMapping("/{id}/historyCostume")
+  public ResponseEntity<ClientHistoryDTO> clientHistoryCostume(@PathVariable Long id){
+    ClientHistoryDTO history = this.clientService.getHistoryCostume(id);
+    return ResponseEntity.ok(history);
+  }
+
 
   }
 

@@ -137,5 +137,29 @@ public class ClientMapper {
 
     return dto;
   }
+  public ClientHistoryDTO clientHistoryCostumeEntity2Dto(ClientEntity entity) {
+    ClientHistoryDTO dto = new ClientHistoryDTO();
+    dto.setName(entity.getName());
+    dto.setLastName(entity.getLastName());
+    List<CostumeDTO> costumes = entity.getCustomes().stream().map(CostumeEntity->{
+              CostumeDTO costumeDTO = new CostumeDTO();
+              costumeDTO.setId(CostumeEntity.getId());
+              costumeDTO.setName(CostumeEntity.getName());
+              costumeDTO.setDeadLine(CostumeEntity.getDeadLine());
+              costumeDTO.setReservationDate(CostumeEntity.getReservationDate());
+              costumeDTO.setImage(CostumeEntity.getImage());
+              return costumeDTO;
+            }).
+            collect(Collectors.toList());
+    dto.setCostumes(costumes);
+    List<TransactionDTO> transactions = entity.getTransactions().stream()
+            .filter(transactionEntity -> transactionEntity.getSale().equals(false))
+            .map(transactionMapper::transactionEntityToDTO)
+            .collect(Collectors.toList());
+    dto.setTransactions(transactions);
+
+    return dto;
+  }
+
 }
   

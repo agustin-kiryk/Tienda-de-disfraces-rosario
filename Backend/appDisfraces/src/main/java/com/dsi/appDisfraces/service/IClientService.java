@@ -21,5 +21,7 @@ public interface IClientService {
 
   ClientHistoryDTO getHistory(Long id);
 
+  ClientHistoryDTO getHistoryCostume(Long id);
+
   ClientRequestDTO getDetailByDocument(String documentNumber);
 }
