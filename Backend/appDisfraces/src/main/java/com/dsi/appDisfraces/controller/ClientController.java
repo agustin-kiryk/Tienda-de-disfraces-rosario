@@ -1,5 +1,6 @@
 package com.dsi.appDisfraces.controller;
 
+import com.dsi.appDisfraces.dto.ClientHistoryDTO;
 import com.dsi.appDisfraces.dto.ClientRequestDTO;
 import com.dsi.appDisfraces.dto.ClientTableDto;
 import com.dsi.appDisfraces.entity.ClientEntity;
@@ -14,6 +15,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -34,10 +36,6 @@ public class ClientController {
   @Autowired
   private IClientRepository clientRepository;
 
-  //public ClientController(IClientService clientService) {
-  //  this.clientService = clientService;
-  //}
-
   @PostMapping("/newClient")
   public ResponseEntity<ClientRequestDTO> createClient(@RequestBody ClientRequestDTO dto){
 
@@ -51,6 +49,14 @@ public class ClientController {
     return ResponseEntity.ok(client);
   }
 
+
+  @GetMapping("/document/{documentNumber}")
+  public ResponseEntity<ClientRequestDTO> getClientByDocument(@PathVariable String documentNumber){
+    ClientRequestDTO client = clientService.getDetailByDocument(documentNumber);
+    return ResponseEntity.ok(client);
+  }
+      //Trae la lista basica de clientes con el ULTIMO disfraz alquilado,
+
   @GetMapping
   public ResponseEntity<List<ClientTableDto>> getAllClients(){
     List<ClientTableDto> clients = this.clientService.findAll();
@@ -58,12 +64,27 @@ public class ClientController {
 
   }
 
-
   @PatchMapping("/{id}")
   public ResponseEntity<ClientRequestDTO> update(
        @PathVariable Long id, @RequestBody ClientRequestDTO personaje) {
     ClientRequestDTO result = this.clientService.update(id, personaje);
     return ResponseEntity.ok(result);
+  }
+
+  @DeleteMapping("/{id}")
+  public ResponseEntity<Void> deleteUser(@PathVariable Long id){
+    this.clientService.delete(id);
+    return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+  }
+
+
+    //trae el historial de disfraces alquilados por el cliente, para la lista de detalles del cliente
+
+
+  @GetMapping("/{id}/history")
+  public ResponseEntity<ClientHistoryDTO> clientHistory(@PathVariable Long id){
+    ClientHistoryDTO history = this.clientService.getHistory(id);
+    return ResponseEntity.ok(history);
   }
 
   }

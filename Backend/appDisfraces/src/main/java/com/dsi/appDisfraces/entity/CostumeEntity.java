@@ -1,24 +1,35 @@
 package com.dsi.appDisfraces.entity;
 
-import com.dsi.appDisfraces.enumeration.ClientStatus;
-import com.dsi.appDisfraces.enumeration.CustomeStatus;
+import com.dsi.appDisfraces.enumeration.CostumeStatus;
+import jakarta.persistence.CascadeType;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
+
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
 
 @Entity
 @Table(name = "Disfraces")
-@Getter@Setter
+@Getter
+@Setter
+
 public class CostumeEntity {
 
   @Id
@@ -34,35 +45,40 @@ public class CostumeEntity {
 
   @Enumerated(EnumType.STRING)
   @Column(name = "Status", columnDefinition = "varchar(255)")
-  private CustomeStatus status;
+  private CostumeStatus status;
   public CostumeEntity() {
-    this.status = CustomeStatus.DISPONIBLE;
+    this.status = CostumeStatus.DISPONIBLE;
   }
 
-  @Column(name = "Reserva", nullable = false)
-  private String reservationDate;
+  @Column(name = "Reserva", nullable = true)
+  private LocalDate reservationDate;
 
-  @Column(name = "Entrega", nullable = false)
-  private String deadLine;
+  @Column(name = "Entrega", nullable = true)
+  private LocalDate deadLine;
 
-  @Column(name = "Imagen", nullable = false)
+  @Column(name = "Imagen", nullable = true)
+
   private String image;
 
   @ManyToMany(mappedBy = "customes")
   private List<ClientEntity> clients = new ArrayList<>();
+
   private boolean deleted = Boolean.FALSE;
 
   public boolean isRented() {
-    return status == CustomeStatus.ALQUILADO;
+    return status == CostumeStatus.ALQUILADO;
   }
 
+  @Column (name= "Fecha de creacion")
+  @CreationTimestamp
+  private LocalDate creationDate;
 
+  @Column ( name= "Color")
+  private String colour;
 
+  @ManyToMany(mappedBy = "disfraces", cascade = CascadeType.PERSIST) //TODO: Revisar que la cascade ande ok.
 
-
-
-
-
+  private Set<TransactionEntity> transactions = new HashSet<>();
 
 
 
