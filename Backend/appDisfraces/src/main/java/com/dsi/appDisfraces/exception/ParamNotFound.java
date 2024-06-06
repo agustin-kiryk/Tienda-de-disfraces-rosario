@@ -5,5 +5,6 @@ package com.dsi.appDisfraces.exception;
     public ParamNotFound(String message) {
       super(message);
     }
+
   }
 

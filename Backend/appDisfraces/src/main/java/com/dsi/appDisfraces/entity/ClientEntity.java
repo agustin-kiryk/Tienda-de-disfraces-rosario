@@ -74,6 +74,7 @@ public class ClientEntity {
   private LocalDate createDataTime;
 
   @ManyToMany(fetch = FetchType.LAZY,cascade = CascadeType.PERSIST)
+
   @JoinTable(
       name= "Disfraz_Cliente",
       joinColumns = @JoinColumn(name= "Cliente_id"),
@@ -89,6 +90,7 @@ public class ClientEntity {
   @OneToMany(mappedBy = "client", fetch = FetchType.LAZY, //TODO: revisar que lacascada este ok
       cascade = CascadeType.ALL)
   private List<TransactionEntity> transactions = new ArrayList<>();
+
 
 
   @Override

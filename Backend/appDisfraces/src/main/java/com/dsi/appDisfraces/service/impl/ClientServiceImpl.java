@@ -5,6 +5,7 @@ import com.dsi.appDisfraces.dto.ClientRequestDTO;
 import com.dsi.appDisfraces.dto.ClientTableDto;
 import com.dsi.appDisfraces.entity.ClientEntity;
 import com.dsi.appDisfraces.exception.IdNotFound;
+
 import com.dsi.appDisfraces.exception.ParamNotFound;
 import com.dsi.appDisfraces.exception.RepeatedUsername;
 import com.dsi.appDisfraces.mapper.ClientMapper;
@@ -15,7 +16,9 @@ import java.util.List;
 import java.util.Optional;
 import javax.swing.text.html.parser.Entity;
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.http.HttpStatus;
+
 import org.springframework.stereotype.Service;
 
 @Service
@@ -27,6 +30,7 @@ public class ClientServiceImpl implements IClientService {
 
   @Override
   public ClientRequestDTO save(ClientRequestDTO dto){
+
 
     Optional<ClientEntity> user = clientRepository.findByDocumentNumber(dto.getDocumentNumber());
     if(user.isPresent()) {
@@ -49,6 +53,7 @@ public class ClientServiceImpl implements IClientService {
   }
 
   @Override
+
   public ClientRequestDTO getDetailByDocument(String documentNumber) {
     ClientEntity entity = clientRepository.findByDocumentNumber(documentNumber).orElseThrow(
         ()->new ParamNotFound("El nuemro de DNI "+documentNumber+" no se encuentra en la base de datos"));
@@ -58,6 +63,7 @@ public class ClientServiceImpl implements IClientService {
   }
 
   @Override
+
   public List<ClientTableDto> findAll() {
     List<ClientEntity> entities = this.clientRepository.findAll();
     List<ClientTableDto> result = this.clientMapper.clientEntityList2DTOList(entities);
@@ -70,7 +76,9 @@ public class ClientServiceImpl implements IClientService {
   public ClientRequestDTO update(Long id, ClientRequestDTO clientRequestDTO) {
     Optional<ClientEntity> entity = this.clientRepository.findById(id);
     ClientEntity client = entity.orElseThrow(
+
         ()-> new ParamNotFound("El ID del cleinte es invalido"));
+
     this.clientMapper.clientEntityUpdate(client, clientRequestDTO);
     ClientEntity updateEntity = this.clientRepository.save(client);
     ClientRequestDTO result = clientMapper.clientEntity2Dto(updateEntity);
@@ -92,8 +100,6 @@ public class ClientServiceImpl implements IClientService {
     ClientHistoryDTO history = clientMapper.clientHistoryEntity2Dto(entity);
     return history;
   }
-
-
 
 }
  

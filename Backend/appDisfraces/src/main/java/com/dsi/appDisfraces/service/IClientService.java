@@ -1,6 +1,8 @@
 package com.dsi.appDisfraces.service;
 
+
 import com.dsi.appDisfraces.dto.ClientHistoryDTO;
+
 import com.dsi.appDisfraces.dto.ClientRequestDTO;
 import com.dsi.appDisfraces.dto.ClientTableDto;
 import java.io.IOException;
@@ -17,9 +19,10 @@ public interface IClientService {
   ClientRequestDTO update(Long id, ClientRequestDTO personaje);
 
 
+
   void delete(Long id);
 
   ClientHistoryDTO getHistory(Long id);
 
   ClientRequestDTO getDetailByDocument(String documentNumber);
-}
+

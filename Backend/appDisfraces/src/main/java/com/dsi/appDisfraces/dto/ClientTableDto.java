@@ -18,4 +18,5 @@ public class ClientTableDto implements Serializable {
   private LocalDate deadLine;
   private String documentNumber;
 
+
 }

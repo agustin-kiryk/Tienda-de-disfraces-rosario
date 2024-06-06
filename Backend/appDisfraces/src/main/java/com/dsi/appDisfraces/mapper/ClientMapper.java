@@ -17,6 +17,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.stereotype.Component;
 
 @Component
@@ -25,6 +26,7 @@ public class ClientMapper {
   IClientRepository clientRepository;
   @Autowired
   TransactionMapper transactionMapper;
+
 
   public ClientEntity clientDTO2Entity(ClientRequestDTO dto) {
     ClientEntity entity = new ClientEntity();
@@ -57,6 +59,7 @@ public class ClientMapper {
   public ClientTableDto clientBasicEntity2DTO(ClientEntity entity){
     ClientTableDto dto = new ClientTableDto();
     dto.setId(entity.getId());
+
     dto.setName(entity.getName());
     dto.setLastName(entity.getLastName());
     dto.setType(entity.getType());
@@ -87,8 +90,6 @@ public class ClientMapper {
    dto.setId(entity.getId());
    dto.setDeadLine(entity.getDeadLine());
    dto.setName(entity.getName());
-
-
     return dto;
   }
 
@@ -113,7 +114,6 @@ public class ClientMapper {
 
   }
 
-
   public ClientHistoryDTO clientHistoryEntity2Dto(ClientEntity entity) {
     ClientHistoryDTO dto = new ClientHistoryDTO();
     dto.setName(entity.getName());
@@ -137,5 +137,6 @@ public class ClientMapper {
 
     return dto;
   }
+
 }
   

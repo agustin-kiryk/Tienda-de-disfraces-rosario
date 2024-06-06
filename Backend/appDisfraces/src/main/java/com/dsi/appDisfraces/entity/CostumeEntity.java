@@ -2,11 +2,13 @@ package com.dsi.appDisfraces.entity;
 
 import com.dsi.appDisfraces.enumeration.CostumeStatus;
 import jakarta.persistence.CascadeType;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
+
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -27,6 +29,7 @@ import org.hibernate.annotations.CreationTimestamp;
 @Table(name = "Disfraces")
 @Getter
 @Setter
+
 public class CostumeEntity {
 
   @Id
@@ -54,6 +57,7 @@ public class CostumeEntity {
   private LocalDate deadLine;
 
   @Column(name = "Imagen", nullable = true)
+
   private String image;
 
   @ManyToMany(mappedBy = "customes")
@@ -75,15 +79,6 @@ public class CostumeEntity {
   @ManyToMany(mappedBy = "disfraces", cascade = CascadeType.PERSIST) //TODO: Revisar que la cascade ande ok.
 
   private Set<TransactionEntity> transactions = new HashSet<>();
-
-
-
-
-
-
-
-
-
 
 
 

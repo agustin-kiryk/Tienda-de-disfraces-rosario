@@ -1,5 +1,6 @@
 package com.dsi.appDisfraces.auth.service.seeders;
 
+
 import com.dsi.appDisfraces.entity.ConfigurationEntity;
 import com.dsi.appDisfraces.repository.IConfigurattionRepository;
 import java.util.List;
@@ -34,8 +35,5 @@ public class StartData {
     limit.setBillingLimit(1.00);
     configurattionRepository.save(limit);
   }
-
-
-
 
 }
